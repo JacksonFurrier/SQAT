@@ -5,10 +5,42 @@ package sample_1;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.*;
 
 public class AppTest {
-    @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+
+    App mApp;
+
+    @Before
+    public void Setup()
+    {
+       mApp = new App( 0 ); 
+    }
+
+    @Test
+    public void multiplicationOfZeroIntegereShouldReturnZero() {
+        App vApp = new App(); //can be heavyweight!
+
+        assertEquals(  "10 x 0 must be 0", 0, vApp.multiply(10, 0) );
+        assertEquals(  "0 x 10 must be 0", 0, vApp.multiply(0, 10) );
+        assertEquals( "0 x 0 must be 0", 0, vApp.multiply(0, 0) );
+    }
+
+    @Test
+    public void multiplicationOfZeroIntegereShouldReturnZeroWithMember() {
+        assertEquals(  "10 x 0 must be 0", 0, mApp.multiply(10, 0) );
+        assertEquals(  "0 x 10 must be 0", 0, mApp.multiply(0, 10) );
+        assertEquals( "0 x 0 must be 0", 0, mApp.multiply(0, 0) );
+    }
+
+    @Test
+    public void beforeAffectsTest(){
+        assertFalse( false );
+    }
+
+    @After
+    public void TearDown()
+    {
+        assert( true );
     }
 }

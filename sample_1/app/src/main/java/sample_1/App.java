@@ -4,11 +4,40 @@
 package sample_1;
 
 public class App {
+
+    public App()
+    {
+    }
+
+    public App(int aNumber)
+    {
+        mNumber = aNumber;
+    }
+
+    public App(boolean aWait) throws InterruptedException
+    {
+        if( aWait )
+        {
+            wait( 3000 );
+        }
+    }
+    
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        callNavi(" This is a Java app built with VSCode! ");
     }
+
+    public static void callNavi(String aMessage) {
+        System.out.println( "LISTEN! " + aMessage );
+    }
+
+    public int multiply(int aLeft, int aRight)
+    {
+        return mNumber * aLeft;
+    }
+    
+    int mNumber;
 }
