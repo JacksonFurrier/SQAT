@@ -16,4 +16,4 @@
 
 ## 2. Running the samples
 
-To run the samples execute to following ```docker run -i -t --rm -u gradle -v "$PWD":YOUR_PATH_TO_SAMPLE -w YOUR_PATH_TO_SAMPLE gradle gradle <gradle-task>```
+To run the samples execute to following from the sample's directory ```docker run -i -t --rm -u gradle -v "$PWD":YOUR_PATH_TO_SAMPLE -w YOUR_PATH_TO_SAMPLE gradle gradle <gradle-task>```
