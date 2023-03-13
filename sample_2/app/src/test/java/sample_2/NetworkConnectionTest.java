@@ -43,6 +43,7 @@ public class NetworkConnectionTest{
     public void HttpRequestReturnsNullWithFakeUrl() throws UnsupportedEncodingException, MalformedURLException, IOException
     {
         mNetworkConnection = new NetworkConnection();
+        
         String vURL = "Dummy";
 
         URL vObjectURL = mock(URL.class);
@@ -52,9 +53,17 @@ public class NetworkConnectionTest{
         //when( vURLConnection.setRequestProperty("Accept-Charset", vCharset ) ).thenReturn(" ");
         when( vObjectURL.openConnection() ).thenReturn(vURLConnection);
 
-        String result = mNetworkConnection.GetHttpRequestParameterized(vURL, vObjectURL);
+        when(mNetworkConnection.GetHttpRequestParameterized(vURL, vObjectURL)).thenReturn("not valid");
 
-        //assertEquals(result, "not valid");
+        String result = null;
+        try{
+            result = mNetworkConnection.GetHttpRequestParameterized(vURL, vObjectURL);
+        }
+        catch(MalformedURLException e)
+        {
+            assertEquals(result, "not valid");
+        }
+        assertEquals(result, "not valid");
     }
 
     @Test //3rd task

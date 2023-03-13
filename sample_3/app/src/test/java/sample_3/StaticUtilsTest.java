@@ -2,9 +2,11 @@
 package course_3;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
-import static org.mockito.Mockito.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import org.junit.jupiter.api.Test;
+
+import org.mockito.Mockito.*;
+import org.mockito.MockedStatic;
 
 public class StaticUtilsTest{
 
