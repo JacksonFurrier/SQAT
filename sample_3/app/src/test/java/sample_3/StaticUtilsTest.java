@@ -1,24 +1,23 @@
 
 package course_3;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import org.mockito.Mockito.*;
+import static org.mockito.Mockito.*;
 import org.mockito.MockedStatic;
 
 public class StaticUtilsTest{
 
 @Test
 void givenStaticMethodWithNoArgs_whenMocked_thenReturnsMockSuccessfully() {
-    assertThat(StaticUtils.name()).isEqualTo("Baeldung");
+    assertEquals(StaticUtils.name(), "Baeldung");
 
-    try (MockedStatic<StaticUtils> utilities = Mockito.mockStatic(StaticUtils.class)) {
+    try (MockedStatic<StaticUtils> utilities = mockStatic(StaticUtils.class)) {
         utilities.when(StaticUtils::name).thenReturn("Eugen");
-        assertThat(StaticUtils.name()).isEqualTo("Eugen");
+        assertEquals(StaticUtils.name(), "Eugen");
     }
 
-    assertThat(StaticUtils.name()).isEqualTo("Baeldung");
+    assertEquals(StaticUtils.name(), "Baeldung");
 }
 }
