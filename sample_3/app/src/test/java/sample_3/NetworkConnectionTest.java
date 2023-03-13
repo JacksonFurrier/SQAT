@@ -1,15 +1,14 @@
 package course_3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
-import org.junit.*;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -18,7 +17,7 @@ public class NetworkConnectionTest{
 
     NetworkConnection mNetworkConnection;
 
-    @Before
+    @BeforeAll
     public void BlackMagic() throws UnsupportedEncodingException
     {
         mNetworkConnection = new NetworkConnection();
@@ -57,9 +56,13 @@ public class NetworkConnectionTest{
         //assertEquals(result, "not valid");
     }
 
-    @Test //3rd task
-    public void HttpPostTestWithFakeObject()
-    {
+    @Test
+    public void HttpRequestReturnsNullWithFakeUrlMocked()
+    {   
+        // Instantiate Networkconnection class with a dummy URL and we expect 
+        // it to return Null from the GetHttpRequest() function
+        // Test the function Networkconnection::GetHttpRequest()
+        // by implementing/calling the mock functions on the external dependencies
         // implement me
     }
 

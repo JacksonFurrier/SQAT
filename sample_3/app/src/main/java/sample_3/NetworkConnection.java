@@ -40,8 +40,8 @@ public class NetworkConnection{
     }
 
     public String GetHttpRequest() throws MalformedURLException, IOException{
-        URLConnection vConnection = new URL( mUrl + "?" + mQuery).openConnection();        
-        vConnection.setRequestProperty("Accept-Charset", mCharset);        
+        URLConnection vConnection = new URL( mUrl + "?" + mQuery).openConnection();
+        vConnection.setRequestProperty("Accept-Charset", mCharset);
 
         InputStream vResponse = vConnection.getInputStream( );
 
