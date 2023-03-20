@@ -3,6 +3,8 @@ package sample_3;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -15,6 +17,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.withSettings;
 import static org.mockito.Answers.CALLS_REAL_METHODS;
 
+@TestInstance(Lifecycle.PER_CLASS)
 public class NetworkConnectionTest{
 
     NetworkConnection mNetworkConnection;
