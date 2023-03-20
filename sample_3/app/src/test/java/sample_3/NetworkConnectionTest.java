@@ -12,16 +12,12 @@ import java.net.URLConnection;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.withSettings;
+import static org.mockito.Answers.CALLS_REAL_METHODS;
 
 public class NetworkConnectionTest{
 
     NetworkConnection mNetworkConnection;
-
-    @BeforeAll
-    public void BlackMagic() throws UnsupportedEncodingException
-    {
-        mNetworkConnection = new NetworkConnection();
-    }
 
     @Test
     public void HttpRequestReturnsNotNull() throws MalformedURLException, IOException
@@ -58,7 +54,8 @@ public class NetworkConnectionTest{
 
     @Test
     public void HttpRequestReturnsNullWithFakeUrlMocked()
-    {   
+    {
+        URLConnection urlconnectionSpy = mock(URLConnection.class, withSettings().useConstructor("spec", 123).defaultAnswer(CALLS_REAL_METHODS));
         // Instantiate Networkconnection class with a dummy URL and we expect 
         // it to return Null from the GetHttpRequest() function
         // Test the function Networkconnection::GetHttpRequest()

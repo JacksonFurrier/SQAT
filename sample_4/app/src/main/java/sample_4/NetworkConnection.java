@@ -1,4 +1,4 @@
-package course_4;
+package sample_4;
 
 import java.io.IOException;
 import java.io.InputStream;

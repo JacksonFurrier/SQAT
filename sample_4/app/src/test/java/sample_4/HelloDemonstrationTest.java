@@ -1,11 +1,13 @@
-package course_4;
+package sample_4;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 
-import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -50,7 +52,7 @@ public class HelloDemonstrationTest {
         fail(" Failing for a reason ");
     }
 
-    @Ignore("This test is ignored")    
+    @Disabled("This test is ignored")    
     public void SkippedTest(){
         //not executed
     }
