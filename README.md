@@ -12,7 +12,8 @@
     * **UBUNTU**, follow the steps of [digital ocean](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
     * **OS-X** follow the [official](https://docs.docker.com/desktop/install/mac-install/) website steps
     * **Win64** one should follow the official steps as well ++one can use and I suggest to use the WSL2 version. More on WSL 2.0 [here](https://learn.microsoft.com/en-us/windows/wsl/install).
-3. After you have finished installing docker, fetch the gradle image by running ```docker pull gradle``` which will fetch the ```latest``` tagged docker gradle image from the hub.
+3. After you have finished installing docker, fetch the gradle image by running ```docker pull gradle``` which will fetch the ```latest``` tagged docker gradle image from the hub. NOTICE! Docker on
+Windows will interpret your path with the nix convention so ```C:\Users\John_Doe``` needs to be passed as ```\c\Users\John_doe``` otherwise it won't work.
 
 ## 2. Running the samples
 
