@@ -17,4 +17,6 @@ Windows will interpret your path with the nix convention so ```C:\Users\John_Doe
 
 ## 2. Running the samples
 
-To run the samples execute to following from the sample's directory ```docker run -i -t --rm -u gradle -v "$PWD":YOUR_PATH_TO_SAMPLE -w YOUR_PATH_TO_SAMPLE gradle gradle <gradle-task>```
+To run the samples execute to following from the sample's directory 
+  * On Nix systems ```docker run -i -t --rm -u gradle -v "$PWD":YOUR_PATH_TO_SAMPLE -w YOUR_PATH_TO_SAMPLE gradle gradle <gradle-task>```
+  * On Windows systems ```docker run -i -t --rm -u gradle -v YOUR_PATH_TO_SAMPLE:YOUR_PATH_TO_SAMPLE -w YOUR_PATH_TO_SAMPLE gradle gradle <gradle-task>```
