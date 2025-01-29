@@ -32,19 +32,11 @@ execute:
 from: markdown+emoji
 ---
 
-```{python}
-#|  echo: false
-import plotly.io as pio
-pio.renderers.default = "plotly_mimetype+notebook_connected"
-```
-
 ## Requirements
 
 ### Syllabus
 * Small test in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)
-
 * No examination from the practice part of the course
-
 * 3 big assignments from the topics presented [Unit testing, perf. testing, web testing]
 
 ### Agenda
@@ -57,23 +49,19 @@ pio.renderers.default = "plotly_mimetype+notebook_connected"
 
 ### Env
 * Please check the README at [github](https://github.com/JacksonFurrier/SQAT) and try to set up the environment
-
 * If it didn't work please watch the environment set up videos on youtube
-
 * All of the OSes work, where [Docker](https://www.docker.com/) is runnable
-
 * We will use Java for demonstration so don't forget to install the necessary packages [JDK](https://www.oracle.com/java/technologies/downloads/)
+* The build system of choice is [gradle](https://docs.gradle.org/current/userguide/userguide.html)
 
 
 ### Dev
 
 * You can use any IDE of choice, however, I will present the practices in [vscode](https://code.visualstudio.com/)
-
 * You will need to run the docker aided build command from CMD so best is to use an IDE that supports it
-
 * Debug, Test running capabilites are a plus, but not necessary
 
 
 ## Base materials
 
-Materials that can be used to learn the topic [unit](https://www.manning.com/books/unit-testing), [web-testing](https://www.amazon.com/Selenium-Testing-Cookbook-Gundecha-Unmesh/dp/1849515743), [agile-testing](https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468).
+Materials that can be used to learn the topic [art-of-unit-testing](https://www.artofunittesting.com/), [unit](https://www.manning.com/books/unit-testing), [web-testing](https://www.amazon.com/Selenium-Testing-Cookbook-Gundecha-Unmesh/dp/1849515743), [agile-testing](https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468).

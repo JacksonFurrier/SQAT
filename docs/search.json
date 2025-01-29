@@ -18,57 +18,57 @@
     "href": "index.html#environment-and-devops",
     "title": "Software Quality and Testing (SQAT)",
     "section": "Environment and devops",
-    "text": "Environment and devops\n\nEnv\n\nPlease check the README at github and try to set up the environment\nIf it didn’t work please watch the environment set up videos on youtube\nAll of the OSes work, where Docker is runnable\nWe will use Java for demonstration so don’t forget to install the necessary packages JDK\n\n\n\nDev\n\nYou can use any IDE of choice, however, I will present the practices in vscode\nYou will need to run the docker aided build command from CMD so best is to use an IDE that supports it\nDebug, Test running capabilites are a plus, but not necessary"
+    "text": "Environment and devops\n\nEnv\n\nPlease check the README at github and try to set up the environment\nIf it didn’t work please watch the environment set up videos on youtube\nAll of the OSes work, where Docker is runnable\nWe will use Java for demonstration so don’t forget to install the necessary packages JDK\nThe build system of choice is gradle\n\n\n\nDev\n\nYou can use any IDE of choice, however, I will present the practices in vscode\nYou will need to run the docker aided build command from CMD so best is to use an IDE that supports it\nDebug, Test running capabilites are a plus, but not necessary"
   },
   {
     "objectID": "index.html#base-materials",
     "href": "index.html#base-materials",
     "title": "Software Quality and Testing (SQAT)",
     "section": "Base materials",
-    "text": "Base materials\nMaterials that can be used to learn the topic unit, web-testing, agile-testing."
+    "text": "Base materials\nMaterials that can be used to learn the topic art-of-unit-testing, unit, web-testing, agile-testing."
   },
   {
     "objectID": "topics/b_unit_adv.html",
     "href": "topics/b_unit_adv.html",
-    "title": "Unit testing advanced",
+    "title": "2. Unit testing advanced",
     "section": "",
     "text": "Here is my first post.",
     "crumbs": [
       "Topics",
-      "Unit testing advanced"
+      "2. Unit testing advanced"
     ]
   },
   {
     "objectID": "topics/c_unit_mock_basic.html",
     "href": "topics/c_unit_mock_basic.html",
-    "title": "Mocking basic",
+    "title": "3. Mocking basics",
     "section": "",
     "text": "Here is my first post.",
     "crumbs": [
       "Topics",
-      "Mocking basic"
+      "3. Mocking basics"
     ]
   },
   {
     "objectID": "topics/d_unit_mock_adv.html",
     "href": "topics/d_unit_mock_adv.html",
-    "title": "Mocking advanced",
+    "title": "4. Mocking advanced",
     "section": "",
     "text": "Here is my first post.",
     "crumbs": [
       "Topics",
-      "Mocking advanced"
+      "4. Mocking advanced"
     ]
   },
   {
     "objectID": "topics/a_unit_basic.html",
     "href": "topics/a_unit_basic.html",
-    "title": "Unit testing basics",
+    "title": "1. Unit testing basics",
     "section": "",
-    "text": "Why is it called unit testing?\n\n\n\nAbrakadabra\n\n\n\n\n\n\n\n\nDefinition (Unit testing 1.)\n\n\n\nA unit test is a piece of a code (usually a method) that invokes another piece of code and checks the correctness of some assumption afterward. If the assumptions turn out to be wrong, the unit test has failed. A unit is a method or function.\n\n\n\n\n\n\n\n\nDefinition (SUT and CUT)\n\n\n\nSUT stand for system under test, and some people like to use CUT ( class under test or code under test ). When you test something, you refer to the thing you’re testing as the SUT.\n\n\n\n\n\n\n\n\nDefinition (Unit testing 2.)\n\n\n\nDef: A unit of work is the sum of actions that take place between the invocation of a public method in the system and a single noticeable end result by a test of that system. A noticeable end result can be observed without looking at the internal state of the system and only through its public APIs and behavior. An end result is any of the following\n\nThe invoked public method returns a value\nThere is a noticeable change in the state of behavior, that can be determined by interrogating the internal state\nThere is a callout to a 3rd – party system where over the test has no contro\n\n\n\n\n\n\n\n\n\nDefinition (Unit testing 3.)\n\n\n\nA unit test is a piece of code that invokes a unit of work and checks one specific end result of that unit of work, whereas it is fully isolated. If the assumptions on the end result turn out to be wrong, the unit test has failed. A unit test’s scope can span as little as a method or as much as multiple classes. * The primary goal of unit testing is to\n\nTake the smallest piece of testable software in the application\nIsolate it from the remainder of the code\nDetermine whether it behaves exactly as you expected\n\n\n\nPractically, a unit test is a piece of code and * Invokes another piece of code\n\nChecks the correctness of some assumption afterward.\nIf the assumption turn out to be wrong, the unit test has failed. A unit is a method or function.\n\nProperties of good unit tests are\n\nIt should be automated and maintainable\nIt should be easy to implement\nIt should be relevant tomorrow\nAnyone should be able to run it at the push of a button\nIt should run quickly\nIt should be consistent in its results\nIt should be fully isolated\nWhen it fails, it should be easy to detect what was expected and determine how to pinpoint the problem\n\n\n\n\n\n\n\nDefinition (Unit testing 4.)\n\n\n\nA unit test is an automated piece of code that invokes the unit of work being tested, and then checks some assumptions about a single end result of that unit. A unit test is almost always written using a unit testing framework. It can be written easily and runs quickly. It’s trustworthy, readable, and maintainable. It’s consistent in it’s results as long as production code hasn’t changed",
+    "text": "Why is it called unit testing?\n\n\n\nIt is a simple fact that, the reason why it is called unit testing is because, the aim of the tests written by us (developers) is to assure the quality and reliability of the code implemented.\n\n\n\n\n\n\n\n\nDefinition (Unit testing 1.)\n\n\n\nA unit test is a piece of a code (usually a method) that invokes another piece of code and checks the correctness of some assumption afterward. If the assumptions turn out to be wrong, the unit test has failed. A unit is a method or function.\n\n\n\n\n\n\n\n\nDefinition (SUT and CUT)\n\n\n\nSUT stand for system under test, and some people like to use CUT ( class under test or code under test ). When you test something, you refer to the thing you’re testing as the SUT.\n\n\n\n\n\n\n\n\nDefinition (Unit testing 2.)\n\n\n\nDef: A unit of work is the sum of actions that take place between the invocation of a public method in the system and a single noticeable end result by a test of that system. A noticeable end result can be observed without looking at the internal state of the system and only through its public APIs and behavior. An end result is any of the following\n\nThe invoked public method returns a value\nThere is a noticeable change in the state of behavior, that can be determined by interrogating the internal state\nThere is a callout to a 3rd – party system where over the test has no contro\n\n\n\n\n\n\n\n\n\nDefinition (Unit testing 3.)\n\n\n\nA unit test is a piece of code that invokes a unit of work and checks one specific end result of that unit of work, whereas it is fully isolated. If the assumptions on the end result turn out to be wrong, the unit test has failed. A unit test’s scope can span as little as a method or as much as multiple classes. * The primary goal of unit testing is to\n\nTake the smallest piece of testable software in the application\nIsolate it from the remainder of the code\nDetermine whether it behaves exactly as you expected\n\n\n\nPractically, a unit test is a piece of code and * Invokes another piece of code\n\nChecks the correctness of some assumption afterward.\nIf the assumption turn out to be wrong, the unit test has failed. A unit is a method or function.\n\nProperties of good unit tests are\n\nIt should be automated and maintainable\nIt should be easy to implement\nIt should be relevant tomorrow\nAnyone should be able to run it at the push of a button\nIt should run quickly\nIt should be consistent in its results\nIt should be fully isolated\nWhen it fails, it should be easy to detect what was expected and determine how to pinpoint the problem\n\n\n\n\n\n\n\nDefinition (Unit testing 4.)\n\n\n\nA unit test is an automated piece of code that invokes the unit of work being tested, and then checks some assumptions about a single end result of that unit. A unit test is almost always written using a unit testing framework. It can be written easily and runs quickly. It’s trustworthy, readable, and maintainable. It’s consistent in it’s results as long as production code hasn’t changed",
     "crumbs": [
       "Topics",
-      "Unit testing basics"
+      "1. Unit testing basics"
     ]
   },
   {
