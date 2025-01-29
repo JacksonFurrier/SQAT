@@ -22,7 +22,6 @@ author:
       - department: Computer Algebra
 date: "2024-12-10"
 bibliography: preliminaries.bib
-engine: jupyter
 format:
   html:
     toc: true
