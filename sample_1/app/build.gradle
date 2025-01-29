@@ -13,23 +13,20 @@ plugins {
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:31.1-jre'
+	testImplementation(platform('org.junit:junit-bom:5.11.4'))
+	testImplementation('org.junit.jupiter:junit-jupiter')
+	testRuntimeOnly('org.junit.platform:junit-platform-launcher')
 }
 
-testing {
-    suites {
-        // Configure the built-in test suite
-        test {
-            // Use JUnit4 test framework
-            useJUnit('4.13.2')
-        }
-    }
+test {
+	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
 }
 
 application {
