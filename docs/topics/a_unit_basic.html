@@ -198,9 +198,79 @@ Definition (SUT and CUT)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>SUT stand for system under test, and some people like to use CUT ( class under test or code under test ). When you test something, you refer to the thing you’re testing as the SUT.</p>
+<p>SUT stand for system under test, and some people like to use CUT (class under test or code under test). When you test something, you refer to the thing you’re testing as the SUT/CUT.</p>
 </div>
 </div>
+<p>Now I think the best way to understand this is to check how it looks in code, take a look at the following example.</p>
+<section id="example-1." class="level2">
+<h2 class="anchored" data-anchor-id="example-1.">Example 1.</h2>
+<p>Take a look at the code written in <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_1">sample_1</a>, which will be disected in the forthcoming few sections. The project resides under the folder <code>app</code> and the rest are build files generally, where <code>settings.gradle</code> what interests us. Inside the gradle settings, we can inspect what we will be testing during this first example. Namely, <code>rootProject.name</code> will tell us the package where the class resides and <code>include</code> will contain the name of it. If we go to <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_1/app/src/main/java/sample_1/App.java">App.java</a> we can see that the SUT/CUT is <code>class App</code>. There are a few practical things to note at this point</p>
+<ul>
+<li>The CUT is <code>public</code> which renders it testable from the outside, otherwise it would be extremely hard to “break” into the internals of the class at hand</li>
+<li>All the functions that are implemented inside the class are <code>public</code> as well, which is also necessary for testing purposes</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+In case of <code>sample_1/App.java</code> what is the CUT? What is the smallest unit of code that can be tested?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is always subjective to the actual codebase that you are working on, what would be the smallest amount/unit of code that can be tested by these unit testing techniques. Usually it is a good descriptor of the codebase at hand on how big is this thing actually.</p>
+</div>
+</div>
+<p>Going further, to do <strong>unit testing</strong> it is a necessity to understand the actual code at hand, which in this case is the following</p>
+<ul>
+<li>The class has three constructors, a default <code>App()</code>, a simple overload <code>App(int aNumber)</code>, which sets only private member of the class and <code>App(boolean aWait)</code>, which makes the constructor wait for a certain amount of time to evaluate.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+<li>Has a simple function returning a greeting <code>String getGreeting()</code></li>
+<li>The usual java <code>public static void main(String[] args)</code> function, nothing special about it</li>
+<li>A print function, <code>public static void callNavi(String aMessage)</code>, which simply forwards the arguments to the standard output</li>
+<li>A multiply function <code>public int multiply(int aLeft, int aRight)</code>, which gets two arguments, and multiplies two numbers.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Understanding these functionalities, which ones are actually testable? And if they are testable, is it justified at all to test them?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Now you can see sometimes, a function which is testable might not be a good candidate for tests because simply it is irrelevant and other cases there might be functions are not testable and relevant, which is the worst case possible in terms of testing.</p>
+</div>
+</div>
+<p>To test the functionalities inside <code>sample_1</code> we have to understand the build system a little bit better. Take a look at <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_1/app/build.gradle">build.gradle</a> file and see what it does in terms of helping us test the previous functionnalities. The structure is the following, <code>plugins</code> tells us what class/package/application are we building with the help of gradle. the next one is one of the most important ones, which is <code>repositories</code>, which tells gradle wherefrom to fetch the necessary libraries and packages to build and run the project and its dependencies. The next one is <code>dependencies</code> which as the name tells lists all the dependencies needed by our application. The <code>testing</code> block specifies the actual testing libraries that we will use throught the project to run the implemented tests. The last one is <code>application</code>, which defines what is the main class, the main entry point, which can be used by the frameworks.</p>
+<p>Now, let’s take a look at the already implemented test inside <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_1/app/src/test/java/sample_1/AppTest.java">Apptest.java</a>. The structure is the following</p>
+<ul>
+<li>It starts by importing all the necessary packages, it is nothing special</li>
+<li>It is a <code>public class</code> so the unit testing framework can access all the details inside it</li>
+<li>Inside the class there is one member <code>App mApp</code>, which is basically the application that we are about to test.</li>
+<li>Here comes the cool part, the first function that will be run by our unt testing framework (<a href="https://junit.org/junit5/">junit5</a>) is the usual <code>Setup</code> function with the <code>@Before</code> annotation. This function simply runs only once before all the tests are being run by our framework. In this case it is simply constructing our <code>App</code> class with <code>0</code> in the constructor argument.</li>
+<li>Next the function <code>multiplicationOfZeroIntegereShouldReturnZero</code> is being implemented. The usual test functions shall be annotated with <code>@Test</code>. Here comes the interesting part, inside this function there are <code>assertions</code>, which means the test is assumptions and asserting against them.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+At this point, can you tell what might be the problem if we have multiple assertions inside a single test function?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Imagine having 10.000 tests and having multiple assertions inside them, how would you be able to pinpoint where the implementation might have gone wrong?</p>
+</div>
+</div>
+<ul>
+<li>The similar function <code>multiplicationOfZeroIntegereShouldReturnZeroWithMember</code> has the same-ish functionality, however if you take a look it doesn’t have an instantiation of the class that will be tested during the evaluation.</li>
+<li><code>beforeAffectsTest</code> is simply demonstrating that one can just assert with a test function, which usually raises awareness for an unimplemented test case or in <a href="https://en.wikipedia.org/wiki/Test-driven_development">TDD</a> tells the developer that this functionality need to be developed further.</li>
+<li>And at last the <code>TearDown</code> function with cleans up all the necessary memory/setups/etc after running the unit tests.</li>
+</ul>
+<p>After seeing how this code looks like, one can go further and pose the following definition on what is a unit test.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -211,14 +281,15 @@ Definition (Unit testing 2.)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Def: A unit of work is the sum of actions that take place between the invocation of a public method in the system and a single noticeable end result by a test of that system. A noticeable end result can be observed without looking at the internal state of the system and only through its public APIs and behavior. An end result is any of the following</p>
+<p>A unit of work is the sum of actions that take place between the invocation of a public method in the system and a single noticable end result by a test of that system. A noticeble end result can be observed without looking at the internal state of the system and only through its public APIs and behavior. An end result is any of the following</p>
 <ul>
-<li><p>The invoked public method returns a value</p></li>
-<li><p>There is a noticeable change in the state of behavior, that can be determined by interrogating the internal state</p></li>
-<li><p>There is a callout to a 3rd – party system where over the test has no contro</p></li>
+<li>The invoked public method returns a value</li>
+<li>There is a noticeable change in the state of behavior, that can be determined by interrogating the internal state</li>
+<li>There is a callout to a 3rd – party system where over the test has no control of</li>
 </ul>
 </div>
 </div>
+<p>This could be true, however if there is a 3rd party functionality that we have no control over, changing its functionality might affect our tests, which wouldn’t render them as unit tests anymore.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -229,29 +300,31 @@ Definition (Unit testing 3.)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A unit test is a piece of code that invokes a unit of work and checks one specific end result of that unit of work, whereas it is fully isolated. If the assumptions on the end result turn out to be wrong, the unit test has failed. A unit test’s scope can span as little as a method or as much as multiple classes. * The primary goal of unit testing is to</p>
+<p>A unit test is a piece of code that invokes a unit of work and checks one specific end result of that unit of work, whereas it is fully isolated. If the assumptions on the end result turn out to be wrong, the unit test has failed. A unit test’s scope can span as little as a method or as much as multiple classes.</p>
 <ul>
-<li><p>Take the smallest piece of testable software in the application</p></li>
-<li><p>Isolate it from the remainder of the code</p></li>
-<li><p>Determine whether it behaves exactly as you expected</p></li>
+<li>The primary goal of unit testing is to</li>
+<li>Take the smallest piece of testable software in the application</li>
+<li>Isolate it from the remainder of the code</li>
+<li>Determine whether it behaves exactly as you expected</li>
 </ul>
 </div>
 </div>
-<p>Practically, a unit test is a piece of code and * Invokes another piece of code</p>
+<p>Practically, a unit test is a piece of code that</p>
 <ul>
-<li><p>Checks the correctness of some assumption afterward.</p></li>
-<li><p>If the assumption turn out to be wrong, the unit test has failed. A unit is a method or function.</p></li>
+<li>Invokes another piece of code</li>
+<li>Checks the correctness of some assumption afterward</li>
+<li>If the assumption turn out to be wrong, the unit test has failed. A unit is a method or function.</li>
 </ul>
 <p>Properties of good unit tests are</p>
 <ul>
-<li><p>It should be automated and maintainable</p></li>
-<li><p>It should be easy to implement</p></li>
-<li><p>It should be relevant tomorrow</p></li>
-<li><p>Anyone should be able to run it at the push of a button</p></li>
-<li><p>It should run quickly</p></li>
-<li><p>It should be consistent in its results</p></li>
-<li><p>It should be fully isolated</p></li>
-<li><p>When it fails, it should be easy to detect what was expected and determine how to pinpoint the problem</p></li>
+<li>It should be automated and maintainable</li>
+<li>It should be easy to implement</li>
+<li>It should be relevant tomorrow</li>
+<li>Anyone should be able to run it at the push of a button</li>
+<li>It should run quickly</li>
+<li>It should be consistent in its results</li>
+<li>It should be fully isolated</li>
+<li>When it fails, it should be easy to detect what was expected and determine how to pinpoint the problem</li>
 </ul>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -266,10 +339,27 @@ Definition (Unit testing 4.)
 <p>A unit test is an automated piece of code that invokes the unit of work being tested, and then checks some assumptions about a single end result of that unit. A unit test is almost always written using a unit testing framework. It can be written easily and runs quickly. It’s trustworthy, readable, and maintainable. It’s consistent in it’s results as long as production code hasn’t changed</p>
 </div>
 </div>
+</section>
+<section id="tasks-1." class="level2">
+<h2 class="anchored" data-anchor-id="tasks-1.">Tasks 1.</h2>
+<ol type="1">
+<li>Run the tests in <code>sample_1</code>, based on the instructions from <a href="https://github.com/JacksonFurrier/SQAT/tree/main">github</a></li>
+<li>Check what is wrong with the tests</li>
+<li>Implement the test functions for <code>App</code> where it is “logical”<br>
+</li>
+<li>Could you test <code>static</code> functions? What is the problem with these?</li>
+</ol>
 
 
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>And throwing an exception <code>throws InterruptedException</code> as necessary.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
