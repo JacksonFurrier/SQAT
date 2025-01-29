@@ -1,0 +1,73 @@
+---
+title: Unit testing basics
+---
+::: {.callout-note}
+## Why is it called unit testing?
+Abrakadabra
+:::
+
+::: {.callout-important}
+## Definition (Unit testing 1.)
+A unit test is a piece of a code (usually a method) that invokes another piece of code and checks the correctness of some assumption afterward. If the assumptions turn out to be wrong, the unit test has failed. A unit is a method or function.
+:::
+
+::: {.callout-important}
+## Definition (SUT and CUT)
+SUT stand for system under test, and some people like to use CUT ( class under test or code under test ). When you test something, you refer to the thing you’re testing as the SUT.
+:::
+
+::: {.callout-important}
+## Definition (Unit testing 2.)
+Def: A unit of work is the sum of actions that take place between the invocation of a public method in the system and a single noticeable end result by a test of that system. A noticeable end result can be observed without looking at the internal state of the system and only through its public APIs and behavior. An end result is any of the following
+
+* The invoked public method returns a value
+
+* There is a noticeable change in the state of behavior, that can be determined by interrogating the internal state
+
+* There is a callout to a 3rd – party system where over the test has no contro
+:::
+
+
+::: {.callout-important}
+## Definition (Unit testing 3.)
+A unit test is a piece of code that invokes a unit of work and checks one specific end result of that unit of work, whereas it is fully isolated. If the assumptions on the end result turn out to be wrong, the unit test has failed. A unit test’s scope can span as little as a method or as much as multiple classes.
+* The primary goal of unit testing is to
+
+* Take the smallest piece of testable software in the application
+
+* Isolate it from the remainder of the code
+
+* Determine whether it behaves exactly as you expected
+:::
+
+Practically, a unit test is a piece of code and
+* Invokes another piece of code
+
+* Checks the correctness of some assumption afterward.
+
+* If the assumption turn out to be wrong, the unit test has failed. A unit is a method or function.
+
+Properties of good unit tests are
+
+* It should be automated and maintainable
+
+* It should be easy to implement
+
+* It should be relevant tomorrow
+
+* Anyone should be able to run it at the push of a button
+
+* It should run quickly
+
+* It should be consistent in its results
+
+* It should be fully isolated
+
+* When it fails, it should be easy to detect what was expected and determine how to pinpoint the problem
+
+
+::: {.callout-important}
+## Definition (Unit testing 4.)
+A unit test is an automated piece of code that invokes the unit of work being tested, and then checks some assumptions about a single end result of that unit. A unit test is almost always written using a unit testing framework. It can be written easily and runs quickly. It’s trustworthy, readable, and maintainable. It’s consistent in it’s results as long as production code hasn’t changed
+:::
+

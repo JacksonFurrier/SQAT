@@ -1,0 +1,4 @@
+---
+title: Mocking basic
+---
+Here is my first post.

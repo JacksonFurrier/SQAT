@@ -1,0 +1,11 @@
+project:
+  type: website
+
+website:
+  sidebar:
+    style: "floating"
+    search: true
+    contents:
+      - section: "Topics"
+        contents: topics/*
+      

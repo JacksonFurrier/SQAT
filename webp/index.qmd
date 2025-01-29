@@ -1,0 +1,80 @@
+---
+title: "Software Quality and Testing (SQAT)"
+subtitle: "The tale of testing"
+author:
+  - name: Adam Istvan Szucs
+    orcid: 0000-0002-7984-4542
+    email: szaqaei@inf.elte.hu
+    affiliation: 
+      - name: Eötvös Loránd University (Hungary)
+      - department: Computer Algebra
+  - name: Gabor Arpad Nemeth
+    orcid: 0000-0003-2554-9860
+    email: nga@inf.elte.hu
+    affiliation:
+      - name: Eötvös Loránd University (Hungary)
+      - department : Computer Algebra
+  - name: Peter Hudoba
+    orcid: 0000-0001-5810-4193
+    email: hudoba.peter@inf.elte.hu
+    affiliation:
+      - name: Eötvös Loránd University (Hungary)
+      - department: Computer Algebra
+date: "2024-12-10"
+bibliography: preliminaries.bib
+engine: jupyter
+format:
+  html:
+    toc: true
+execute:
+  echo: true
+  freeze: auto
+  error: true
+from: markdown+emoji
+---
+
+```{python}
+#|  echo: false
+import plotly.io as pio
+pio.renderers.default = "plotly_mimetype+notebook_connected"
+```
+
+## Requirements
+
+### Syllabus
+* Small test in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)
+
+* No examination from the practice part of the course
+
+* 3 big assignments from the topics presented [Unit testing, perf. testing, web testing]
+
+### Agenda
+* 1-4 weeks (Unit testing, mocking)
+* 5-8 weeks (Performance testing, model based testing)
+* 8-12 weeks (Web testing with selenium)
+
+
+## Environment and devops
+
+### Env
+* Please check the README at [github](https://github.com/JacksonFurrier/SQAT) and try to set up the environment
+
+* If it didn't work please watch the environment set up videos on youtube
+
+* All of the OSes work, where [Docker](https://www.docker.com/) is runnable
+
+* We will use Java for demonstration so don't forget to install the necessary packages [JDK](https://www.oracle.com/java/technologies/downloads/)
+
+
+### Dev
+
+* You can use any IDE of choice, however, I will present the practices in [vscode](https://code.visualstudio.com/)
+
+* You will need to run the docker aided build command from CMD so best is to use an IDE that supports it
+
+* Debug, Test running capabilites are a plus, but not necessary
+
+
+## Base materials
+
+Materials that can be used to learn the topic [unit](https://www.manning.com/books/unit-testing), [web-testing](https://www.amazon.com/Selenium-Testing-Cookbook-Gundecha-Unmesh/dp/1849515743), [agile-testing](https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468).
