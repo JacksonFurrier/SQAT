@@ -36,11 +36,7 @@ public class HelloLink{
 
     static public int compute( int aLeft )
     {   
-        if (aLeft <= 1)
-        {
-            return aLeft;
-        }
-        return compute(aLeft - 1) + compute(aLeft - 2);
+        return aLeft - 1;
     }
     
 

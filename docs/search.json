@@ -32,7 +32,7 @@
     "href": "topics/b_unit_adv.html",
     "title": "2. Unit testing advanced",
     "section": "",
-    "text": "Here is my first post.",
+    "text": "There can be cases where the task at hand is not as easy as it is with sample_1. One of the cases is when exceptions are at play. Take a look at the next example that we will go through here sample_2. Our first CUT will be Hellolink.java and let’s take a look at its implementation.",
     "crumbs": [
       "Topics",
       "2. Unit testing advanced"
