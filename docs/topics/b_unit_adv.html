@@ -162,9 +162,33 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>There can be cases where the task at hand is not as easy as it is with <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_1">sample_1</a>. One of the cases is when <code>exception</code>s are at play. Take a look at the next example that we will go through here <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_2">sample_2</a>. Our first CUT will be <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java">Hellolink.java</a> and let’s take a look at its implementation.</p>
+<p>There can be cases where the task at hand is not as easy as it is with <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_1">sample_1</a>. One of the cases is when <code>exception</code>s are at play. Take a look at the next example that we will go through here <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_2">sample_2</a>. Our first CUT will be <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java">Hellolink.java</a> and let’s take a look at its implementation</p>
+<ul>
+<li>It has a default construction, with two overloads, <code>HelloLink(int aNumber)</code> taking a number and instantiating a member with a vector with the predefined size in the constructor, <code>HelloLink(boolean aWait)</code> which instantiates the object but waiting for 3000 milliseconds</li>
+<li>The usual <code>public static void main</code> function and <code>public static void callNavi</code>, which forwards the argument string onto the standard output.</li>
+<li>There is the multiply function <code>public int multiply(int aLeft, int aRight)</code> computing the product of two numbers</li>
+<li>At last <code>static public int compute( int aLeft )</code> function computing the minus one of the argument</li>
+</ul>
+<section id="example-1" class="level2">
+<h2 class="anchored" data-anchor-id="example-1">Example 1</h2>
+<p>One of our main goal here is to reach a high level of <a href="https://en.wikipedia.org/wiki/Code_coverage">coverage</a>, therefore we would like to test most of the functions. If we take a look at <code>public int multiply(int aLeft, int aRight)</code> how do we actually test such a function and assure that it will give us the correct results in all circumstances. Testing all the different numbers in the <code>int</code> type would take years, therefore there should be some other technique that we can apply to do testing on this function. Otherwise, implementing the test of each individual number for the <code>int</code> type would result in multiple millions lines of code, which is unmaintainable. To overcome these problems, one can apply the <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests">parameterized tests</a> to handle the different cases from a small sized code. The solution goes as follows</p>
+<ul>
+<li>The test function shall be annotated by the <code>@ParameterizedTest</code> annotation, where additionally the framework needs data to feed to the test function, which can be approached with <code>@CsvSource</code> annotation.</li>
+</ul>
+<section id="tasks-1" class="level3">
+<h3 class="anchored" data-anchor-id="tasks-1">Tasks 1</h3>
+<ol type="1">
+<li>Run the <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_2">sample_2</a> and inspect the report</li>
+<li>Check what is wrong with <code>public void numeric_test(int left, int right)</code></li>
+<li>Implement the missing functionality in <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java">Hellolink.java</a></li>
+</ol>
+</section>
+</section>
+<section id="example-2" class="level2">
+<h2 class="anchored" data-anchor-id="example-2">Example 2</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

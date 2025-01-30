@@ -1,4 +1,22 @@
 ---
 title: 2. Unit testing advanced
 ---
-There can be cases where the task at hand is not as easy as it is with [sample_1](https://github.com/JacksonFurrier/SQAT/tree/main/sample_1). One of the cases is when `exception`s are at play. Take a look at the next example that we will go through here [sample_2](https://github.com/JacksonFurrier/SQAT/tree/main/sample_2). Our first CUT will be [Hellolink.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java) and let's take a look at its implementation.
+There can be cases where the task at hand is not as easy as it is with [sample_1](https://github.com/JacksonFurrier/SQAT/tree/main/sample_1). One of the cases is when `exception`s are at play. Take a look at the next example that we will go through here [sample_2](https://github.com/JacksonFurrier/SQAT/tree/main/sample_2). Our first CUT will be [Hellolink.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java) and let's take a look at its implementation
+
+* It has a default construction, with two overloads, `HelloLink(int aNumber)` taking a number and instantiating a member with a vector with the predefined size in the constructor, `HelloLink(boolean aWait)` which instantiates the object but waiting for 3000 milliseconds
+* The usual `public static void main` function and `public static void callNavi`, which forwards the argument string onto the standard output.
+* There is the multiply function `public int multiply(int aLeft, int aRight)` computing the product of two numbers
+* At last `static public int compute( int aLeft )` function computing the minus one of the argument
+
+## Example 1
+One of our main goal here is to reach a high level of [coverage](https://en.wikipedia.org/wiki/Code_coverage), therefore we would like to test most of the functions. If we take a look at `public int multiply(int aLeft, int aRight)` how do we actually test such a function and assure that it will give us the correct results in all circumstances. Testing all the different numbers in the `int` type would take years, therefore there should be some other technique that we can apply to do testing on this function. Otherwise, implementing the test of each individual number for the `int` type would result in multiple millions lines of code, which is unmaintainable. To overcome these problems, one can apply the [parameterized tests](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests) to handle the different cases from a small sized code. The solution goes as follows
+
+* The test function shall be annotated by the `@ParameterizedTest` annotation, where additionally the framework needs data to feed to the test function, which can be approached with `@CsvSource` annotation. 
+
+### Tasks 1
+1. Run the [sample_2](https://github.com/JacksonFurrier/SQAT/tree/main/sample_2) and inspect the report 
+2. Check what is wrong with `public void numeric_test(int left, int right)` 
+3. Implement the missing functionality in [Hellolink.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java)
+
+
+## Example 2

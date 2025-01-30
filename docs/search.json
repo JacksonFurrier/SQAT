@@ -32,7 +32,29 @@
     "href": "topics/b_unit_adv.html",
     "title": "2. Unit testing advanced",
     "section": "",
-    "text": "There can be cases where the task at hand is not as easy as it is with sample_1. One of the cases is when exceptions are at play. Take a look at the next example that we will go through here sample_2. Our first CUT will be Hellolink.java and let’s take a look at its implementation.",
+    "text": "There can be cases where the task at hand is not as easy as it is with sample_1. One of the cases is when exceptions are at play. Take a look at the next example that we will go through here sample_2. Our first CUT will be Hellolink.java and let’s take a look at its implementation",
+    "crumbs": [
+      "Topics",
+      "2. Unit testing advanced"
+    ]
+  },
+  {
+    "objectID": "topics/b_unit_adv.html#example-1",
+    "href": "topics/b_unit_adv.html#example-1",
+    "title": "2. Unit testing advanced",
+    "section": "Example 1",
+    "text": "Example 1\nOne of our main goal here is to reach a high level of coverage, therefore we would like to test most of the functions. If we take a look at public int multiply(int aLeft, int aRight) how do we actually test such a function and assure that it will give us the correct results in all circumstances. Testing all the different numbers in the int type would take years, therefore there should be some other technique that we can apply to do testing on this function. Otherwise, implementing the test of each individual number for the int type would result in multiple millions lines of code, which is unmaintainable. To overcome these problems, one can apply the parameterized tests to handle the different cases from a small sized code. The solution goes as follows\n\nThe test function shall be annotated by the @ParameterizedTest annotation, where additionally the framework needs data to feed to the test function, which can be approached with @CsvSource annotation.\n\n\nTasks 1\n\nRun the sample_2 and inspect the report\nCheck what is wrong with public void numeric_test(int left, int right)\nImplement the missing functionality in Hellolink.java",
+    "crumbs": [
+      "Topics",
+      "2. Unit testing advanced"
+    ]
+  },
+  {
+    "objectID": "topics/b_unit_adv.html#example-2",
+    "href": "topics/b_unit_adv.html#example-2",
+    "title": "2. Unit testing advanced",
+    "section": "Example 2",
+    "text": "Example 2",
     "crumbs": [
       "Topics",
       "2. Unit testing advanced"
