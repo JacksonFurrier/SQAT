@@ -186,8 +186,18 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="example-2" class="level2">
 <h2 class="anchored" data-anchor-id="example-2">Example 2</h2>
+<p>It is good to have some sufficient numerical tests, but there are other functionalities that need some check-ups. One of the main issues with <code>Hellolink.java</code> is that, it exposes a constructor, which initializes a vector with a certain amount of parameters. Later on this could be a problem, since nobody assures that the users of our code won’t access out of bounds elements of our vector, which should be handled inside our functions. To do this, one can implement the <code>public void IndexOutOfBoundsTest()</code> function, which does that exactly. This function is simple, it initializes a local variable of our <code>Hellolink.java</code> class and then asserts against if the access of that vector raises an exception with the help of <code>assertThrows</code>.</p>
+<p>There can be cases, when during <a href="https://en.wikipedia.org/wiki/Test-driven_development">TDD</a> one implements the tests first, but softly doesn’ want them to fail at first. This goal can be achieved by simply putting the <code>@Disabled</code> annotation with a reasonable message in the test cases.</p>
+<p>Sometimes the timing of the test running is important, therefore one needs to put certain blocks on the execution of test functions. This can be done by annotating, the test case with <code>@Timeout(NUM)</code>, where <code>NUM</code> is the number if milliseconds that the test will be blocked.</p>
+<section id="tasks-2" class="level3">
+<h3 class="anchored" data-anchor-id="tasks-2">Tasks 2</h3>
+<ol type="1">
+<li>Try to write a test such that, `<code>public int multiply(int aLeft, int aRight)</code> throws an exception</li>
+<li>Write a test such that certain cases inside the parameterized tests will be disabled</li>
+</ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

@@ -54,7 +54,7 @@
     "href": "topics/b_unit_adv.html#example-2",
     "title": "2. Unit testing advanced",
     "section": "Example 2",
-    "text": "Example 2",
+    "text": "Example 2\nIt is good to have some sufficient numerical tests, but there are other functionalities that need some check-ups. One of the main issues with Hellolink.java is that, it exposes a constructor, which initializes a vector with a certain amount of parameters. Later on this could be a problem, since nobody assures that the users of our code won’t access out of bounds elements of our vector, which should be handled inside our functions. To do this, one can implement the public void IndexOutOfBoundsTest() function, which does that exactly. This function is simple, it initializes a local variable of our Hellolink.java class and then asserts against if the access of that vector raises an exception with the help of assertThrows.\nThere can be cases, when during TDD one implements the tests first, but softly doesn’ want them to fail at first. This goal can be achieved by simply putting the @Disabled annotation with a reasonable message in the test cases.\nSometimes the timing of the test running is important, therefore one needs to put certain blocks on the execution of test functions. This can be done by annotating, the test case with @Timeout(NUM), where NUM is the number if milliseconds that the test will be blocked.\n\nTasks 2\n\nTry to write a test such that, `public int multiply(int aLeft, int aRight) throws an exception\nWrite a test such that certain cases inside the parameterized tests will be disabled",
     "crumbs": [
       "Topics",
       "2. Unit testing advanced"
