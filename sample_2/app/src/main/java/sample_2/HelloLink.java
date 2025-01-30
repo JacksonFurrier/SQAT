@@ -1,4 +1,4 @@
-package course_2;
+package sample_2;
 
 import java.util.Vector;
 

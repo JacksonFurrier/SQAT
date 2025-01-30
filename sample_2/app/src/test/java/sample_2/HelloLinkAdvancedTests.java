@@ -1,31 +1,31 @@
-package course_2;
+package sample_2;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Timeout;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 
 public class HelloLinkAdvancedTests{
 
     
-    @Test(expected = IndexOutOfBoundsException.class) 
+    @Test
     public void IndexOutOfBoundsTest()
     {
         HelloLink vHelloLink = new HelloLink(5);
-        vHelloLink.mVector.get( 6 );
+        assertThrows(IndexOutOfBoundsException.class, ()->{vHelloLink.mVector.get( 6 );});
     }
 
-    @Ignore("Test is ignored as a demonstration")
+    @Disabled("Test is ignored as a demonstration")
     @Test
     public void testSame() {
         assertEquals(1, 1);
     }
 
-    @Test(timeout=1000)
+    @Timeout(1000)
     public void testWithTimeout() {
         //
     }
