@@ -1,5 +1,8 @@
 ---
 title: 1. Unit testing basics
+format:
+    html:
+        toc: true
 ---
 ::: {.callout-note}
 ## Why is it called unit testing?
