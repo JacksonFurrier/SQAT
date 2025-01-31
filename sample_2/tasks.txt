@@ -1,0 +1,19 @@
+I. task
+    1. i) run the tests with the docker command "docker run -i -t --rm -u gradle -v "$PWD":YOUR_PATH_TO_SAMPLE -w YOUR_PATH_TO_SAMPLE gradle gradle build"
+    Windows example: "docker run -i -t --rm -u gradle -v /c/Users/John_doe:/c/Users/John_doe -w /c/Users/John_doe gradle gradle build"
+
+    1. ii)find the sample_2 directory and run the cmd  
+    2. find the report html sample_2/app/build/reports/tests/test/index.html
+    3. find if there are any problems with the parameterized_tests! 15minutes
+    4. [if there are problems] then implement a solution to it!
+
+II. task
+    1. mock the GetHttpRequest() function in the NetworkConnection class by
+        * mocking the internal dependencies like, try to mock the "URLConnection vConnection = new URL( mUrl + "?" + mQuery).openConnection();" class
+        * apply the previous to the rest of the function itself
+
+III. task
+    1. Copy-paste-the-code I've sent
+    2. Run the "docker build" and/or "docker test" 
+    3. Check the results
+    4. If you have found any issues then try to overcome them! (GetHttpRequestWithMockito())
