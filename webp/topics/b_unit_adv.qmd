@@ -4,6 +4,8 @@ format:
     html:
         toc: true
 ---
+![](../images/unit_testing_advanced.webp)
+
 There can be cases where the task at hand is not as easy as it is with [sample_1](https://github.com/JacksonFurrier/SQAT/tree/main/sample_1). One of the cases is when `exception`s are at play. Take a look at the next example that we will go through here [sample_2](https://github.com/JacksonFurrier/SQAT/tree/main/sample_2). Our first CUT will be [Hellolink.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java) and let's take a look at its implementation
 
 * It has a default construction, with two overloads, `HelloLink(int aNumber)` taking a number and instantiating a member with a vector with the predefined size in the constructor, `HelloLink(boolean aWait)` which instantiates the object but waiting for 3000 milliseconds

@@ -1,4 +1,5 @@
 ---
 title: 4. Mocking advanced
 ---
+![](../images/mocking_advanced.webp)
 Here is my first post.
