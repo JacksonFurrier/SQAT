@@ -1,4 +1,7 @@
 ---
 title: 3. Mocking basics
 ---
+[](../images/mocking.webp)
+
+
 Here is my first post.

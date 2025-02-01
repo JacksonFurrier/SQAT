@@ -61,7 +61,7 @@
     "href": "topics/a_unit_basic.html",
     "title": "1. Unit testing basics",
     "section": "",
-    "text": "Why is it called unit testing?\n\n\n\nIt is a simple fact that, the reason why it is called unit testing is because, the aim of the tests written by us (developers) is to assure the quality and reliability of the code implemented.\nNow I think the best way to understand this is to check how it looks in code, take a look at the following example.",
+    "text": "Now I think the best way to understand this is to check how it looks in code, take a look at the following example.",
     "crumbs": [
       "Topics",
       "1. Unit testing basics"
