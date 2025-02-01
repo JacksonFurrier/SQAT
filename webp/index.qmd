@@ -1,6 +1,6 @@
 ---
 title: "Software Quality and Testing (SQAT)"
-subtitle: "The tale of testing"
+subtitle: "The tale of testing for IPM-22fkbSQTG"
 author:
   - name: Adam Istvan Szucs
     orcid: 0000-0002-7984-4542
