@@ -63,4 +63,4 @@ from: markdown+emoji
 
 ## Base materials
 
-Materials that can be used to learn the topic [art-of-unit-testing](https://www.artofunittesting.com/), [unit](https://www.manning.com/books/unit-testing), [web-testing](https://www.amazon.com/Selenium-Testing-Cookbook-Gundecha-Unmesh/dp/1849515743), [agile-testing](https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468).
+Materials that can be used to learn the topic [art-of-unit-testing](https://www.artofunittesting.com/), [unit-testing](https://www.manning.com/books/unit-testing), [web-testing](https://www.amazon.com/Selenium-Testing-Cookbook-Gundecha-Unmesh/dp/1849515743), [agile-testing](https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468).
