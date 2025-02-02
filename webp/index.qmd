@@ -37,7 +37,7 @@ from: markdown+emoji
 ### Syllabus
 * Small test in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)
 * No examination from the practice part of the course
-* 3 big assignments from the topics presented [Unit testing, perf. testing, web testing]
+* 3 big assignments from the topics presented (Unit testing, perf. testing, web testing)
 
 ### Agenda
 * 1-4 weeks (Unit testing, mocking)
