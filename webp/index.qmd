@@ -50,6 +50,7 @@ from: markdown+emoji
 ### Env
 * Please check the README at [github](https://github.com/JacksonFurrier/SQAT) and try to set up the environment
 * If it didn't work please watch the environment set up videos on youtube
+* [git](https://git-scm.com/) is used as a primary version controlling system. If you are not familiar with it, I suggest to visit [learn-git-branching](https://learngitbranching.js.org/), which is the best interactive source on the topic, in my opinion.
 * We will use Java for demonstration so don't forget to install thenecessary packages [JDK](https://www.oracle.com/java/technologies/downloads/)
 * The build system of choice is [gradle](https://docs.gradle.org/current/userguide/userguide.html). With one little trick so nobody needs to set environment variables or install gradle at all. We utilize [Docker](https://www.docker.com/), which is runnable on every OS and we will use the following image [gradle-docker](https://hub.docker.com/_/gradle)
 
