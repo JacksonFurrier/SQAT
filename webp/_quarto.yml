@@ -3,10 +3,20 @@ project:
   output-dir: ../docs
 
 website:
+  navbar:
+    left:
+    - text: "Home"
+      href: index.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            href:  https://github.com/JacksonFurrier/SQAT
+          - text: Report a Bug
+            href:  https://github.com/JacksonFurrier/SQAT/issues
   sidebar:
     style: "floating"
     search: true
     contents:
       - section: "Topics"
-        contents: topics/*
-      
+        contents: topics/*      

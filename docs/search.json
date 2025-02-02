@@ -6,6 +6,7 @@
     "section": "",
     "text": "Here is my first post.",
     "crumbs": [
+      "Home",
       "Topics",
       "4. Mocking advanced"
     ]
@@ -17,6 +18,7 @@
     "section": "",
     "text": "Mocking is one of the most powerful techniques in unit testing, which can be leveraged to solve complex problems in testing.",
     "crumbs": [
+      "Home",
       "Topics",
       "3. Mocking basics"
     ]
@@ -63,6 +65,7 @@
     "section": "",
     "text": "Now I think the best way to understand this is to check how it looks in code, take a look at the following example.",
     "crumbs": [
+      "Home",
       "Topics",
       "1. Unit testing basics"
     ]
@@ -74,6 +77,7 @@
     "section": "Example 1.",
     "text": "Example 1.\nTake a look at the code written in sample_1, which will be disected in the forthcoming few sections. The project resides under the folder app and the rest are build files generally, where settings.gradle what interests us. Inside the gradle settings, we can inspect what we will be testing during this first example. Namely, rootProject.name will tell us the package where the class resides and include will contain the name of it. If we go to App.java we can see that the SUT/CUT is class App. There are a few practical things to note at this point\n\nThe CUT is public which renders it testable from the outside, otherwise it would be extremely hard to “break” into the internals of the class at hand\nAll the functions that are implemented inside the class are public as well, which is also necessary for testing purposes\n\n\n\n\n\n\n\nIn case of sample_1/App.java what is the CUT? What is the smallest unit of code that can be tested?\n\n\n\nIt is always subjective to the actual codebase that you are working on, what would be the smallest amount/unit of code that can be tested by these unit testing techniques. Usually it is a good descriptor of the codebase at hand on how big is this thing actually.\n\n\nGoing further, to do unit testing it is a necessity to understand the actual code at hand, which in this case is the following\n\nThe class has three constructors, a default App(), a simple overload App(int aNumber), which sets only private member of the class and App(boolean aWait), which makes the constructor wait for a certain amount of time to evaluate.1\nHas a simple function returning a greeting String getGreeting()\nThe usual java public static void main(String[] args) function, nothing special about it\nA print function, public static void callNavi(String aMessage), which simply forwards the arguments to the standard output\nA multiply function public int multiply(int aLeft, int aRight), which gets two arguments, and multiplies two numbers.\n\n\n\n\n\n\n\nUnderstanding these functionalities, which ones are actually testable? And if they are testable, is it justified at all to test them?\n\n\n\nNow you can see sometimes, a function which is testable might not be a good candidate for tests because simply it is irrelevant and other cases there might be functions are not testable and relevant, which is the worst case possible in terms of testing.\n\n\nTo test the functionalities inside sample_1 we have to understand the build system a little bit better. Take a look at build.gradle file and see what it does in terms of helping us test the previous functionnalities. The structure is the following, plugins tells us what class/package/application are we building with the help of gradle. the next one is one of the most important ones, which is repositories, which tells gradle wherefrom to fetch the necessary libraries and packages to build and run the project and its dependencies. The next one is dependencies which as the name tells lists all the dependencies needed by our application. The testing block specifies the actual testing libraries that we will use throught the project to run the implemented tests. The last one is application, which defines what is the main class, the main entry point, which can be used by the frameworks.\nNow, let’s take a look at the already implemented test inside Apptest.java. The structure is the following\n\nIt starts by importing all the necessary packages, it is nothing special\nIt is a public class so the unit testing framework can access all the details inside it\nInside the class there is one member App mApp, which is basically the application that we are about to test.\nHere comes the cool part, the first function that will be run by our unt testing framework (junit5) is the usual Setup function with the @Before annotation. This function simply runs only once before all the tests are being run by our framework. In this case it is simply constructing our App class with 0 in the constructor argument.\nNext the function multiplicationOfZeroIntegereShouldReturnZero is being implemented. The usual test functions shall be annotated with @Test. Here comes the interesting part, inside this function there are assertions, which means the test is assumptions and asserting against them.\n\n\n\n\n\n\n\nAt this point, can you tell what might be the problem if we have multiple assertions inside a single test function?\n\n\n\nImagine having 10.000 tests and having multiple assertions inside them, how would you be able to pinpoint where the implementation might have gone wrong?\n\n\n\nThe similar function multiplicationOfZeroIntegereShouldReturnZeroWithMember has the same-ish functionality, however if you take a look it doesn’t have an instantiation of the class that will be tested during the evaluation.\nbeforeAffectsTest is simply demonstrating that one can just assert with a test function, which usually raises awareness for an unimplemented test case or in TDD tells the developer that this functionality need to be developed further.\nAnd at last the TearDown function with cleans up all the necessary memory/setups/etc after running the unit tests.\n\nAfter seeing how this code looks like, one can go further and pose the following definition on what is a unit test.\n\n\n\n\n\n\nDefinition (Unit testing 2.)\n\n\n\nA unit of work is the sum of actions that take place between the invocation of a public method in the system and a single noticable end result by a test of that system. A noticeble end result can be observed without looking at the internal state of the system and only through its public APIs and behavior. An end result is any of the following\n\nThe invoked public method returns a value\nThere is a noticeable change in the state of behavior, that can be determined by interrogating the internal state\nThere is a callout to a 3rd – party system where over the test has no control of\n\n\n\nThis could be true, however if there is a 3rd party functionality that we have no control over, changing its functionality might affect our tests, which wouldn’t render them as unit tests anymore.\n\n\n\n\n\n\nDefinition (Unit testing 3.)\n\n\n\nA unit test is a piece of code that invokes a unit of work and checks one specific end result of that unit of work, whereas it is fully isolated. If the assumptions on the end result turn out to be wrong, the unit test has failed. A unit test’s scope can span as little as a method or as much as multiple classes.\n\nThe primary goal of unit testing is to\nTake the smallest piece of testable software in the application\nIsolate it from the remainder of the code\nDetermine whether it behaves exactly as you expected\n\n\n\nPractically, a unit test is a piece of code that\n\nInvokes another piece of code\nChecks the correctness of some assumption afterward\nIf the assumption turn out to be wrong, the unit test has failed. A unit is a method or function.\n\nProperties of good unit tests are\n\nIt should be automated and maintainable\nIt should be easy to implement\nIt should be relevant tomorrow\nAnyone should be able to run it at the push of a button\nIt should run quickly\nIt should be consistent in its results\nIt should be fully isolated\nWhen it fails, it should be easy to detect what was expected and determine how to pinpoint the problem\n\n\n\n\n\n\n\nDefinition (Unit testing 4.)\n\n\n\nA unit test is an automated piece of code that invokes the unit of work being tested, and then checks some assumptions about a single end result of that unit. A unit test is almost always written using a unit testing framework. It can be written easily and runs quickly. It’s trustworthy, readable, and maintainable. It’s consistent in it’s results as long as production code hasn’t changed",
     "crumbs": [
+      "Home",
       "Topics",
       "1. Unit testing basics"
     ]
@@ -85,6 +89,7 @@
     "section": "Tasks 1.",
     "text": "Tasks 1.\n\nRun the tests in sample_1, based on the instructions from github\nCheck what is wrong with the tests\nImplement the test functions for App where it is “logical”\n\nCould you test static functions? What is the problem with these?",
     "crumbs": [
+      "Home",
       "Topics",
       "1. Unit testing basics"
     ]
@@ -96,6 +101,7 @@
     "section": "Footnotes",
     "text": "Footnotes\n\n\nAnd throwing an exception throws InterruptedException as necessary.↩︎",
     "crumbs": [
+      "Home",
       "Topics",
       "1. Unit testing basics"
     ]
@@ -107,6 +113,7 @@
     "section": "",
     "text": "There can be cases where the task at hand is not as easy as it is with sample_1. One of the cases is when exceptions are at play. Take a look at the next example that we will go through here sample_2. Our first CUT will be Hellolink.java and let’s take a look at its implementation",
     "crumbs": [
+      "Home",
       "Topics",
       "2. Unit testing advanced"
     ]
@@ -118,6 +125,7 @@
     "section": "Example 1",
     "text": "Example 1\nOne of our main goal here is to reach a high level of coverage, therefore we would like to test most of the functions. If we take a look at public int multiply(int aLeft, int aRight) how do we actually test such a function and assure that it will give us the correct results in all circumstances. Testing all the different numbers in the int type would take years, therefore there should be some other technique that we can apply to do testing on this function. Otherwise, implementing the test of each individual number for the int type would result in multiple millions lines of code, which is unmaintainable. To overcome these problems, one can apply the parameterized tests to handle the different cases from a small sized code. The solution goes as follows\n\nThe test function shall be annotated by the @ParameterizedTest annotation, where additionally the framework needs data to feed to the test function, which can be approached with @CsvSource annotation.\n\n\nTasks 1\n\nRun the sample_2 and inspect the report\nCheck what is wrong with public void numeric_test(int left, int right)\nImplement the missing functionality in Hellolink.java",
     "crumbs": [
+      "Home",
       "Topics",
       "2. Unit testing advanced"
     ]
@@ -129,6 +137,7 @@
     "section": "Example 2",
     "text": "Example 2\nIt is good to have some sufficient numerical tests, but there are other functionalities that need some check-ups. One of the main issues with Hellolink.java is that, it exposes a constructor, which initializes a vector with a certain amount of parameters. Later on this could be a problem, since nobody assures that the users of our code won’t access out of bounds elements of our vector, which should be handled inside our functions. To do this, one can implement the public void IndexOutOfBoundsTest() function, which does that exactly. This function is simple, it initializes a local variable of our Hellolink.java class and then asserts against if the access of that vector raises an exception with the help of assertThrows.\nThere can be cases, when during TDD one implements the tests first, but softly doesn’ want them to fail at first. This goal can be achieved by simply putting the @Disabled annotation with a reasonable message in the test cases.\nSometimes the timing of the test running is important, therefore one needs to put certain blocks on the execution of test functions. This can be done by annotating, the test case with @Timeout(NUM), where NUM is the number if milliseconds that the test will be blocked.\n\nTasks 2\n\nTry to write a test such that, public int multiply(int aLeft, int aRight) throws an exception\nWrite a test such that certain cases inside the parameterized tests will be disabled",
     "crumbs": [
+      "Home",
       "Topics",
       "2. Unit testing advanced"
     ]
