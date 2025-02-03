@@ -34,6 +34,11 @@ from: markdown+emoji
 
 ## Requirements
 
+### Supporting video content
+{{< video https://youtu.be/sRsEJCc8BME 
+    title='SQAT Introduction' 
+>}}
+
 ### Syllabus
 * Small test in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)
 * No examination from the practice part of the course
