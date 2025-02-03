@@ -6,10 +6,6 @@ format:
 ---
 ![](../images/unit_testing_advanced.webp)
 
-## Supporting video
-{{< video https://youtu.be/gcWdV11fAy8 
-    title='Unit advanced i' 
->}}
 
 There can be cases where the task at hand is not as easy as it is with [sample_1](https://github.com/JacksonFurrier/SQAT/tree/main/sample_1). One of the cases is when `exception`s are at play. Take a look at the next example that we will go through here [sample_2](https://github.com/JacksonFurrier/SQAT/tree/main/sample_2). Our first CUT will be [Hellolink.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java) and let's take a look at its implementation
 
@@ -18,10 +14,10 @@ There can be cases where the task at hand is not as easy as it is with [sample_1
 * There is the multiply function `public int multiply(int aLeft, int aRight)` computing the product of two numbers
 * At last `static public int compute( int aLeft )` function computing the minus one of the argument
 
-## Supporting video
+<!-- ## Supporting video
 {{< video https://youtu.be/gcWdV11fAy8 
     title='Unit advanced ii' 
->}}
+>}} -->
 
 ## Example 1
 One of our main goal here is to reach a high level of [coverage](https://en.wikipedia.org/wiki/Code_coverage), therefore we would like to test most of the functions. If we take a look at `public int multiply(int aLeft, int aRight)` how do we actually test such a function and assure that it will give us the correct results in all circumstances. Testing all the different numbers in the `int` type would take years, therefore there should be some other technique that we can apply to do testing on this function. Otherwise, implementing the test of each individual number for the `int` type would result in multiple millions lines of code, which is unmaintainable. To overcome these problems, one can apply the [parameterized tests](https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests) to handle the different cases from a small sized code. The solution goes as follows
@@ -33,6 +29,11 @@ One of our main goal here is to reach a high level of [coverage](https://en.wiki
 2. Check what is wrong with `public void numeric_test(int left, int right)` 
 3. Implement the missing functionality in [Hellolink.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java)
 
+
+<!-- ## Supporting video
+{{< video https://youtu.be/gcWdV11fAy8 
+    title='Unit advanced i' 
+>}} -->
 
 ## Example 2
 It is good to have some sufficient numerical tests, but there are other functionalities that need some check-ups. One of the main issues with `Hellolink.java` is that, it exposes a constructor, which initializes a vector with a certain amount of parameters. Later on this could be a problem, since nobody assures that the users of our code won't access out of bounds elements of our vector, which should be handled inside our functions. To do this, one can implement the `public void IndexOutOfBoundsTest()` function, which does that exactly. This function is simple, it initializes a local variable of our `Hellolink.java` class and then asserts against if the access of that vector raises an exception with the help of `assertThrows`.

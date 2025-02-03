@@ -28,23 +28,11 @@
     "text": "Base materials\nMaterials that can be used to learn the topic art-of-unit-testing, unit-testing, web-testing, agile-testing."
   },
   {
-    "objectID": "topics/b_unit_adv.html#supporting-video",
-    "href": "topics/b_unit_adv.html#supporting-video",
+    "objectID": "topics/b_unit_adv.html",
+    "href": "topics/b_unit_adv.html",
     "title": "2. Unit testing advanced",
-    "section": "Supporting video",
-    "text": "Supporting video\n\nThere can be cases where the task at hand is not as easy as it is with sample_1. One of the cases is when exceptions are at play. Take a look at the next example that we will go through here sample_2. Our first CUT will be Hellolink.java and let’s take a look at its implementation\n\nIt has a default construction, with two overloads, HelloLink(int aNumber) taking a number and instantiating a member with a vector with the predefined size in the constructor, HelloLink(boolean aWait) which instantiates the object but waiting for 3000 milliseconds\nThe usual public static void main function and public static void callNavi, which forwards the argument string onto the standard output.\nThere is the multiply function public int multiply(int aLeft, int aRight) computing the product of two numbers\nAt last static public int compute( int aLeft ) function computing the minus one of the argument",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "2. Unit testing advanced"
-    ]
-  },
-  {
-    "objectID": "topics/b_unit_adv.html#supporting-video-1",
-    "href": "topics/b_unit_adv.html#supporting-video-1",
-    "title": "2. Unit testing advanced",
-    "section": "Supporting video",
-    "text": "Supporting video",
+    "section": "",
+    "text": "There can be cases where the task at hand is not as easy as it is with sample_1. One of the cases is when exceptions are at play. Take a look at the next example that we will go through here sample_2. Our first CUT will be Hellolink.java and let’s take a look at its implementation",
     "crumbs": [
       "Home",
       "Topics",
