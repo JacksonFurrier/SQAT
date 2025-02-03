@@ -1,6 +1,11 @@
 ---
 title: 1. Unit testing basics
+format:
+    html:
+        toc: true
 ---
+![](../images/unit_testing.webp)
+
 ::: {.callout-note}
 ## Why is it called unit testing?
 It is a simple fact that, the reason why it is called unit testing is because, the aim of the tests written by us (developers) is to assure the quality and reliability of the code implemented.

@@ -1,4 +1,10 @@
 ---
 title: 3. Mocking basics
+format:
+    html:
+        toc: true
 ---
-Here is my first post.
+![](../images/mocking.webp)
+
+
+Mocking is one of the most powerful techniques in unit testing, which can be leveraged to solve complex problems in testing.
