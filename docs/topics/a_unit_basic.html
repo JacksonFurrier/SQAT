@@ -177,7 +177,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#example-1." id="toc-example-1." class="nav-link active" data-scroll-target="#example-1.">Example 1.</a></li>
+  <li><a href="#supporting-video" id="toc-supporting-video" class="nav-link active" data-scroll-target="#supporting-video">Supporting video</a></li>
+  <li><a href="#example-1." id="toc-example-1." class="nav-link" data-scroll-target="#example-1.">Example 1.</a></li>
+  <li><a href="#supporting-video-1" id="toc-supporting-video-1" class="nav-link" data-scroll-target="#supporting-video-1">Supporting video</a></li>
+  <li><a href="#supporting-video-2" id="toc-supporting-video-2" class="nav-link" data-scroll-target="#supporting-video-2">Supporting video</a></li>
   <li><a href="#tasks-1." id="toc-tasks-1." class="nav-link" data-scroll-target="#tasks-1.">Tasks 1.</a></li>
   </ul>
 </nav>
@@ -205,6 +208,9 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><img src="../images/unit_testing.webp" class="img-fluid"></p>
+<section id="supporting-video" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-video">Supporting video</h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/IHGRFhBbZlM" title="Unit testing basics i" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -245,6 +251,7 @@ Definition (SUT and CUT)
 </div>
 </div>
 <p>Now I think the best way to understand this is to check how it looks in code, take a look at the following example.</p>
+</section>
 <section id="example-1." class="level2">
 <h2 class="anchored" data-anchor-id="example-1.">Example 1.</h2>
 <p>Take a look at the code written in <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_1">sample_1</a>, which will be disected in the forthcoming few sections. The project resides under the folder <code>app</code> and the rest are build files generally, where <code>settings.gradle</code> what interests us. Inside the gradle settings, we can inspect what we will be testing during this first example. Namely, <code>rootProject.name</code> will tell us the package where the class resides and <code>include</code> will contain the name of it. If we go to <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_1/app/src/main/java/sample_1/App.java">App.java</a> we can see that the SUT/CUT is <code>class App</code>. There are a few practical things to note at this point</p>
@@ -314,6 +321,10 @@ At this point, can you tell what might be the problem if we have multiple assert
 <li>And at last the <code>TearDown</code> function with cleans up all the necessary memory/setups/etc after running the unit tests.</li>
 </ul>
 <p>After seeing how this code looks like, one can go further and pose the following definition on what is a unit test.</p>
+</section>
+<section id="supporting-video-1" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-video-1">Supporting video</h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/DlcHbn3v8ws" title="Unit testing basics ii" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -382,6 +393,10 @@ Definition (Unit testing 4.)
 <p>A unit test is an automated piece of code that invokes the unit of work being tested, and then checks some assumptions about a single end result of that unit. A unit test is almost always written using a unit testing framework. It can be written easily and runs quickly. It’s trustworthy, readable, and maintainable. It’s consistent in it’s results as long as production code hasn’t changed</p>
 </div>
 </div>
+</section>
+<section id="supporting-video-2" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-video-2">Supporting video</h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/DlcHbn3v8ws" title="Unit testing basics iii - Running the tests" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
 <section id="tasks-1." class="level2">
 <h2 class="anchored" data-anchor-id="tasks-1.">Tasks 1.</h2>

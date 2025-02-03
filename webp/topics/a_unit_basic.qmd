@@ -7,8 +7,8 @@ format:
 ![](../images/unit_testing.webp)
 
 ## Supporting video
-{{< video https://youtu.be/sRsEJCc8BME 
-    title='Unit testing basics' 
+{{< video https://youtu.be/IHGRFhBbZlM 
+    title='Unit testing basics i' 
 >}}
 
 ::: {.callout-note}
@@ -77,6 +77,11 @@ Imagine having 10.000 tests and having multiple assertions inside them, how woul
 
 After seeing how this code looks like, one can go further and pose the following definition on what is a unit test.
 
+## Supporting video
+{{< video https://youtu.be/DlcHbn3v8ws
+    title='Unit testing basics ii' 
+>}}
+
 ::: {.callout-important}
 ## Definition (Unit testing 2.)
 A unit of work is the sum of actions that take place between the invocation of a public method in the system and a single noticable end result by a test of that system. A noticeble end result can be observed without looking at the internal state of the system and only through its public APIs and behavior. An end result is any of the following
@@ -119,6 +124,11 @@ Properties of good unit tests are
 ## Definition (Unit testing 4.)
 A unit test is an automated piece of code that invokes the unit of work being tested, and then checks some assumptions about a single end result of that unit. A unit test is almost always written using a unit testing framework. It can be written easily and runs quickly. It’s trustworthy, readable, and maintainable. It’s consistent in it’s results as long as production code hasn’t changed
 :::
+
+## Supporting video
+{{< video https://youtu.be/DlcHbn3v8ws
+    title='Unit testing basics iii - Running the tests' 
+>}}
 
 ## Tasks 1.
 
