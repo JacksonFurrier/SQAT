@@ -34,7 +34,7 @@ from: markdown+emoji
 
 ## Requirements
 
-### Supporting video content
+### Supporting video
 {{< video https://youtu.be/sRsEJCc8BME 
     title='SQAT Introduction' 
 >}}
