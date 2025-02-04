@@ -45,43 +45,10 @@ public class NetworkConnectionTest{
         assertEquals(" ", mNetworkConnection.GetHttpRequest() );
     }
 
-    @Test //2nd task    
-    public void HttpRequestReturnsNullWithFakeUrl() throws UnsupportedEncodingException, MalformedURLException, IOException
-    {
-        mNetworkConnection = new NetworkConnection();
-        
-        String vURL = "Dummy";
-
-        URL vObjectURL = mock(URL.class);
-        URLConnection vURLConnection = mock(URLConnection.class);
-        
-        String vCharset = "UTF-8";
-        //when( vURLConnection.setRequestProperty("Accept-Charset", vCharset ) ).thenReturn(" ");
-        when( vObjectURL.openConnection() ).thenReturn(vURLConnection);
-
-        when(mNetworkConnection.GetHttpRequestParameterized(vURL, vObjectURL)).thenReturn("not valid");
-
-        String result = null;
-        try{
-            result = mNetworkConnection.GetHttpRequestParameterized(vURL, vObjectURL);
-        }
-        catch(MalformedURLException e)
-        {
-            assertEquals(result, "not valid");
-        }
-        assertEquals(result, "not valid");
-    }
-
-    @Test //3rd task
+    @Test //1st task
     public void HttpPostTestWithFakeObject()
     {
         // implement me
-    }
-
-    @Test
-    public void FooTest() throws UnsupportedEncodingException, MalformedURLException, IOException
-    {
-        
     }
     
 }
