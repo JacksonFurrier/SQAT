@@ -9,6 +9,12 @@ format:
 
 Mocking is one of the most powerful techniques in unit testing, which can be leveraged to solve complex problems in testing. There can be cases as mentioned in previous videos, that, one needs to test some implementation with 3rdparty functionality. However, the problem is that, one can not control these functionalities totally. To overcome this hurdle, one must use [mocking](https://en.wikipedia.org/wiki/Mock_object).
 
+### Supporting video
+{{< video https://youtu.be/Ss_gHE4tZdo 
+    title='Mocking basics i' 
+>}}
+
+
 ## Example 1.
 The best way to understand mocking is to check examples of mocking, therefore we turn to [sample_2](https://github.com/JacksonFurrier/SQAT/tree/main/sample_2) and more specifically, to [NetworkConnection.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/NetworkConnection.java) and [NetworkConnectionTest.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/test/java/sample_2/NetworkConnectionTest.java). 
 
@@ -17,6 +23,11 @@ First let's understand what `NetworkConnection.java` implementation is about.
 * It has three members, `mUrl, mCharset, mQuery` denoting the URL that we plan to connect to, the coding charset that will be used during the established connection, and the query used to encode the different parameters during the connection establishment. 
 
 * The constructors doesn't need much description, however the function `public String GetHttpRequest() throws MalformedURLException, IOException` does need some further clarity.
+
+### Supporting video
+{{< video https://youtu.be/BD8hz1_tFws 
+    title='Mocking basics ii' 
+>}}
 
 ### The GetHttpRequest() function
 To test this [GetHttpRequest()](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/NetworkConnection.java#L42) function is a tricky one. 
@@ -51,6 +62,11 @@ The main issues with `public String GetHttpRequest() throws MalformedURLExceptio
 * Inside the scanning `try` block only the `useDelimiter()` function needs to be mocked, however it is a bit complicated as discussed before
 
 TL;DR this task is challenging because there is the technique [chain-of-mocks](https://en.wikipedia.org/wiki/Mock_trainwreck) that need to be applied sequentally complicated by `abstract` and `final` classes that need to be mocked out.
+
+### Supporting video
+{{< video https://youtu.be/V95RgoNFKwI
+    title='Mocking basics iii' 
+>}}
 
 ## Tasks 1.
 

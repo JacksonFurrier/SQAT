@@ -177,11 +177,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#example-1." id="toc-example-1." class="nav-link active" data-scroll-target="#example-1.">Example 1.</a>
+  <li><a href="#supporting-video" id="toc-supporting-video" class="nav-link active" data-scroll-target="#supporting-video">Supporting video</a></li>
+  <li><a href="#example-1." id="toc-example-1." class="nav-link" data-scroll-target="#example-1.">Example 1.</a>
   <ul class="collapse">
+  <li><a href="#supporting-video-1" id="toc-supporting-video-1" class="nav-link" data-scroll-target="#supporting-video-1">Supporting video</a></li>
   <li><a href="#the-gethttprequest-function" id="toc-the-gethttprequest-function" class="nav-link" data-scroll-target="#the-gethttprequest-function">The GetHttpRequest() function</a></li>
   <li><a href="#mocking-a-simple-function" id="toc-mocking-a-simple-function" class="nav-link" data-scroll-target="#mocking-a-simple-function">Mocking a simple function</a></li>
   <li><a href="#problems-with-testing-gethttprequest-function" id="toc-problems-with-testing-gethttprequest-function" class="nav-link" data-scroll-target="#problems-with-testing-gethttprequest-function">Problems with testing GetHttpRequest() function</a></li>
+  <li><a href="#supporting-video-2" id="toc-supporting-video-2" class="nav-link" data-scroll-target="#supporting-video-2">Supporting video</a></li>
   </ul></li>
   <li><a href="#tasks-1." id="toc-tasks-1." class="nav-link" data-scroll-target="#tasks-1.">Tasks 1.</a></li>
   </ul>
@@ -211,6 +214,10 @@ ul.task-list li input[type="checkbox"] {
 
 <p><img src="../images/mocking.webp" class="img-fluid"></p>
 <p>Mocking is one of the most powerful techniques in unit testing, which can be leveraged to solve complex problems in testing. There can be cases as mentioned in previous videos, that, one needs to test some implementation with 3rdparty functionality. However, the problem is that, one can not control these functionalities totally. To overcome this hurdle, one must use <a href="https://en.wikipedia.org/wiki/Mock_object">mocking</a>.</p>
+<section id="supporting-video" class="level3">
+<h3 class="anchored" data-anchor-id="supporting-video">Supporting video</h3>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Ss_gHE4tZdo" title="Mocking basics i" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
 <section id="example-1." class="level2">
 <h2 class="anchored" data-anchor-id="example-1.">Example 1.</h2>
 <p>The best way to understand mocking is to check examples of mocking, therefore we turn to <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_2">sample_2</a> and more specifically, to <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/NetworkConnection.java">NetworkConnection.java</a> and <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/test/java/sample_2/NetworkConnectionTest.java">NetworkConnectionTest.java</a>.</p>
@@ -219,6 +226,10 @@ ul.task-list li input[type="checkbox"] {
 <li><p>It has three members, <code>mUrl, mCharset, mQuery</code> denoting the URL that we plan to connect to, the coding charset that will be used during the established connection, and the query used to encode the different parameters during the connection establishment.</p></li>
 <li><p>The constructors doesn’t need much description, however the function <code>public String GetHttpRequest() throws MalformedURLException, IOException</code> does need some further clarity.</p></li>
 </ul>
+<section id="supporting-video-1" class="level3">
+<h3 class="anchored" data-anchor-id="supporting-video-1">Supporting video</h3>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/BD8hz1_tFws" title="Mocking basics ii" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
 <section id="the-gethttprequest-function" class="level3">
 <h3 class="anchored" data-anchor-id="the-gethttprequest-function">The GetHttpRequest() function</h3>
 <p>To test this <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/NetworkConnection.java#L42">GetHttpRequest()</a> function is a tricky one.</p>
@@ -256,6 +267,10 @@ ul.task-list li input[type="checkbox"] {
 <li>Inside the scanning <code>try</code> block only the <code>useDelimiter()</code> function needs to be mocked, however it is a bit complicated as discussed before</li>
 </ul>
 <p>TL;DR this task is challenging because there is the technique <a href="https://en.wikipedia.org/wiki/Mock_trainwreck">chain-of-mocks</a> that need to be applied sequentally complicated by <code>abstract</code> and <code>final</code> classes that need to be mocked out.</p>
+</section>
+<section id="supporting-video-2" class="level3">
+<h3 class="anchored" data-anchor-id="supporting-video-2">Supporting video</h3>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/V95RgoNFKwI" title="Mocking basics iii" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
 </section>
 <section id="tasks-1." class="level2">

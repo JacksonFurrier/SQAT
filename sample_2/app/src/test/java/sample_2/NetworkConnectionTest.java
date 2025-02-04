@@ -41,8 +41,8 @@ public class NetworkConnectionTest{
     public void HttpRequestReturnsNull() throws MalformedURLException, IOException
     {
         mNetworkConnection = mock( NetworkConnection.class );
-        when( mNetworkConnection.GetHttpRequest()).thenReturn(" ");
-        assertEquals(" ", mNetworkConnection.GetHttpRequest() );
+        when(mNetworkConnection.GetHttpRequest()).thenReturn(" ");
+        assertEquals(" ", mNetworkConnection.GetHttpRequest());
     }
 
     @Test //1st task
