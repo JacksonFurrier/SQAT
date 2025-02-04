@@ -249,7 +249,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="problems-with-testing-gethttprequest-function">Problems with testing GetHttpRequest() function</h3>
 <p>The main issues with <code>public String GetHttpRequest() throws MalformedURLException, IOException</code> are the following</p>
 <ul>
-<li>The first initialization is complicated as it is. <code>URLConnection</code> type on the left-hand-side initialized by a new <code>URL</code> class’s <code>openConnection()</code> function. This will be extremely challenging because we can’t access these from the outside, these are local functionalities and local variables. Further, <code>URLConnection</code> is <code>public abstract class</code> which is hard to mock.</li>
+<li>The first initialization is complicated as it is. <code>URLConnection</code> type on the left-hand-side initialized by a new <code>URL</code> class’s <code>openConnection()</code> function. This will be extremely challenging because we can’t access these from the outside, these are local functionalities and local variables. Further, <code>URLConnection</code> is <code>public abstract class</code> which is hard to mock</li>
 <li>The next invocation, setting the rquest property on a local variable, which is challenging to handle</li>
 <li>Forward, the inputstream handling is based on <code>URLConnection</code> type local variable, where the <code>getInputStream()</code> function needs to be mocked</li>
 <li>In the <code>try</code> block a <code>Scanner</code> type is instantiated, where this needs to be mocked as well where the fact, <code>public final class</code> just complicates mocking</li>
@@ -260,7 +260,13 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="tasks-1." class="level2">
 <h2 class="anchored" data-anchor-id="tasks-1.">Tasks 1.</h2>
-<p>Implement a mocking strategy to gain control over all the external functionality inside <code>GetHttpRequest()</code> * <code>URL</code> and <code>URLConnection</code> need to be mocked from the outside * <code>setRequestProperty()</code> has to be mocked as well alongside with <code>getInputStream</code> * <code>InputStream</code> class has to be mocked * <code>Scanner</code> class has to be mocked with the <code>useDelimiter()</code> and <code>next()</code> function as well</p>
+<p>Implement a mocking strategy to gain control over all the external functionality inside <code>GetHttpRequest()</code></p>
+<ul>
+<li><code>URL</code> and <code>URLConnection</code> need to be mocked from the outside</li>
+<li><code>setRequestProperty()</code> has to be mocked as well alongside with <code>getInputStream</code></li>
+<li><code>InputStream</code> class has to be mocked</li>
+<li><code>Scanner</code> class has to be mocked with the <code>useDelimiter()</code> and <code>next()</code> function as well</li>
+</ul>
 
 
 </section>
