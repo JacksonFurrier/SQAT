@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2. Unit testing advanced</title>
+<title>6. Selenium testing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -112,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/b_unit_adv.html">2. Unit testing advanced</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/f_selenium.html">6. Selenium testing</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -149,7 +149,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/b_unit_adv.html" class="sidebar-item-text sidebar-link active">
+  <a href="../topics/b_unit_adv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. Unit testing advanced</span></a>
   </div>
 </li>
@@ -173,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/f_selenium.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/f_selenium.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">6. Selenium testing</span></a>
   </div>
 </li>
@@ -184,30 +184,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#supporting-video" id="toc-supporting-video" class="nav-link active" data-scroll-target="#supporting-video">Supporting video</a></li>
-  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example 1</a>
-  <ul class="collapse">
-  <li><a href="#tasks-1" id="toc-tasks-1" class="nav-link" data-scroll-target="#tasks-1">Tasks 1</a></li>
-  </ul></li>
-  <li><a href="#supporting-video-1" id="toc-supporting-video-1" class="nav-link" data-scroll-target="#supporting-video-1">Supporting video</a></li>
-  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a>
-  <ul class="collapse">
-  <li><a href="#tasks-2" id="toc-tasks-2" class="nav-link" data-scroll-target="#tasks-2">Tasks 2</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/b_unit_adv.html">2. Unit testing advanced</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/f_selenium.html">6. Selenium testing</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">2. Unit testing advanced</h1>
+<h1 class="title">6. Selenium testing</h1>
 </div>
 
 
@@ -224,52 +209,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="../images/unit_testing_advanced.webp" class="img-fluid"></p>
-<p>There can be cases where the task at hand is not as easy as it is with <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_1">sample_1</a>. One of the cases is when <code>exception</code>s are at play. Take a look at the next example that we will go through here <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_2">sample_2</a>. Our first CUT will be <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java">Hellolink.java</a> and let’s take a look at its implementation</p>
-<ul>
-<li>It has a default construction, with two overloads, <code>HelloLink(int aNumber)</code> taking a number and instantiating a member with a vector with the predefined size in the constructor, <code>HelloLink(boolean aWait)</code> which instantiates the object but waiting for 3000 milliseconds</li>
-<li>The usual <code>public static void main</code> function and <code>public static void callNavi</code>, which forwards the argument string onto the standard output.</li>
-<li>There is the multiply function <code>public int multiply(int aLeft, int aRight)</code> computing the product of two numbers</li>
-<li>At last <code>static public int compute( int aLeft )</code> function computing the minus one of the argument</li>
-</ul>
-<section id="supporting-video" class="level2">
-<h2 class="anchored" data-anchor-id="supporting-video">Supporting video</h2>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Jl0w2VuYx5Q" title="Unit advanced ii" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section>
-<section id="example-1" class="level2">
-<h2 class="anchored" data-anchor-id="example-1">Example 1</h2>
-<p>One of our main goal here is to reach a high level of <a href="https://en.wikipedia.org/wiki/Code_coverage">coverage</a>, therefore we would like to test most of the functions. If we take a look at <code>public int multiply(int aLeft, int aRight)</code> how do we actually test such a function and assure that it will give us the correct results in all circumstances. Testing all the different numbers in the <code>int</code> type would take years, therefore there should be some other technique that we can apply to do testing on this function. Otherwise, implementing the test of each individual number for the <code>int</code> type would result in multiple millions lines of code, which is unmaintainable. To overcome these problems, one can apply the <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests">parameterized tests</a> to handle the different cases from a small sized code. The solution goes as follows</p>
-<ul>
-<li>The test function shall be annotated by the <code>@ParameterizedTest</code> annotation, where additionally the framework needs data to feed to the test function, which can be approached with <code>@CsvSource</code> annotation.</li>
-</ul>
-<section id="tasks-1" class="level3">
-<h3 class="anchored" data-anchor-id="tasks-1">Tasks 1</h3>
-<ol type="1">
-<li>Run the <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_2">sample_2</a> and inspect the report</li>
-<li>Check what is wrong with <code>public void numeric_test(int left, int right)</code></li>
-<li>Implement the missing functionality in <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java">Hellolink.java</a></li>
-</ol>
-</section>
-</section>
-<section id="supporting-video-1" class="level2">
-<h2 class="anchored" data-anchor-id="supporting-video-1">Supporting video</h2>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/gcWdV11fAy8" title="Unit advanced i" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section>
-<section id="example-2" class="level2">
-<h2 class="anchored" data-anchor-id="example-2">Example 2</h2>
-<p>It is good to have some sufficient numerical tests, but there are other functionalities that need some check-ups. One of the main issues with <code>Hellolink.java</code> is that, it exposes a constructor, which initializes a vector with a certain amount of parameters. Later on this could be a problem, since nobody assures that the users of our code won’t access out of bounds elements of our vector, which should be handled inside our functions. To do this, one can implement the <code>public void IndexOutOfBoundsTest()</code> function, which does that exactly. This function is simple, it initializes a local variable of our <code>Hellolink.java</code> class and then asserts against if the access of that vector raises an exception with the help of <code>assertThrows</code>.</p>
-<p>There can be cases, when during <a href="https://en.wikipedia.org/wiki/Test-driven_development">TDD</a> one implements the tests first, but softly doesn’ want them to fail at first. This goal can be achieved by simply putting the <code>@Disabled</code> annotation with a reasonable message in the test cases.</p>
-<p>Sometimes the timing of the test running is important, therefore one needs to put certain blocks on the execution of test functions. This can be done by annotating, the test case with <code>@Timeout(NUM)</code>, where <code>NUM</code> is the number if milliseconds that the test will be blocked.</p>
-<section id="tasks-2" class="level3">
-<h3 class="anchored" data-anchor-id="tasks-2">Tasks 2</h3>
-<ol type="1">
-<li>Try to write a test such that, <code>public int multiply(int aLeft, int aRight)</code> throws an exception</li>
-<li>Write a test such that certain cases inside the parameterized tests will be disabled</li>
-</ol>
+<p>For <a href="https://en.wikipedia.org/wiki/Selenium_(software)">selenium</a> testing see <a href="https://gitlab.inf.elte.hu/software-testing/selenium-1">first project</a> and the more advanced <a href="https://gitlab.inf.elte.hu/software-testing/selenium-2">second project</a>.</p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

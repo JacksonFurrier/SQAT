@@ -1,0 +1,8 @@
+---
+title: 5. Gitlab techniques
+format:
+    html:
+        toc: true
+---
+
+For Gitlab techniques please see the [first project](https://gitlab.inf.elte.hu/software-testing/gitlab-course-1) and more advanced examples the [second project](https://gitlab.inf.elte.hu/software-testing/gitlab-course-2)
