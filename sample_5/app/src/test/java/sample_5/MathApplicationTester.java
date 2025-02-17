@@ -8,20 +8,21 @@ import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
 
+@ExtendWith(MockitoExtension.class)
 public class MathApplicationTester {
 	
    MathApplication mathApplication = new MathApplication();
-   CalculatorService calcService;
+   @InjectMocks CalculatorService mCalculatorService;
 
    @Test
    public void testAdd(){
       //add the behavior of calc service to add two numbers
-      when(calcService.add(10.0,20.0)).thenReturn(30.00);
+      when(mCalculatorService.add(10.0,20.0)).thenReturn(30.00);
 		
       //test the add functionality
       assertEquals(mathApplication.add(10.0, 20.0),30.0,0);
        
       //verify the behavior
-      verify(calcService).add(10.0, 20.0);
+      verify(mCalculatorService).add(10.0, 20.0);
    }
 }
