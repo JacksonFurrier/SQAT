@@ -1,5 +1,14 @@
 ---
 title: 4. Mocking advanced
 ---
+
 ![](../images/mocking_advanced.webp)
-Here is my first post.
+Based on the previous examples, there might and will be more complex problems in unit testing. One of the big issues and mainly this is the crux of the issue is that, controlling the external dependencies. Whether these are written by someone at the company or these would are 3rdParty dependencies, during unit testing these need to be **controlled**. Therefore let's take a look at the usual suspects that might one might come across during implementing unit tests for various problems
+
+## Mocking static functions
+
+Mockint static functions can be quite tricky sometimes, which will be demonstrated in [StaticUtilsTest.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_3/app/src/test/java/sample_3/StaticUtilsTest.java). The main problem with the static functions inside [StaticUtils](https://github.com/JacksonFurrier/SQAT/blob/main/sample_3/app/src/main/java/sample_3/StaticUtils.java) is that, during calls or instantiation of a static method or [class](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://home.csulb.edu/~pnguyen/cecs277/lecnotes/static%2520in%2520java.pdf&ved=2ahUKEwiA5e2qucqLAxXBzQIHHQ4fGbYQFnoECA8QAw&usg=AOvVaw3GNjHFbYlz5NuMHMZGL-Aw), they will have unique characteristics compared to non-static ones. They can be accessed without the instantiation of a class or any type, it can only access static data and they belong to the class or "namespace" where they reside. These can be quite tricky to mock, because there is no instance to tweak here. To overcome this caveat [mockito](https://site.mockito.org/) since version 5 does give us the functionality to mock static functions with the ```MockedStatic``` type allocator and ```mockStatic``` functionality. After the type has be declared with the ```MockedStatic``` allocator one can use the usual directives to alter the behaviour of the class under test.
+
+## Mocking the [GetHttpRequest()](https://github.com/JacksonFurrier/SQAT/blob/main/sample_3/app/src/main/java/sample_3/NetworkConnection.java#L42) function
+
+This example single handedly to most complicated task that you might face during your unit testing endeavours. 

@@ -164,7 +164,7 @@
     "href": "topics/d_unit_mock_adv.html",
     "title": "4. Mocking advanced",
     "section": "",
-    "text": "Here is my first post.",
+    "text": "Based on the previous examples, there might and will be more complex problems in unit testing. One of the big issues and mainly this is the crux of the issue is that, controlling the external dependencies. Whether these are written by someone at the company or these would are 3rdParty dependencies, during unit testing these need to be controlled. Therefore let’s take a look at the usual suspects that might one might come across during implementing unit tests for various problems",
     "crumbs": [
       "Home",
       "Topics",
@@ -237,5 +237,29 @@
     "title": "Topics",
     "section": "",
     "text": "Visited topics during the discussion of Nuclear Cardiology"
+  },
+  {
+    "objectID": "topics/d_unit_mock_adv.html#mocking-static-functions",
+    "href": "topics/d_unit_mock_adv.html#mocking-static-functions",
+    "title": "4. Mocking advanced",
+    "section": "Mocking static functions",
+    "text": "Mocking static functions\nMockint static functions can be quite tricky sometimes, which will be demonstrated in StaticUtilsTest.java. The main problem with the static functions inside StaticUtils is that, during calls or instantiation of a static method or class, they will have unique characteristics compared to non-static ones. They can be accessed without the instantiation of a class or any type, it can only access static data and they belong to the class or “namespace” where they reside. These can be quite tricky to mock, because there is no instance to tweak here. To overcome this caveat mockito since version 5 does give us the functionality to mock static functions with the MockedStatic type allocator and mockStatic functionality. After the type has be declared with the MockedStatic allocator one can use the usual directives to alter the behaviour of the class under test.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
+    "objectID": "topics/d_unit_mock_adv.html#mocking-the-gethttprequest-function",
+    "href": "topics/d_unit_mock_adv.html#mocking-the-gethttprequest-function",
+    "title": "4. Mocking advanced",
+    "section": "Mocking the GetHttpRequest() function",
+    "text": "Mocking the GetHttpRequest() function\nThis example single handedly to most complicated task that you might face during your unit testing endeavours.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
   }
 ]
