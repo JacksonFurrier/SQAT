@@ -5,14 +5,18 @@ import sample_5.CalculatorService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Test;
+
 
 @ExtendWith(MockitoExtension.class)
 public class MathApplicationTester {
 	
    MathApplication mathApplication = new MathApplication();
-   @InjectMocks CalculatorService mCalculatorService;
+   @Mock CalculatorService mCalculatorService;
 
    @Test
    public void testAdd(){
