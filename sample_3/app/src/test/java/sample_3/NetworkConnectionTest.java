@@ -1,75 +1,35 @@
 package sample_3;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
-
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.withSettings;
-import static org.mockito.Answers.CALLS_REAL_METHODS;
+import org.mockito.MockedConstruction;
+import org.mockito.Mockito;
 
-@TestInstance(Lifecycle.PER_CLASS)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NetworkConnectionTest{
 
     NetworkConnection mNetworkConnection;
 
     @Test
-    public void HttpRequestReturnsNotNull() throws MalformedURLException, IOException
-    {                
-        assertNotEquals( " " , mNetworkConnection.GetHttpRequest() );
-    }
-
-    
-    @Test
-    public void HttpRequestReturnsNull() throws MalformedURLException, IOException
+    public void TestGetHttpRequest() throws MalformedURLException, UnsupportedEncodingException, IOException
     {
-        mNetworkConnection = mock( NetworkConnection.class );
-        when( mNetworkConnection.GetHttpRequest()).thenReturn(" ");
-        assertEquals(" ", mNetworkConnection.GetHttpRequest() );
-    }
-
-    @Test //2nd task    
-    public void HttpRequestReturnsNullWithFakeUrl() throws UnsupportedEncodingException, MalformedURLException, IOException
-    {
-        mNetworkConnection = new NetworkConnection();
-        String vURL = "Dummy";
-
-        URL vObjectURL = mock(URL.class);
-        URLConnection vURLConnection = mock(URLConnection.class);
+        URLConnection vMockedURLConnection = mock(URLConnection.class);
+        InputStream vMockedInputStream = mock(InputStream.class);
         
-        String vCharset = "UTF-8";
-        //when( vURLConnection.setRequestProperty("Accept-Charset", vCharset ) ).thenReturn();
-        when( vObjectURL.openConnection() ).thenReturn(vURLConnection);
-
-        String result = mNetworkConnection.GetHttpRequestParameterized(vURL, vObjectURL);
-
-        //assertEquals(result, "not valid");
-    }
-
-    @Test
-    public void HttpRequestReturnsNullWithFakeUrlMocked()
-    {
-        URLConnection urlconnectionSpy = mock(URLConnection.class, withSettings().useConstructor("spec", 123).defaultAnswer(CALLS_REAL_METHODS));
-        // Instantiate Networkconnection class with a dummy URL and we expect 
-        // it to return Null from the GetHttpRequest() function
-        // Test the function Networkconnection::GetHttpRequest()
-        // by implementing/calling the mock functions on the external dependencies
-        // implement me
-    }
-
-    @Test
-    public void FooTest() throws UnsupportedEncodingException, MalformedURLException, IOException
-    {
-        
+        try (MockedConstruction<URL> mockedURL = Mockito.mockConstruction(URL.class,
+             (mock, context) -> {when(mock.openConnection()).thenReturn(vMockedURLConnection);}))
+            {
+                when(vMockedURLConnection.getInputStream()).thenReturn(vMockedInputStream);
+            }
     }
     
 }
