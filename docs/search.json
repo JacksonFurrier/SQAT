@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "Software Quality and Testing (SQAT)",
     "section": "",
-    "text": "Small test in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)\nNo examination from the practice part of the course\n3 big assignments from the topics presented (Unit testing, perf. testing, web testing)\n\n\n\n\n\n1-4 weeks (Unit testing, mocking)\n5-8 weeks (Performance testing, model based testing)\n8-12 weeks (Web testing with selenium)"
+    "text": "Quiz in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)\nNo examination from the practice part of the course\n3 big assignments from the topics presented (Unit testing, perf. testing, web testing)\n\n\n\n\n\n1-4 weeks (Unit testing, mocking)\n5-8 weeks (Performance testing, model based testing)\n8-12 weeks (Web testing with selenium)"
   },
   {
     "objectID": "index.html#requirements",
     "href": "index.html#requirements",
     "title": "Software Quality and Testing (SQAT)",
     "section": "",
-    "text": "Small test in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)\nNo examination from the practice part of the course\n3 big assignments from the topics presented (Unit testing, perf. testing, web testing)\n\n\n\n\n\n1-4 weeks (Unit testing, mocking)\n5-8 weeks (Performance testing, model based testing)\n8-12 weeks (Web testing with selenium)"
+    "text": "Quiz in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)\nNo examination from the practice part of the course\n3 big assignments from the topics presented (Unit testing, perf. testing, web testing)\n\n\n\n\n\n1-4 weeks (Unit testing, mocking)\n5-8 weeks (Performance testing, model based testing)\n8-12 weeks (Web testing with selenium)"
   },
   {
     "objectID": "index.html#environment-and-devops",
@@ -184,11 +184,35 @@
     ]
   },
   {
+    "objectID": "topics/d_unit_mock_adv.html#taaks-1.",
+    "href": "topics/d_unit_mock_adv.html#taaks-1.",
+    "title": "4. Mocking advanced",
+    "section": "Taaks 1.",
+    "text": "Taaks 1.\n\nTest the static method range inside StaticUtils.java",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
     "objectID": "topics/d_unit_mock_adv.html#mocking-the-gethttprequest-function",
     "href": "topics/d_unit_mock_adv.html#mocking-the-gethttprequest-function",
     "title": "4. Mocking advanced",
     "section": "Mocking the GetHttpRequest() function",
     "text": "Mocking the GetHttpRequest() function\nThis example single handedly to most complicated task that you might face during your unit testing endeavours. As described in Mocking basics the GetHttpRequest() function has challenging problems by generally instantiating a lot of classes locally, which are final and abstract as well. To overcome these issues one can utilize various techniques to climb this mountain of “trainwreck of mocks” situation as follows\n\nSince there are multiple classes that need to be mocked away and they are encapsulated, this approach looks like backpropagation in machine learning. So we start from the innermost mock and go on to the outermost step-by-step.\nFirst we mock URLConnection in NetworkConnectionTest.java\nAs a next step InputStream is mocked so when we return it at line 46 in the CUT we will have control over it\nThe main hurdle is solved in the line 28 where the MockedConstruction is used with combination with a lambda capturing the mock and context to implement mocking.\n\nTL;DR the main problem was the dynamic allocation of a public final class the URL class, which was hard to hijack.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
+    "objectID": "topics/d_unit_mock_adv.html#tasks-2.",
+    "href": "topics/d_unit_mock_adv.html#tasks-2.",
+    "title": "4. Mocking advanced",
+    "section": "Tasks 2.",
+    "text": "Tasks 2.\n\nFinish the chain of mocks technique to gain complete control over the GetHttpRequest() function and it’s internals",
     "crumbs": [
       "Home",
       "Topics",
