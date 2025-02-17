@@ -11,4 +11,6 @@ Mockint static functions can be quite tricky sometimes, which will be demonstrat
 
 ## Mocking the [GetHttpRequest()](https://github.com/JacksonFurrier/SQAT/blob/main/sample_3/app/src/main/java/sample_3/NetworkConnection.java#L42) function
 
-This example single handedly to most complicated task that you might face during your unit testing endeavours. 
+This example single handedly to most complicated task that you might face during your unit testing endeavours. As described in [Mocking basics](https://jacksonfurrier.github.io/SQAT/topics/c_unit_mock_basic.html) the [GetHttpRequest()](https://jacksonfurrier.github.io/SQAT/topics/c_unit_mock_basic.html#the-gethttprequest-function) function has challenging problems by generally instantiating a lot of classes locally, which are ```final``` and ```abstract``` as well. To overcome these issues one can utilize various techniques to climb this mountain of "trainwreck of mocks" situation as follows
+
+* 
