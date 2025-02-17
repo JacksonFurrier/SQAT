@@ -1,22 +1,24 @@
-import org.junit.Test;
-import org.mockito.Mockito;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.withSettings;
+package sample_5;
+
+import sample_5.FooAbstract;
+
+import org.junit.jupiter.api.Test;
+
+import static org.mockito.Mockito.*;
 
 class MockingFeatureTest{
 
     @Test
     public void MockingAbstractClass()
     {
-        FooAbstract vAbstract =  spy(FooAbstract.class);
+        FooAbstract vAbstract = spy(FooAbstract.class);
     }
 
     @Test
     public void MoreAdvancedMockingAbstractClass()
     {
         FooAbstract vAbstract = mock(FooAbstract.class, withSettings()
-        .useConstructor().defaultAnswer(Mockito.CALLS_REAL_METHODS));
+        .useConstructor().defaultAnswer(CALLS_REAL_METHODS));
     }
 
 

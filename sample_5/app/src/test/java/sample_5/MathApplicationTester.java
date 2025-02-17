@@ -1,9 +1,15 @@
+package sample_5;
+
+import sample_5.MathApplication;
+import sample_5.CalculatorService;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assert;
+import org.junit.jupiter.api.Test;
+import org.junit.juputer.runner.RunWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;

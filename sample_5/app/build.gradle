@@ -12,18 +12,27 @@ plugins {
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    // Use JUnit test framework.
-    testImplementation 'junit:junit:4.13.2'
+	//junit dependencies
+	testImplementation(platform('org.junit:junit-bom:5.11.4'))
+	testImplementation('org.junit.jupiter:junit-jupiter')
+	testImplementation('org.junit.jupiter:junit-jupiter-params:5.11.4')
+	
+	testRuntimeOnly('org.junit.platform:junit-platform-launcher')
 
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:31.1-jre'
+	//mockito dependency
+	testImplementation('org.mockito:mockito-core:5.+')
 }
 
+test {
+	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+}
 application {
     // Define the main class for the application.
     mainClass = 'sample_5.App'
