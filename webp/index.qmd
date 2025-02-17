@@ -40,7 +40,7 @@ from: markdown+emoji
 >}}
 
 ### Syllabus
-* Small test in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)
+* [Quiz](https://canvas.elte.hu/courses/55140/quizzes) in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)
 * No examination from the practice part of the course
 * 3 big assignments from the topics presented (Unit testing, perf. testing, web testing)
 
