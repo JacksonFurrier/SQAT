@@ -160,6 +160,42 @@
     ]
   },
   {
+    "objectID": "topics/z_environment.html#setting-up-gradle",
+    "href": "topics/z_environment.html#setting-up-gradle",
+    "title": "7. Environment setup",
+    "section": "Setting up gradle",
+    "text": "Setting up gradle",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "7. Environment setup"
+    ]
+  },
+  {
+    "objectID": "topics/z_environment.html#supporting-video-1",
+    "href": "topics/z_environment.html#supporting-video-1",
+    "title": "7. Environment setup",
+    "section": "Supporting video",
+    "text": "Supporting video",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "7. Environment setup"
+    ]
+  },
+  {
+    "objectID": "topics/z_environment.html#running-the-samples",
+    "href": "topics/z_environment.html#running-the-samples",
+    "title": "7. Environment setup",
+    "section": "Running the samples",
+    "text": "Running the samples",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "7. Environment setup"
+    ]
+  },
+  {
     "objectID": "topics/f_selenium.html",
     "href": "topics/f_selenium.html",
     "title": "6. Selenium testing",

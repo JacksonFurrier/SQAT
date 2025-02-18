@@ -9,3 +9,14 @@ format:
 {{< video https://youtu.be/4-8p-MguKH0
     title='Environment setup - docker' 
 >}}
+
+## Setting up gradle
+
+
+
+## Supporting video
+{{< video https://youtu.be/UcLXq-HaSUg
+    title='Environment setup - running the samples' 
+>}}
+
+## Running the samples
