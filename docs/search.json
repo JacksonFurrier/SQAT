@@ -160,6 +160,18 @@
     ]
   },
   {
+    "objectID": "topics/f_selenium.html",
+    "href": "topics/f_selenium.html",
+    "title": "6. Selenium testing",
+    "section": "",
+    "text": "For selenium testing see first project and the more advanced second project.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "6. Selenium testing"
+    ]
+  },
+  {
     "objectID": "topics/d_unit_mock_adv.html",
     "href": "topics/d_unit_mock_adv.html",
     "title": "4. Mocking advanced",
@@ -241,18 +253,6 @@
       "Home",
       "Topics",
       "4. Mocking advanced"
-    ]
-  },
-  {
-    "objectID": "topics/f_selenium.html",
-    "href": "topics/f_selenium.html",
-    "title": "6. Selenium testing",
-    "section": "",
-    "text": "For selenium testing see first project and the more advanced second project.",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Selenium testing"
     ]
   },
   {

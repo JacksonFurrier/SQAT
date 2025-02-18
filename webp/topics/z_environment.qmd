@@ -1,0 +1,11 @@
+---
+title: 7. Environment setup
+format:
+    html:
+        toc: true
+---
+
+## Supporting video
+{{< video https://youtu.be/4-8p-MguKH0
+    title='Environment setup - docker' 
+>}}
