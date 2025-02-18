@@ -172,6 +172,18 @@
     ]
   },
   {
+    "objectID": "topics/d_unit_mock_adv.html#supporting-video",
+    "href": "topics/d_unit_mock_adv.html#supporting-video",
+    "title": "4. Mocking advanced",
+    "section": "Supporting video",
+    "text": "Supporting video",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
     "objectID": "topics/d_unit_mock_adv.html#mocking-static-functions",
     "href": "topics/d_unit_mock_adv.html#mocking-static-functions",
     "title": "4. Mocking advanced",
@@ -184,11 +196,23 @@
     ]
   },
   {
-    "objectID": "topics/d_unit_mock_adv.html#taaks-1.",
-    "href": "topics/d_unit_mock_adv.html#taaks-1.",
+    "objectID": "topics/d_unit_mock_adv.html#tasks-1.",
+    "href": "topics/d_unit_mock_adv.html#tasks-1.",
     "title": "4. Mocking advanced",
-    "section": "Taaks 1.",
-    "text": "Taaks 1.\n\nTest the static method range inside StaticUtils.java",
+    "section": "Tasks 1.",
+    "text": "Tasks 1.\n\nTest the static method range inside StaticUtils.java",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
+    "objectID": "topics/d_unit_mock_adv.html#supporting-video-1",
+    "href": "topics/d_unit_mock_adv.html#supporting-video-1",
+    "title": "4. Mocking advanced",
+    "section": "Supporting video",
+    "text": "Supporting video",
     "crumbs": [
       "Home",
       "Topics",

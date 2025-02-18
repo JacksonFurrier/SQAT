@@ -208,15 +208,23 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><img src="../images/mocking_advanced.webp" class="img-fluid"> Based on the previous examples, there might and will be more complex problems in unit testing. One of the big issues and mainly this is the crux of the issue is that, controlling the external dependencies. Whether these are written by someone at the company or these would are 3rdParty dependencies, during unit testing these need to be <strong>controlled</strong>. Therefore let’s take a look at the usual suspects that might one might come across during implementing unit tests for various problems</p>
+<section id="supporting-video" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-video">Supporting video</h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/jaED5AEnYsE" title="Mocking advanced i" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
 <section id="mocking-static-functions" class="level2">
 <h2 class="anchored" data-anchor-id="mocking-static-functions">Mocking static functions</h2>
 <p>Mockint static functions can be quite tricky sometimes, which will be demonstrated in <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_3/app/src/test/java/sample_3/StaticUtilsTest.java">StaticUtilsTest.java</a>. The main problem with the static functions inside <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_3/app/src/main/java/sample_3/StaticUtils.java">StaticUtils</a> is that, during calls or instantiation of a static method or <a href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://home.csulb.edu/~pnguyen/cecs277/lecnotes/static%2520in%2520java.pdf&amp;ved=2ahUKEwiA5e2qucqLAxXBzQIHHQ4fGbYQFnoECA8QAw&amp;usg=AOvVaw3GNjHFbYlz5NuMHMZGL-Aw">class</a>, they will have unique characteristics compared to non-static ones. They can be accessed without the instantiation of a class or any type, it can only access static data and they belong to the class or “namespace” where they reside. These can be quite tricky to mock, because there is no instance to tweak here. To overcome this caveat <a href="https://site.mockito.org/">mockito</a> since version 5 does give us the functionality to mock static functions with the <code>MockedStatic</code> type allocator and <code>mockStatic</code> functionality. After the type has be declared with the <code>MockedStatic</code> allocator one can use the usual directives to alter the behaviour of the class under test.</p>
 </section>
-<section id="taaks-1." class="level2">
-<h2 class="anchored" data-anchor-id="taaks-1.">Taaks 1.</h2>
+<section id="tasks-1." class="level2">
+<h2 class="anchored" data-anchor-id="tasks-1.">Tasks 1.</h2>
 <ol type="1">
 <li>Test the static method <code>range</code> inside <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_3/app/src/gh-pages/java/sample_3/StaticUtils.java">StaticUtils.java</a></li>
 </ol>
+</section>
+<section id="supporting-video-1" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-video-1">Supporting video</h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/sX9Z9RObCrM" title="Mocking advanced ii" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
 <section id="mocking-the-gethttprequest-function" class="level2">
 <h2 class="anchored" data-anchor-id="mocking-the-gethttprequest-function">Mocking the <a href="https://github.com/JacksonFurrier/SQAT/blob/gh-pages/sample_3/app/src/main/java/sample_3/NetworkConnection.java#L42">GetHttpRequest()</a> function</h2>
