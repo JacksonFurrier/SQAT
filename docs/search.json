@@ -160,11 +160,11 @@
     ]
   },
   {
-    "objectID": "topics/z_environment.html#setting-up-gradle",
-    "href": "topics/z_environment.html#setting-up-gradle",
+    "objectID": "topics/z_environment.html#setting-up-gradle---arch-linux",
+    "href": "topics/z_environment.html#setting-up-gradle---arch-linux",
     "title": "7. Environment setup",
-    "section": "Setting up gradle",
-    "text": "Setting up gradle",
+    "section": "Setting up gradle - Arch Linux",
+    "text": "Setting up gradle - Arch Linux\nFirst things first you need to install docker first. To do it you will have to consult pacman with the following command sudo pacman -S docker. After it has installed everything for you it is optional but sometimes handy to install docker-compose as well. To do that, run sudo pacman -S docker-compose.\nAfter docker has been installed on your system, pull the gradle image as written here by running sudo docker pull gradle.\nThe previous steps can be done on\n\nUbuntu\nMac\nWindows, I’d suggest to use WSL2 on windows if it is possible, makes life a bit easier.",
     "crumbs": [
       "Home",
       "Topics",
@@ -184,11 +184,11 @@
     ]
   },
   {
-    "objectID": "topics/z_environment.html#running-the-samples",
-    "href": "topics/z_environment.html#running-the-samples",
+    "objectID": "topics/z_environment.html#running-the-samples---arch-linux",
+    "href": "topics/z_environment.html#running-the-samples---arch-linux",
     "title": "7. Environment setup",
-    "section": "Running the samples",
-    "text": "Running the samples",
+    "section": "Running the samples - Arch Linux",
+    "text": "Running the samples - Arch Linux\nWhen docker based gradle is fetched you can run the commands from the editor of choice. Since I show the examples in VSCode I would suggest using it. As it is written on the gradle docker webpage you can run the examples from the sample’s root directory, by running the command docker run --rm -u gradle -v \"$PWD\":/home/gradle/project -w /home/gradle/project gradle gradle &lt;gradle-task&gt;.",
     "crumbs": [
       "Home",
       "Topics",

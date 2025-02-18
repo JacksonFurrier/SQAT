@@ -196,9 +196,9 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#supporting-video" id="toc-supporting-video" class="nav-link active" data-scroll-target="#supporting-video">Supporting video</a></li>
-  <li><a href="#setting-up-gradle" id="toc-setting-up-gradle" class="nav-link" data-scroll-target="#setting-up-gradle">Setting up gradle</a></li>
+  <li><a href="#setting-up-gradle---arch-linux" id="toc-setting-up-gradle---arch-linux" class="nav-link" data-scroll-target="#setting-up-gradle---arch-linux">Setting up gradle - Arch Linux</a></li>
   <li><a href="#supporting-video-1" id="toc-supporting-video-1" class="nav-link" data-scroll-target="#supporting-video-1">Supporting video</a></li>
-  <li><a href="#running-the-samples" id="toc-running-the-samples" class="nav-link" data-scroll-target="#running-the-samples">Running the samples</a></li>
+  <li><a href="#running-the-samples---arch-linux" id="toc-running-the-samples---arch-linux" class="nav-link" data-scroll-target="#running-the-samples---arch-linux">Running the samples - Arch Linux</a></li>
   </ul>
 </nav>
     </div>
@@ -228,15 +228,24 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="supporting-video">Supporting video</h2>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/4-8p-MguKH0" title="Environment setup - docker" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
-<section id="setting-up-gradle" class="level2">
-<h2 class="anchored" data-anchor-id="setting-up-gradle">Setting up gradle</h2>
+<section id="setting-up-gradle---arch-linux" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-gradle---arch-linux">Setting up gradle - Arch Linux</h2>
+<p>First things first you need to install <code>docker</code> first. To do it you will have to consult <code>pacman</code> with the following command <code>sudo pacman -S docker</code>. After it has installed everything for you it is optional but sometimes handy to install <code>docker-compose</code> as well. To do that, run <code>sudo pacman -S docker-compose</code>.</p>
+<p>After <a href="https://www.docker.com/">docker</a> has been installed on your system, pull the gradle image as written <a href="https://hub.docker.com/_/gradle/">here</a> by running <code>sudo docker pull gradle</code>.</p>
+<p>The previous steps can be done on</p>
+<ol type="1">
+<li><a href="https://docs.docker.com/engine/install/ubuntu/">Ubuntu</a></li>
+<li><a href="https://docs.docker.com/desktop/setup/install/mac-install/">Mac</a></li>
+<li><a href="https://docs.docker.com/desktop/setup/install/windows-install/">Windows</a>, I’d suggest to use WSL2 on windows if it is possible, makes life a bit easier.</li>
+</ol>
 </section>
 <section id="supporting-video-1" class="level2">
 <h2 class="anchored" data-anchor-id="supporting-video-1">Supporting video</h2>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/UcLXq-HaSUg" title="Environment setup - running the samples" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
-<section id="running-the-samples" class="level2">
-<h2 class="anchored" data-anchor-id="running-the-samples">Running the samples</h2>
+<section id="running-the-samples---arch-linux" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-samples---arch-linux">Running the samples - Arch Linux</h2>
+<p>When docker based gradle is fetched you can run the commands from the editor of choice. Since I show the examples in <a href="https://code.visualstudio.com/">VSCode</a> I would suggest using it. As it is written on the <a href="https://hub.docker.com/_/gradle/">gradle docker webpage</a> you can run the examples from the sample’s root directory, by running the command <code>docker run --rm -u gradle -v "$PWD":/home/gradle/project -w /home/gradle/project gradle gradle &lt;gradle-task&gt;</code>.</p>
 
 
 </section>
