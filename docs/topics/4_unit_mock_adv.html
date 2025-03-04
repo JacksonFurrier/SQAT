@@ -6,12 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Adam Istvan Szucs">
-<meta name="author" content="Gabor Arpad Nemeth">
-<meta name="author" content="Peter Hudoba">
-<meta name="dcterms.date" content="2024-12-10">
 
-<title>Software Quality and Testing (SQAT)</title>
+<title>4. Mocking advanced</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -27,22 +23,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1a3a3ddb157f3ae3b1223cb331bd1f66.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1a3a3ddb157f3ae3b1223cb331bd1f66.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed">
+<body class="nav-sidebar floating nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -87,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
 </ul>
@@ -116,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Software Quality and Testing (SQAT)</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/1_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/4_unit_mock_adv.html">4. Mocking advanced</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -147,49 +143,49 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/1_unit_basic.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/1_unit_basic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. Unit testing basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/10_selenium.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/10_selenium.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7&lt;. Selenium testing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/11_environment.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/11_environment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">8. Environment setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/2_unit_adv.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/2_unit_adv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. Unit testing advanced</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/3_unit_mock_basic.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/3_unit_mock_basic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. Mocking basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/4_unit_mock_adv.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/4_unit_mock_adv.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">4. Mocking advanced</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/5_performance_testing.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/5_performance_testing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5. Performance testing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/9_gitlab.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/9_gitlab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6. Gitlab techniques</span></a>
   </div>
 </li>
@@ -200,84 +196,20 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link active" data-scroll-target="#requirements">Requirements</a>
-  <ul class="collapse">
-  <li><a href="#supporting-video" id="toc-supporting-video" class="nav-link" data-scroll-target="#supporting-video">Supporting video</a></li>
-  <li><a href="#syllabus" id="toc-syllabus" class="nav-link" data-scroll-target="#syllabus">Syllabus</a></li>
-  <li><a href="#agenda" id="toc-agenda" class="nav-link" data-scroll-target="#agenda">Agenda</a></li>
-  </ul></li>
-  <li><a href="#environment-and-devops" id="toc-environment-and-devops" class="nav-link" data-scroll-target="#environment-and-devops">Environment and devops</a>
-  <ul class="collapse">
-  <li><a href="#env" id="toc-env" class="nav-link" data-scroll-target="#env">Env</a></li>
-  <li><a href="#dev" id="toc-dev" class="nav-link" data-scroll-target="#dev">Dev</a></li>
-  </ul></li>
-  <li><a href="#base-materials" id="toc-base-materials" class="nav-link" data-scroll-target="#base-materials">Base materials</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/1_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/4_unit_mock_adv.html">4. Mocking advanced</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Software Quality and Testing (SQAT)</h1>
-<p class="subtitle lead">The tale of testing for IPM-22fkbSQTG</p>
+<h1 class="title">4. Mocking advanced</h1>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
-  <div class="quarto-title-meta-heading">Affiliations</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Adam Istvan Szucs <a href="mailto:szaqaei@inf.elte.hu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-7984-4542" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Eötvös Loránd University (Hungary)
-          </p>
-        <p class="affiliation">
-            
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Gabor Arpad Nemeth <a href="mailto:nga@inf.elte.hu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-2554-9860" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Eötvös Loránd University (Hungary)
-          </p>
-        <p class="affiliation">
-            
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Peter Hudoba <a href="mailto:hudoba.peter@inf.elte.hu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0001-5810-4193" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Eötvös Loránd University (Hungary)
-          </p>
-        <p class="affiliation">
-            
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">December 10, 2024</p>
-    </div>
-  </div>
+    
   
     
   </div>
@@ -287,53 +219,41 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="requirements" class="level2">
-<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
-<section id="supporting-video" class="level3">
-<h3 class="anchored" data-anchor-id="supporting-video">Supporting video</h3>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/sRsEJCc8BME" title="SQAT Introduction" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p><img src="../images/mocking_advanced.webp" class="img-fluid"> Based on the previous examples, there might and will be more complex problems in unit testing. One of the big issues and mainly this is the crux of the issue is that, controlling the external dependencies. Whether these are written by someone at the company or these would are 3rdParty dependencies, during unit testing these need to be <strong>controlled</strong>. Therefore let’s take a look at the usual suspects that might one might come across during implementing unit tests for various problems</p>
+<section id="supporting-video" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-video">Supporting video</h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/jaED5AEnYsE" title="Mocking advanced i" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
-<section id="syllabus" class="level3">
-<h3 class="anchored" data-anchor-id="syllabus">Syllabus</h3>
+<section id="mocking-static-functions" class="level2">
+<h2 class="anchored" data-anchor-id="mocking-static-functions">Mocking static functions</h2>
+<p>Mockint static functions can be quite tricky sometimes, which will be demonstrated in <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_3/app/src/test/java/sample_3/StaticUtilsTest.java">StaticUtilsTest.java</a>. The main problem with the static functions inside <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_3/app/src/main/java/sample_3/StaticUtils.java">StaticUtils</a> is that, during calls or instantiation of a static method or <a href="https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://home.csulb.edu/~pnguyen/cecs277/lecnotes/static%2520in%2520java.pdf&amp;ved=2ahUKEwiA5e2qucqLAxXBzQIHHQ4fGbYQFnoECA8QAw&amp;usg=AOvVaw3GNjHFbYlz5NuMHMZGL-Aw">class</a>, they will have unique characteristics compared to non-static ones. They can be accessed without the instantiation of a class or any type, it can only access static data and they belong to the class or “namespace” where they reside. These can be quite tricky to mock, because there is no instance to tweak here. To overcome this caveat <a href="https://site.mockito.org/">mockito</a> since version 5 does give us the functionality to mock static functions with the <code>MockedStatic</code> type allocator and <code>mockStatic</code> functionality. After the type has be declared with the <code>MockedStatic</code> allocator one can use the usual directives to alter the behaviour of the class under test.</p>
+</section>
+<section id="tasks-1." class="level2">
+<h2 class="anchored" data-anchor-id="tasks-1.">Tasks 1.</h2>
+<ol type="1">
+<li>Test the static method <code>range</code> inside <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_3/app/src/gh-pages/java/sample_3/StaticUtils.java">StaticUtils.java</a></li>
+</ol>
+</section>
+<section id="supporting-video-1" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-video-1">Supporting video</h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/sX9Z9RObCrM" title="Mocking advanced ii" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="mocking-the-gethttprequest-function" class="level2">
+<h2 class="anchored" data-anchor-id="mocking-the-gethttprequest-function">Mocking the <a href="https://github.com/JacksonFurrier/SQAT/blob/gh-pages/sample_3/app/src/main/java/sample_3/NetworkConnection.java#L42">GetHttpRequest()</a> function</h2>
+<p>This example single handedly to most complicated task that you might face during your unit testing endeavours. As described in <a href="https://jacksonfurrier.github.io/SQAT/topics/c_unit_mock_basic.html">Mocking basics</a> the <a href="https://jacksonfurrier.github.io/SQAT/topics/c_unit_mock_basic.html#the-gethttprequest-function">GetHttpRequest()</a> function has challenging problems by generally instantiating a lot of classes locally, which are <code>final</code> and <code>abstract</code> as well. To overcome these issues one can utilize various techniques to climb this mountain of “trainwreck of mocks” situation as follows</p>
 <ul>
-<li><a href="https://canvas.elte.hu/courses/55140/quizzes">Quiz</a> in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)</li>
-<li>No examination from the practice part of the course</li>
-<li>3 big assignments from the topics presented (Unit testing, perf. testing, web testing)</li>
+<li>Since there are multiple classes that need to be mocked away and they are encapsulated, this approach looks like <a href="https://en.wikipedia.org/wiki/Backpropagation">backpropagation</a> in machine learning. So we start from the innermost mock and go on to the outermost step-by-step.</li>
+<li>First we mock <code>URLConnection</code> in <a href="https://github.com/JacksonFurrier/SQAT/blob/gh-pages/sample_3/app/src/test/java/sample_3/NetworkConnectionTest.java">NetworkConnectionTest.java</a></li>
+<li>As a next step <code>InputStream</code> is mocked so when we return it at <a href="https://github.com/JacksonFurrier/SQAT/blob/gh-pages/sample_3/app/src/main/java/sample_3/NetworkConnection.java#L46">line 46</a> in the CUT we will have control over it</li>
+<li>The main hurdle is solved in the <a href="https://github.com/JacksonFurrier/SQAT/blob/gh-pages/sample_3/app/src/test/java/sample_3/NetworkConnectionTest.java#L28">line 28</a> where the <code>MockedConstruction</code> is used with combination with a lambda capturing the <code>mock</code> and <code>context</code> to implement mocking.</li>
 </ul>
+<p>TL;DR the main problem was the dynamic allocation of a <code>public final class</code> the <code>URL</code> class, which was hard to hijack.</p>
 </section>
-<section id="agenda" class="level3">
-<h3 class="anchored" data-anchor-id="agenda">Agenda</h3>
-<ul>
-<li>1-4 weeks (Unit testing, mocking)</li>
-<li>5-8 weeks (Performance testing, model based testing)</li>
-<li>8-12 weeks (Web testing with selenium)</li>
-</ul>
-</section>
-</section>
-<section id="environment-and-devops" class="level2">
-<h2 class="anchored" data-anchor-id="environment-and-devops">Environment and devops</h2>
-<section id="env" class="level3">
-<h3 class="anchored" data-anchor-id="env">Env</h3>
-<ul>
-<li>Please check the README at <a href="https://github.com/JacksonFurrier/SQAT">github</a> and try to set up the environment</li>
-<li>If it didn’t work please watch the environment set up videos on youtube</li>
-<li><a href="https://git-scm.com/">git</a> is used as a primary version controlling system. If you are not familiar with it, I suggest to visit <a href="https://learngitbranching.js.org/">learn-git-branching</a>, which is the best interactive source on the topic, in my opinion.</li>
-<li>We will use Java for demonstration so don’t forget to install thenecessary packages <a href="https://www.oracle.com/java/technologies/downloads/">JDK</a></li>
-<li>The build system of choice is <a href="https://docs.gradle.org/current/userguide/userguide.html">gradle</a>. With one little trick so nobody needs to set environment variables or install gradle at all. We utilize <a href="https://www.docker.com/">Docker</a>, which is runnable on every OS and we will use the following image <a href="https://hub.docker.com/_/gradle">gradle-docker</a></li>
-</ul>
-</section>
-<section id="dev" class="level3">
-<h3 class="anchored" data-anchor-id="dev">Dev</h3>
-<ul>
-<li>You can use any IDE of choice, however, I will present the practices in <a href="https://code.visualstudio.com/">vscode</a></li>
-<li>You will need to run the docker aided build command from CMD so best is to use an IDE that supports it</li>
-<li>Debug, Test running capabilites are a plus, but not necessary</li>
-</ul>
-</section>
-</section>
-<section id="base-materials" class="level2">
-<h2 class="anchored" data-anchor-id="base-materials">Base materials</h2>
-<p>Materials that can be used to learn the topic <a href="https://www.artofunittesting.com/">art-of-unit-testing</a>, <a href="https://www.manning.com/books/unit-testing">unit-testing</a>, <a href="https://www.amazon.com/Selenium-Testing-Cookbook-Gundecha-Unmesh/dp/1849515743">web-testing</a>, <a href="https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468">agile-testing</a>.</p>
+<section id="tasks-2." class="level2">
+<h2 class="anchored" data-anchor-id="tasks-2.">Tasks 2.</h2>
+<ol type="1">
+<li>Finish the chain of mocks technique to gain complete control over the <code>GetHttpRequest()</code> function and it’s internals</li>
+</ol>
 
 
 </section>

@@ -1,5 +1,5 @@
 ---
-title: 5. Gitlab techniques
+title: 6. Gitlab techniques
 format:
     html:
         toc: true

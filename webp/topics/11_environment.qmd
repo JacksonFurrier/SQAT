@@ -1,5 +1,5 @@
 ---
-title: 7. Environment setup
+title: 8. Environment setup
 format:
     html:
         toc: true

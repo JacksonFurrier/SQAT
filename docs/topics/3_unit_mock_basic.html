@@ -6,12 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Adam Istvan Szucs">
-<meta name="author" content="Gabor Arpad Nemeth">
-<meta name="author" content="Peter Hudoba">
-<meta name="dcterms.date" content="2024-12-10">
 
-<title>Software Quality and Testing (SQAT)</title>
+<title>3. Mocking basics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -27,22 +23,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1a3a3ddb157f3ae3b1223cb331bd1f66.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1a3a3ddb157f3ae3b1223cb331bd1f66.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
 </ul>
@@ -116,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Software Quality and Testing (SQAT)</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/1_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/3_unit_mock_basic.html">3. Mocking basics</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -147,49 +143,49 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/1_unit_basic.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/1_unit_basic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1. Unit testing basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/10_selenium.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/10_selenium.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">7&lt;. Selenium testing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/11_environment.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/11_environment.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">8. Environment setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/2_unit_adv.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/2_unit_adv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. Unit testing advanced</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/3_unit_mock_basic.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/3_unit_mock_basic.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">3. Mocking basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/4_unit_mock_adv.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/4_unit_mock_adv.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">4. Mocking advanced</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/5_performance_testing.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/5_performance_testing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">5. Performance testing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./topics/9_gitlab.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/9_gitlab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6. Gitlab techniques</span></a>
   </div>
 </li>
@@ -205,79 +201,32 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#requirements" id="toc-requirements" class="nav-link active" data-scroll-target="#requirements">Requirements</a>
+  <li><a href="#supporting-video" id="toc-supporting-video" class="nav-link active" data-scroll-target="#supporting-video">Supporting video</a></li>
+  <li><a href="#example-1." id="toc-example-1." class="nav-link" data-scroll-target="#example-1.">Example 1.</a>
   <ul class="collapse">
-  <li><a href="#supporting-video" id="toc-supporting-video" class="nav-link" data-scroll-target="#supporting-video">Supporting video</a></li>
-  <li><a href="#syllabus" id="toc-syllabus" class="nav-link" data-scroll-target="#syllabus">Syllabus</a></li>
-  <li><a href="#agenda" id="toc-agenda" class="nav-link" data-scroll-target="#agenda">Agenda</a></li>
+  <li><a href="#supporting-video-1" id="toc-supporting-video-1" class="nav-link" data-scroll-target="#supporting-video-1">Supporting video</a></li>
+  <li><a href="#the-gethttprequest-function" id="toc-the-gethttprequest-function" class="nav-link" data-scroll-target="#the-gethttprequest-function">The GetHttpRequest() function</a></li>
+  <li><a href="#mocking-a-simple-function" id="toc-mocking-a-simple-function" class="nav-link" data-scroll-target="#mocking-a-simple-function">Mocking a simple function</a></li>
+  <li><a href="#problems-with-testing-gethttprequest-function" id="toc-problems-with-testing-gethttprequest-function" class="nav-link" data-scroll-target="#problems-with-testing-gethttprequest-function">Problems with testing GetHttpRequest() function</a></li>
+  <li><a href="#supporting-video-2" id="toc-supporting-video-2" class="nav-link" data-scroll-target="#supporting-video-2">Supporting video</a></li>
   </ul></li>
-  <li><a href="#environment-and-devops" id="toc-environment-and-devops" class="nav-link" data-scroll-target="#environment-and-devops">Environment and devops</a>
-  <ul class="collapse">
-  <li><a href="#env" id="toc-env" class="nav-link" data-scroll-target="#env">Env</a></li>
-  <li><a href="#dev" id="toc-dev" class="nav-link" data-scroll-target="#dev">Dev</a></li>
-  </ul></li>
-  <li><a href="#base-materials" id="toc-base-materials" class="nav-link" data-scroll-target="#base-materials">Base materials</a></li>
+  <li><a href="#tasks-1." id="toc-tasks-1." class="nav-link" data-scroll-target="#tasks-1.">Tasks 1.</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/1_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/3_unit_mock_basic.html">3. Mocking basics</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Software Quality and Testing (SQAT)</h1>
-<p class="subtitle lead">The tale of testing for IPM-22fkbSQTG</p>
+<h1 class="title">3. Mocking basics</h1>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
-  <div class="quarto-title-meta-heading">Affiliations</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Adam Istvan Szucs <a href="mailto:szaqaei@inf.elte.hu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-7984-4542" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Eötvös Loránd University (Hungary)
-          </p>
-        <p class="affiliation">
-            
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Gabor Arpad Nemeth <a href="mailto:nga@inf.elte.hu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-2554-9860" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Eötvös Loránd University (Hungary)
-          </p>
-        <p class="affiliation">
-            
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">Peter Hudoba <a href="mailto:hudoba.peter@inf.elte.hu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0001-5810-4193" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Eötvös Loránd University (Hungary)
-          </p>
-        <p class="affiliation">
-            
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">December 10, 2024</p>
-    </div>
-  </div>
+    
   
     
   </div>
@@ -287,53 +236,76 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="requirements" class="level2">
-<h2 class="anchored" data-anchor-id="requirements">Requirements</h2>
+<p><img src="../images/mocking.webp" class="img-fluid"></p>
+<p>Mocking is one of the most powerful techniques in unit testing, which can be leveraged to solve complex problems in testing. There can be cases as mentioned in previous videos, that, one needs to test some implementation with 3rdparty functionality. However, the problem is that, one can not control these functionalities totally. To overcome this hurdle, one must use <a href="https://en.wikipedia.org/wiki/Mock_object">mocking</a>.</p>
 <section id="supporting-video" class="level3">
 <h3 class="anchored" data-anchor-id="supporting-video">Supporting video</h3>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/sRsEJCc8BME" title="SQAT Introduction" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Ss_gHE4tZdo" title="Mocking basics i" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
-<section id="syllabus" class="level3">
-<h3 class="anchored" data-anchor-id="syllabus">Syllabus</h3>
+<section id="example-1." class="level2">
+<h2 class="anchored" data-anchor-id="example-1.">Example 1.</h2>
+<p>The best way to understand mocking is to check examples of mocking, therefore we turn to <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_2">sample_2</a> and more specifically, to <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/NetworkConnection.java">NetworkConnection.java</a> and <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/test/java/sample_2/NetworkConnectionTest.java">NetworkConnectionTest.java</a>.</p>
+<p>First let’s understand what <code>NetworkConnection.java</code> implementation is about.</p>
 <ul>
-<li><a href="https://canvas.elte.hu/courses/55140/quizzes">Quiz</a> in the first 5-10 minutes of every class (3 x 3 = 9 test in total, at least 5 needed to pass)</li>
-<li>No examination from the practice part of the course</li>
-<li>3 big assignments from the topics presented (Unit testing, perf. testing, web testing)</li>
+<li><p>It has three members, <code>mUrl, mCharset, mQuery</code> denoting the URL that we plan to connect to, the coding charset that will be used during the established connection, and the query used to encode the different parameters during the connection establishment.</p></li>
+<li><p>The constructors doesn’t need much description, however the function <code>public String GetHttpRequest() throws MalformedURLException, IOException</code> does need some further clarity.</p></li>
 </ul>
+<section id="supporting-video-1" class="level3">
+<h3 class="anchored" data-anchor-id="supporting-video-1">Supporting video</h3>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/BD8hz1_tFws" title="Mocking basics ii" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 </section>
-<section id="agenda" class="level3">
-<h3 class="anchored" data-anchor-id="agenda">Agenda</h3>
+<section id="the-gethttprequest-function" class="level3">
+<h3 class="anchored" data-anchor-id="the-gethttprequest-function">The GetHttpRequest() function</h3>
+<p>To test this <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/NetworkConnection.java#L42">GetHttpRequest()</a> function is a tricky one.</p>
+<ol type="1">
+<li>It starts by <code>URLConnection vConnection = new URL( mUrl + "?" + mQuery).openConnection();</code> which is basically opening the connection to the remote website that was specified in the member string.</li>
+<li>Next <code>vConnection.setRequestProperty("Accept-Charset", mCharset);</code> sets the properties of the connection request, in our case it is <code>UTF-8</code></li>
+<li>After the connection has been established the code waits for a response by <code>InputStream vResponse = vConnection.getInputStream( );</code> and saves it into a local variable</li>
+<li>As a last step, the <code>InputStream</code> is traversed with a Scanner <code>Scanner scanner = new Scanner( vResponse )</code> using <code>\\A</code> as a delimiter.</li>
+</ol>
+<p>To test this function one must overcome massive amount of hurdles to have it as an actual unit test. Lets start at the basics first to reach the point, where we are braced with the knowledge to test such complicated <a href="https://en.wikipedia.org/wiki/Mock_trainwreck">chain-of-mocks</a> examples.</p>
+</section>
+<section id="mocking-a-simple-function" class="level3">
+<h3 class="anchored" data-anchor-id="mocking-a-simple-function">Mocking a simple function</h3>
+<p>First check out the <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/test/java/sample_2/NetworkConnectionTest.java">NetworkConnectionTest.java</a></p>
+<ol type="1">
+<li>This test class start by doing a <code>BlackMagic()</code> as a Setup function by instantiating the <code>NetworkConnection</code> class</li>
+<li>The <code>HttpRequestReturnsNotNull()</code> test case simply tests if the <code>GetHttpRequest()</code> function returns <code>String</code> containing a space</li>
+<li>Now the most interesting for is the <code>HttpRequestReturnsNull()</code> where the actual mocking happens
 <ul>
-<li>1-4 weeks (Unit testing, mocking)</li>
-<li>5-8 weeks (Performance testing, model based testing)</li>
-<li>8-12 weeks (Web testing with selenium)</li>
-</ul>
+<li>First we need to specify, which class we would like to mock <code>mNetworkConnection = mock( NetworkConnection.class );</code></li>
+<li>The next step is <code>when( mNetworkConnection.GetHttpRequest()).thenReturn(" ");</code> to alter the functionality of the original class</li>
+<li>Asserting against the altering of the original functionality by <code>assertEquals(" ", mNetworkConnection.GetHttpRequest() );</code></li>
+</ul></li>
+</ol>
+<p>This simple example shows that, basically with mocks we can alter the behaviour of any function inside our implementation. However, the first example is much more complicated than that, because there are some internal local variables initialized by 3rdparty functionalities, which makes <a href="https://en.wikipedia.org/wiki/Dependency_injection">mock-injection</a> extremely hard.</p>
 </section>
-</section>
-<section id="environment-and-devops" class="level2">
-<h2 class="anchored" data-anchor-id="environment-and-devops">Environment and devops</h2>
-<section id="env" class="level3">
-<h3 class="anchored" data-anchor-id="env">Env</h3>
+<section id="problems-with-testing-gethttprequest-function" class="level3">
+<h3 class="anchored" data-anchor-id="problems-with-testing-gethttprequest-function">Problems with testing GetHttpRequest() function</h3>
+<p>The main issues with <code>public String GetHttpRequest() throws MalformedURLException, IOException</code> are the following</p>
 <ul>
-<li>Please check the README at <a href="https://github.com/JacksonFurrier/SQAT">github</a> and try to set up the environment</li>
-<li>If it didn’t work please watch the environment set up videos on youtube</li>
-<li><a href="https://git-scm.com/">git</a> is used as a primary version controlling system. If you are not familiar with it, I suggest to visit <a href="https://learngitbranching.js.org/">learn-git-branching</a>, which is the best interactive source on the topic, in my opinion.</li>
-<li>We will use Java for demonstration so don’t forget to install thenecessary packages <a href="https://www.oracle.com/java/technologies/downloads/">JDK</a></li>
-<li>The build system of choice is <a href="https://docs.gradle.org/current/userguide/userguide.html">gradle</a>. With one little trick so nobody needs to set environment variables or install gradle at all. We utilize <a href="https://www.docker.com/">Docker</a>, which is runnable on every OS and we will use the following image <a href="https://hub.docker.com/_/gradle">gradle-docker</a></li>
+<li>The first initialization is complicated as it is. <code>URLConnection</code> type on the left-hand-side initialized by a new <code>URL</code> class’s <code>openConnection()</code> function. This will be extremely challenging because we can’t access these from the outside, these are local functionalities and local variables. Further, <code>URLConnection</code> is <code>public abstract class</code> which is hard to mock</li>
+<li>The next invocation, setting the rquest property on a local variable, which is challenging to handle</li>
+<li>Forward, the inputstream handling is based on <code>URLConnection</code> type local variable, where the <code>getInputStream()</code> function needs to be mocked</li>
+<li>In the <code>try</code> block a <code>Scanner</code> type is instantiated, where this needs to be mocked as well where the fact, <code>public final class</code> just complicates mocking</li>
+<li>Inside the scanning <code>try</code> block only the <code>useDelimiter()</code> function needs to be mocked, however it is a bit complicated as discussed before</li>
 </ul>
+<p>TL;DR this task is challenging because there is the technique <a href="https://en.wikipedia.org/wiki/Mock_trainwreck">chain-of-mocks</a> that need to be applied sequentally complicated by <code>abstract</code> and <code>final</code> classes that need to be mocked out.</p>
 </section>
-<section id="dev" class="level3">
-<h3 class="anchored" data-anchor-id="dev">Dev</h3>
+<section id="supporting-video-2" class="level3">
+<h3 class="anchored" data-anchor-id="supporting-video-2">Supporting video</h3>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/V95RgoNFKwI" title="Mocking basics iii" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+</section>
+<section id="tasks-1." class="level2">
+<h2 class="anchored" data-anchor-id="tasks-1.">Tasks 1.</h2>
+<p>Implement a mocking strategy to gain control over all the external functionality inside <code>GetHttpRequest()</code></p>
 <ul>
-<li>You can use any IDE of choice, however, I will present the practices in <a href="https://code.visualstudio.com/">vscode</a></li>
-<li>You will need to run the docker aided build command from CMD so best is to use an IDE that supports it</li>
-<li>Debug, Test running capabilites are a plus, but not necessary</li>
+<li><code>URL</code> and <code>URLConnection</code> need to be mocked from the outside</li>
+<li><code>setRequestProperty()</code> has to be mocked as well alongside with <code>getInputStream</code></li>
+<li><code>InputStream</code> class has to be mocked</li>
+<li><code>Scanner</code> class has to be mocked with the <code>useDelimiter()</code> and <code>next()</code> function as well</li>
 </ul>
-</section>
-</section>
-<section id="base-materials" class="level2">
-<h2 class="anchored" data-anchor-id="base-materials">Base materials</h2>
-<p>Materials that can be used to learn the topic <a href="https://www.artofunittesting.com/">art-of-unit-testing</a>, <a href="https://www.manning.com/books/unit-testing">unit-testing</a>, <a href="https://www.amazon.com/Selenium-Testing-Cookbook-Gundecha-Unmesh/dp/1849515743">web-testing</a>, <a href="https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468">agile-testing</a>.</p>
 
 
 </section>

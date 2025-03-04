@@ -28,272 +28,8 @@
     "text": "Base materials\nMaterials that can be used to learn the topic art-of-unit-testing, unit-testing, web-testing, agile-testing."
   },
   {
-    "objectID": "topics/b_unit_adv.html",
-    "href": "topics/b_unit_adv.html",
-    "title": "2. Unit testing advanced",
-    "section": "",
-    "text": "There can be cases where the task at hand is not as easy as it is with sample_1. One of the cases is when exceptions are at play. Take a look at the next example that we will go through here sample_2. Our first CUT will be Hellolink.java and let’s take a look at its implementation",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "2. Unit testing advanced"
-    ]
-  },
-  {
-    "objectID": "topics/b_unit_adv.html#supporting-video",
-    "href": "topics/b_unit_adv.html#supporting-video",
-    "title": "2. Unit testing advanced",
-    "section": "Supporting video",
-    "text": "Supporting video",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "2. Unit testing advanced"
-    ]
-  },
-  {
-    "objectID": "topics/b_unit_adv.html#example-1",
-    "href": "topics/b_unit_adv.html#example-1",
-    "title": "2. Unit testing advanced",
-    "section": "Example 1",
-    "text": "Example 1\nOne of our main goal here is to reach a high level of coverage, therefore we would like to test most of the functions. If we take a look at public int multiply(int aLeft, int aRight) how do we actually test such a function and assure that it will give us the correct results in all circumstances. Testing all the different numbers in the int type would take years, therefore there should be some other technique that we can apply to do testing on this function. Otherwise, implementing the test of each individual number for the int type would result in multiple millions lines of code, which is unmaintainable. To overcome these problems, one can apply the parameterized tests to handle the different cases from a small sized code. The solution goes as follows\n\nThe test function shall be annotated by the @ParameterizedTest annotation, where additionally the framework needs data to feed to the test function, which can be approached with @CsvSource annotation.\n\n\nTasks 1\n\nRun the sample_2 and inspect the report\nCheck what is wrong with public void numeric_test(int left, int right)\nImplement the missing functionality in Hellolink.java",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "2. Unit testing advanced"
-    ]
-  },
-  {
-    "objectID": "topics/b_unit_adv.html#supporting-video-1",
-    "href": "topics/b_unit_adv.html#supporting-video-1",
-    "title": "2. Unit testing advanced",
-    "section": "Supporting video",
-    "text": "Supporting video",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "2. Unit testing advanced"
-    ]
-  },
-  {
-    "objectID": "topics/b_unit_adv.html#example-2",
-    "href": "topics/b_unit_adv.html#example-2",
-    "title": "2. Unit testing advanced",
-    "section": "Example 2",
-    "text": "Example 2\nIt is good to have some sufficient numerical tests, but there are other functionalities that need some check-ups. One of the main issues with Hellolink.java is that, it exposes a constructor, which initializes a vector with a certain amount of parameters. Later on this could be a problem, since nobody assures that the users of our code won’t access out of bounds elements of our vector, which should be handled inside our functions. To do this, one can implement the public void IndexOutOfBoundsTest() function, which does that exactly. This function is simple, it initializes a local variable of our Hellolink.java class and then asserts against if the access of that vector raises an exception with the help of assertThrows.\nThere can be cases, when during TDD one implements the tests first, but softly doesn’ want them to fail at first. This goal can be achieved by simply putting the @Disabled annotation with a reasonable message in the test cases.\nSometimes the timing of the test running is important, therefore one needs to put certain blocks on the execution of test functions. This can be done by annotating, the test case with @Timeout(NUM), where NUM is the number if milliseconds that the test will be blocked.\n\nTasks 2\n\nTry to write a test such that, public int multiply(int aLeft, int aRight) throws an exception\nWrite a test such that certain cases inside the parameterized tests will be disabled",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "2. Unit testing advanced"
-    ]
-  },
-  {
-    "objectID": "topics/a_unit_basic.html#supporting-video",
-    "href": "topics/a_unit_basic.html#supporting-video",
-    "title": "1. Unit testing basics",
-    "section": "Supporting video",
-    "text": "Supporting video\n\n\n\n\n\n\n\nWhy is it called unit testing?\n\n\n\nIt is a simple fact that, the reason why it is called unit testing is because, the aim of the tests written by us (developers) is to assure the quality and reliability of the code implemented.\n\n\n\n\n\n\n\n\nDefinition (Unit testing 1.)\n\n\n\nA unit test is a piece of a code (usually a method) that invokes another piece of code and checks the correctness of some assumption afterward. If the assumptions turn out to be wrong, the unit test has failed. A unit is a method or function.\n\n\n\n\n\n\n\n\nDefinition (SUT and CUT)\n\n\n\nSUT stand for system under test, and some people like to use CUT (class under test or code under test). When you test something, you refer to the thing you’re testing as the SUT/CUT.\n\n\nNow I think the best way to understand this is to check how it looks in code, take a look at the following example.",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "1. Unit testing basics"
-    ]
-  },
-  {
-    "objectID": "topics/a_unit_basic.html#example-1.",
-    "href": "topics/a_unit_basic.html#example-1.",
-    "title": "1. Unit testing basics",
-    "section": "Example 1.",
-    "text": "Example 1.\nTake a look at the code written in sample_1, which will be disected in the forthcoming few sections. The project resides under the folder app and the rest are build files generally, where settings.gradle what interests us. Inside the gradle settings, we can inspect what we will be testing during this first example. Namely, rootProject.name will tell us the package where the class resides and include will contain the name of it. If we go to App.java we can see that the SUT/CUT is class App. There are a few practical things to note at this point\n\nThe CUT is public which renders it testable from the outside, otherwise it would be extremely hard to “break” into the internals of the class at hand\nAll the functions that are implemented inside the class are public as well, which is also necessary for testing purposes\n\n\n\n\n\n\n\nIn case of sample_1/App.java what is the CUT? What is the smallest unit of code that can be tested?\n\n\n\nIt is always subjective to the actual codebase that you are working on, what would be the smallest amount/unit of code that can be tested by these unit testing techniques. Usually it is a good descriptor of the codebase at hand on how big is this thing actually.\n\n\nGoing further, to do unit testing it is a necessity to understand the actual code at hand, which in this case is the following\n\nThe class has three constructors, a default App(), a simple overload App(int aNumber), which sets only private member of the class and App(boolean aWait), which makes the constructor wait for a certain amount of time to evaluate.1\nHas a simple function returning a greeting String getGreeting()\nThe usual java public static void main(String[] args) function, nothing special about it\nA print function, public static void callNavi(String aMessage), which simply forwards the arguments to the standard output\nA multiply function public int multiply(int aLeft, int aRight), which gets two arguments, and multiplies two numbers.\n\n\n\n\n\n\n\nUnderstanding these functionalities, which ones are actually testable? And if they are testable, is it justified at all to test them?\n\n\n\nNow you can see sometimes, a function which is testable might not be a good candidate for tests because simply it is irrelevant and other cases there might be functions are not testable and relevant, which is the worst case possible in terms of testing.\n\n\nTo test the functionalities inside sample_1 we have to understand the build system a little bit better. Take a look at build.gradle file and see what it does in terms of helping us test the previous functionnalities. The structure is the following, plugins tells us what class/package/application are we building with the help of gradle. the next one is one of the most important ones, which is repositories, which tells gradle wherefrom to fetch the necessary libraries and packages to build and run the project and its dependencies. The next one is dependencies which as the name tells lists all the dependencies needed by our application. The testing block specifies the actual testing libraries that we will use throught the project to run the implemented tests. The last one is application, which defines what is the main class, the main entry point, which can be used by the frameworks.\nNow, let’s take a look at the already implemented test inside Apptest.java. The structure is the following\n\nIt starts by importing all the necessary packages, it is nothing special\nIt is a public class so the unit testing framework can access all the details inside it\nInside the class there is one member App mApp, which is basically the application that we are about to test.\nHere comes the cool part, the first function that will be run by our unt testing framework (junit5) is the usual Setup function with the @Before annotation. This function simply runs only once before all the tests are being run by our framework. In this case it is simply constructing our App class with 0 in the constructor argument.\nNext the function multiplicationOfZeroIntegereShouldReturnZero is being implemented. The usual test functions shall be annotated with @Test. Here comes the interesting part, inside this function there are assertions, which means the test is assumptions and asserting against them.\n\n\n\n\n\n\n\nAt this point, can you tell what might be the problem if we have multiple assertions inside a single test function?\n\n\n\nImagine having 10.000 tests and having multiple assertions inside them, how would you be able to pinpoint where the implementation might have gone wrong?\n\n\n\nThe similar function multiplicationOfZeroIntegereShouldReturnZeroWithMember has the same-ish functionality, however if you take a look it doesn’t have an instantiation of the class that will be tested during the evaluation.\nbeforeAffectsTest is simply demonstrating that one can just assert with a test function, which usually raises awareness for an unimplemented test case or in TDD tells the developer that this functionality need to be developed further.\nAnd at last the TearDown function with cleans up all the necessary memory/setups/etc after running the unit tests.\n\nAfter seeing how this code looks like, one can go further and pose the following definition on what is a unit test.",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "1. Unit testing basics"
-    ]
-  },
-  {
-    "objectID": "topics/a_unit_basic.html#supporting-video-1",
-    "href": "topics/a_unit_basic.html#supporting-video-1",
-    "title": "1. Unit testing basics",
-    "section": "Supporting video",
-    "text": "Supporting video\n\n\n\n\n\n\n\nDefinition (Unit testing 2.)\n\n\n\nA unit of work is the sum of actions that take place between the invocation of a public method in the system and a single noticable end result by a test of that system. A noticeble end result can be observed without looking at the internal state of the system and only through its public APIs and behavior. An end result is any of the following\n\nThe invoked public method returns a value\nThere is a noticeable change in the state of behavior, that can be determined by interrogating the internal state\nThere is a callout to a 3rd – party system where over the test has no control of\n\n\n\nThis could be true, however if there is a 3rd party functionality that we have no control over, changing its functionality might affect our tests, which wouldn’t render them as unit tests anymore.\n\n\n\n\n\n\nDefinition (Unit testing 3.)\n\n\n\nA unit test is a piece of code that invokes a unit of work and checks one specific end result of that unit of work, whereas it is fully isolated. If the assumptions on the end result turn out to be wrong, the unit test has failed. A unit test’s scope can span as little as a method or as much as multiple classes.\n\nThe primary goal of unit testing is to\nTake the smallest piece of testable software in the application\nIsolate it from the remainder of the code\nDetermine whether it behaves exactly as you expected\n\n\n\nPractically, a unit test is a piece of code that\n\nInvokes another piece of code\nChecks the correctness of some assumption afterward\nIf the assumption turn out to be wrong, the unit test has failed. A unit is a method or function.\n\nProperties of good unit tests are\n\nIt should be automated and maintainable\nIt should be easy to implement\nIt should be relevant tomorrow\nAnyone should be able to run it at the push of a button\nIt should run quickly\nIt should be consistent in its results\nIt should be fully isolated\nWhen it fails, it should be easy to detect what was expected and determine how to pinpoint the problem\n\n\n\n\n\n\n\nDefinition (Unit testing 4.)\n\n\n\nA unit test is an automated piece of code that invokes the unit of work being tested, and then checks some assumptions about a single end result of that unit. A unit test is almost always written using a unit testing framework. It can be written easily and runs quickly. It’s trustworthy, readable, and maintainable. It’s consistent in it’s results as long as production code hasn’t changed",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "1. Unit testing basics"
-    ]
-  },
-  {
-    "objectID": "topics/a_unit_basic.html#supporting-video-2",
-    "href": "topics/a_unit_basic.html#supporting-video-2",
-    "title": "1. Unit testing basics",
-    "section": "Supporting video",
-    "text": "Supporting video",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "1. Unit testing basics"
-    ]
-  },
-  {
-    "objectID": "topics/a_unit_basic.html#tasks-1.",
-    "href": "topics/a_unit_basic.html#tasks-1.",
-    "title": "1. Unit testing basics",
-    "section": "Tasks 1.",
-    "text": "Tasks 1.\n\nRun the tests in sample_1, based on the instructions from github\nCheck what is wrong with the tests\nImplement the test functions for App where it is “logical”\n\nCould you test static functions? What is the problem with these?",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "1. Unit testing basics"
-    ]
-  },
-  {
-    "objectID": "topics/a_unit_basic.html#footnotes",
-    "href": "topics/a_unit_basic.html#footnotes",
-    "title": "1. Unit testing basics",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nAnd throwing an exception throws InterruptedException as necessary.↩︎",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "1. Unit testing basics"
-    ]
-  },
-  {
-    "objectID": "topics/z_environment.html#setting-up-gradle---arch-linux",
-    "href": "topics/z_environment.html#setting-up-gradle---arch-linux",
-    "title": "7. Environment setup",
-    "section": "Setting up gradle - Arch Linux",
-    "text": "Setting up gradle - Arch Linux\nFirst things first you need to install docker first. To do it you will have to consult pacman with the following command sudo pacman -S docker. After it has installed everything for you it is optional but sometimes handy to install docker-compose as well. To do that, run sudo pacman -S docker-compose.\nAfter docker has been installed on your system, pull the gradle image as written here by running sudo docker pull gradle.\nThe previous steps can be done on\n\nUbuntu\nMac\nWindows, I’d suggest to use WSL2 on windows if it is possible, makes life a bit easier.",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "7. Environment setup"
-    ]
-  },
-  {
-    "objectID": "topics/z_environment.html#supporting-video-1",
-    "href": "topics/z_environment.html#supporting-video-1",
-    "title": "7. Environment setup",
-    "section": "Supporting video",
-    "text": "Supporting video",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "7. Environment setup"
-    ]
-  },
-  {
-    "objectID": "topics/z_environment.html#running-the-samples---arch-linux",
-    "href": "topics/z_environment.html#running-the-samples---arch-linux",
-    "title": "7. Environment setup",
-    "section": "Running the samples - Arch Linux",
-    "text": "Running the samples - Arch Linux\nWhen docker based gradle is fetched you can run the commands from the editor of choice. Since I show the examples in VSCode I would suggest using it. As it is written on the gradle docker webpage you can run the examples from the sample’s root directory, by running the command docker run --rm -u gradle -v \"$PWD\":/home/gradle/project -w /home/gradle/project gradle gradle &lt;gradle-task&gt;.",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "7. Environment setup"
-    ]
-  },
-  {
-    "objectID": "topics/f_selenium.html",
-    "href": "topics/f_selenium.html",
-    "title": "6. Selenium testing",
-    "section": "",
-    "text": "For selenium testing see first project and the more advanced second project.",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Selenium testing"
-    ]
-  },
-  {
-    "objectID": "topics/d_unit_mock_adv.html",
-    "href": "topics/d_unit_mock_adv.html",
-    "title": "4. Mocking advanced",
-    "section": "",
-    "text": "Based on the previous examples, there might and will be more complex problems in unit testing. One of the big issues and mainly this is the crux of the issue is that, controlling the external dependencies. Whether these are written by someone at the company or these would are 3rdParty dependencies, during unit testing these need to be controlled. Therefore let’s take a look at the usual suspects that might one might come across during implementing unit tests for various problems",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "4. Mocking advanced"
-    ]
-  },
-  {
-    "objectID": "topics/d_unit_mock_adv.html#supporting-video",
-    "href": "topics/d_unit_mock_adv.html#supporting-video",
-    "title": "4. Mocking advanced",
-    "section": "Supporting video",
-    "text": "Supporting video",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "4. Mocking advanced"
-    ]
-  },
-  {
-    "objectID": "topics/d_unit_mock_adv.html#mocking-static-functions",
-    "href": "topics/d_unit_mock_adv.html#mocking-static-functions",
-    "title": "4. Mocking advanced",
-    "section": "Mocking static functions",
-    "text": "Mocking static functions\nMockint static functions can be quite tricky sometimes, which will be demonstrated in StaticUtilsTest.java. The main problem with the static functions inside StaticUtils is that, during calls or instantiation of a static method or class, they will have unique characteristics compared to non-static ones. They can be accessed without the instantiation of a class or any type, it can only access static data and they belong to the class or “namespace” where they reside. These can be quite tricky to mock, because there is no instance to tweak here. To overcome this caveat mockito since version 5 does give us the functionality to mock static functions with the MockedStatic type allocator and mockStatic functionality. After the type has be declared with the MockedStatic allocator one can use the usual directives to alter the behaviour of the class under test.",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "4. Mocking advanced"
-    ]
-  },
-  {
-    "objectID": "topics/d_unit_mock_adv.html#tasks-1.",
-    "href": "topics/d_unit_mock_adv.html#tasks-1.",
-    "title": "4. Mocking advanced",
-    "section": "Tasks 1.",
-    "text": "Tasks 1.\n\nTest the static method range inside StaticUtils.java",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "4. Mocking advanced"
-    ]
-  },
-  {
-    "objectID": "topics/d_unit_mock_adv.html#supporting-video-1",
-    "href": "topics/d_unit_mock_adv.html#supporting-video-1",
-    "title": "4. Mocking advanced",
-    "section": "Supporting video",
-    "text": "Supporting video",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "4. Mocking advanced"
-    ]
-  },
-  {
-    "objectID": "topics/d_unit_mock_adv.html#mocking-the-gethttprequest-function",
-    "href": "topics/d_unit_mock_adv.html#mocking-the-gethttprequest-function",
-    "title": "4. Mocking advanced",
-    "section": "Mocking the GetHttpRequest() function",
-    "text": "Mocking the GetHttpRequest() function\nThis example single handedly to most complicated task that you might face during your unit testing endeavours. As described in Mocking basics the GetHttpRequest() function has challenging problems by generally instantiating a lot of classes locally, which are final and abstract as well. To overcome these issues one can utilize various techniques to climb this mountain of “trainwreck of mocks” situation as follows\n\nSince there are multiple classes that need to be mocked away and they are encapsulated, this approach looks like backpropagation in machine learning. So we start from the innermost mock and go on to the outermost step-by-step.\nFirst we mock URLConnection in NetworkConnectionTest.java\nAs a next step InputStream is mocked so when we return it at line 46 in the CUT we will have control over it\nThe main hurdle is solved in the line 28 where the MockedConstruction is used with combination with a lambda capturing the mock and context to implement mocking.\n\nTL;DR the main problem was the dynamic allocation of a public final class the URL class, which was hard to hijack.",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "4. Mocking advanced"
-    ]
-  },
-  {
-    "objectID": "topics/d_unit_mock_adv.html#tasks-2.",
-    "href": "topics/d_unit_mock_adv.html#tasks-2.",
-    "title": "4. Mocking advanced",
-    "section": "Tasks 2.",
-    "text": "Tasks 2.\n\nFinish the chain of mocks technique to gain complete control over the GetHttpRequest() function and it’s internals",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "4. Mocking advanced"
-    ]
-  },
-  {
-    "objectID": "topics/c_unit_mock_basic.html",
-    "href": "topics/c_unit_mock_basic.html",
+    "objectID": "topics/3_unit_mock_basic.html",
+    "href": "topics/3_unit_mock_basic.html",
     "title": "3. Mocking basics",
     "section": "",
     "text": "Mocking is one of the most powerful techniques in unit testing, which can be leveraged to solve complex problems in testing. There can be cases as mentioned in previous videos, that, one needs to test some implementation with 3rdparty functionality. However, the problem is that, one can not control these functionalities totally. To overcome this hurdle, one must use mocking.",
@@ -304,8 +40,8 @@
     ]
   },
   {
-    "objectID": "topics/c_unit_mock_basic.html#example-1.",
-    "href": "topics/c_unit_mock_basic.html#example-1.",
+    "objectID": "topics/3_unit_mock_basic.html#example-1.",
+    "href": "topics/3_unit_mock_basic.html#example-1.",
     "title": "3. Mocking basics",
     "section": "Example 1.",
     "text": "Example 1.\nThe best way to understand mocking is to check examples of mocking, therefore we turn to sample_2 and more specifically, to NetworkConnection.java and NetworkConnectionTest.java.\nFirst let’s understand what NetworkConnection.java implementation is about.\n\nIt has three members, mUrl, mCharset, mQuery denoting the URL that we plan to connect to, the coding charset that will be used during the established connection, and the query used to encode the different parameters during the connection establishment.\nThe constructors doesn’t need much description, however the function public String GetHttpRequest() throws MalformedURLException, IOException does need some further clarity.\n\n\nSupporting video\n\n\n\nThe GetHttpRequest() function\nTo test this GetHttpRequest() function is a tricky one.\n\nIt starts by URLConnection vConnection = new URL( mUrl + \"?\" + mQuery).openConnection(); which is basically opening the connection to the remote website that was specified in the member string.\nNext vConnection.setRequestProperty(\"Accept-Charset\", mCharset); sets the properties of the connection request, in our case it is UTF-8\nAfter the connection has been established the code waits for a response by InputStream vResponse = vConnection.getInputStream( ); and saves it into a local variable\nAs a last step, the InputStream is traversed with a Scanner Scanner scanner = new Scanner( vResponse ) using \\\\A as a delimiter.\n\nTo test this function one must overcome massive amount of hurdles to have it as an actual unit test. Lets start at the basics first to reach the point, where we are braced with the knowledge to test such complicated chain-of-mocks examples.\n\n\nMocking a simple function\nFirst check out the NetworkConnectionTest.java\n\nThis test class start by doing a BlackMagic() as a Setup function by instantiating the NetworkConnection class\nThe HttpRequestReturnsNotNull() test case simply tests if the GetHttpRequest() function returns String containing a space\nNow the most interesting for is the HttpRequestReturnsNull() where the actual mocking happens\n\nFirst we need to specify, which class we would like to mock mNetworkConnection = mock( NetworkConnection.class );\nThe next step is when( mNetworkConnection.GetHttpRequest()).thenReturn(\" \"); to alter the functionality of the original class\nAsserting against the altering of the original functionality by assertEquals(\" \", mNetworkConnection.GetHttpRequest() );\n\n\nThis simple example shows that, basically with mocks we can alter the behaviour of any function inside our implementation. However, the first example is much more complicated than that, because there are some internal local variables initialized by 3rdparty functionalities, which makes mock-injection extremely hard.\n\n\nProblems with testing GetHttpRequest() function\nThe main issues with public String GetHttpRequest() throws MalformedURLException, IOException are the following\n\nThe first initialization is complicated as it is. URLConnection type on the left-hand-side initialized by a new URL class’s openConnection() function. This will be extremely challenging because we can’t access these from the outside, these are local functionalities and local variables. Further, URLConnection is public abstract class which is hard to mock\nThe next invocation, setting the rquest property on a local variable, which is challenging to handle\nForward, the inputstream handling is based on URLConnection type local variable, where the getInputStream() function needs to be mocked\nIn the try block a Scanner type is instantiated, where this needs to be mocked as well where the fact, public final class just complicates mocking\nInside the scanning try block only the useDelimiter() function needs to be mocked, however it is a bit complicated as discussed before\n\nTL;DR this task is challenging because there is the technique chain-of-mocks that need to be applied sequentally complicated by abstract and final classes that need to be mocked out.\n\n\nSupporting video",
@@ -316,8 +52,8 @@
     ]
   },
   {
-    "objectID": "topics/c_unit_mock_basic.html#tasks-1.",
-    "href": "topics/c_unit_mock_basic.html#tasks-1.",
+    "objectID": "topics/3_unit_mock_basic.html#tasks-1.",
+    "href": "topics/3_unit_mock_basic.html#tasks-1.",
     "title": "3. Mocking basics",
     "section": "Tasks 1.",
     "text": "Tasks 1.\nImplement a mocking strategy to gain control over all the external functionality inside GetHttpRequest()\n\nURL and URLConnection need to be mocked from the outside\nsetRequestProperty() has to be mocked as well alongside with getInputStream\nInputStream class has to be mocked\nScanner class has to be mocked with the useDelimiter() and next() function as well",
@@ -328,15 +64,303 @@
     ]
   },
   {
-    "objectID": "topics/e_gitlab.html",
-    "href": "topics/e_gitlab.html",
-    "title": "5. Gitlab techniques",
+    "objectID": "topics/9_gitlab.html",
+    "href": "topics/9_gitlab.html",
+    "title": "6. Gitlab techniques",
     "section": "",
     "text": "For Gitlab techniques please see the first project and more advanced examples the second project",
     "crumbs": [
       "Home",
       "Topics",
-      "5. Gitlab techniques"
+      "6. Gitlab techniques"
+    ]
+  },
+  {
+    "objectID": "topics/4_unit_mock_adv.html",
+    "href": "topics/4_unit_mock_adv.html",
+    "title": "4. Mocking advanced",
+    "section": "",
+    "text": "Based on the previous examples, there might and will be more complex problems in unit testing. One of the big issues and mainly this is the crux of the issue is that, controlling the external dependencies. Whether these are written by someone at the company or these would are 3rdParty dependencies, during unit testing these need to be controlled. Therefore let’s take a look at the usual suspects that might one might come across during implementing unit tests for various problems",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
+    "objectID": "topics/4_unit_mock_adv.html#supporting-video",
+    "href": "topics/4_unit_mock_adv.html#supporting-video",
+    "title": "4. Mocking advanced",
+    "section": "Supporting video",
+    "text": "Supporting video",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
+    "objectID": "topics/4_unit_mock_adv.html#mocking-static-functions",
+    "href": "topics/4_unit_mock_adv.html#mocking-static-functions",
+    "title": "4. Mocking advanced",
+    "section": "Mocking static functions",
+    "text": "Mocking static functions\nMockint static functions can be quite tricky sometimes, which will be demonstrated in StaticUtilsTest.java. The main problem with the static functions inside StaticUtils is that, during calls or instantiation of a static method or class, they will have unique characteristics compared to non-static ones. They can be accessed without the instantiation of a class or any type, it can only access static data and they belong to the class or “namespace” where they reside. These can be quite tricky to mock, because there is no instance to tweak here. To overcome this caveat mockito since version 5 does give us the functionality to mock static functions with the MockedStatic type allocator and mockStatic functionality. After the type has be declared with the MockedStatic allocator one can use the usual directives to alter the behaviour of the class under test.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
+    "objectID": "topics/4_unit_mock_adv.html#tasks-1.",
+    "href": "topics/4_unit_mock_adv.html#tasks-1.",
+    "title": "4. Mocking advanced",
+    "section": "Tasks 1.",
+    "text": "Tasks 1.\n\nTest the static method range inside StaticUtils.java",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
+    "objectID": "topics/4_unit_mock_adv.html#supporting-video-1",
+    "href": "topics/4_unit_mock_adv.html#supporting-video-1",
+    "title": "4. Mocking advanced",
+    "section": "Supporting video",
+    "text": "Supporting video",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
+    "objectID": "topics/4_unit_mock_adv.html#mocking-the-gethttprequest-function",
+    "href": "topics/4_unit_mock_adv.html#mocking-the-gethttprequest-function",
+    "title": "4. Mocking advanced",
+    "section": "Mocking the GetHttpRequest() function",
+    "text": "Mocking the GetHttpRequest() function\nThis example single handedly to most complicated task that you might face during your unit testing endeavours. As described in Mocking basics the GetHttpRequest() function has challenging problems by generally instantiating a lot of classes locally, which are final and abstract as well. To overcome these issues one can utilize various techniques to climb this mountain of “trainwreck of mocks” situation as follows\n\nSince there are multiple classes that need to be mocked away and they are encapsulated, this approach looks like backpropagation in machine learning. So we start from the innermost mock and go on to the outermost step-by-step.\nFirst we mock URLConnection in NetworkConnectionTest.java\nAs a next step InputStream is mocked so when we return it at line 46 in the CUT we will have control over it\nThe main hurdle is solved in the line 28 where the MockedConstruction is used with combination with a lambda capturing the mock and context to implement mocking.\n\nTL;DR the main problem was the dynamic allocation of a public final class the URL class, which was hard to hijack.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
+    "objectID": "topics/4_unit_mock_adv.html#tasks-2.",
+    "href": "topics/4_unit_mock_adv.html#tasks-2.",
+    "title": "4. Mocking advanced",
+    "section": "Tasks 2.",
+    "text": "Tasks 2.\n\nFinish the chain of mocks technique to gain complete control over the GetHttpRequest() function and it’s internals",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "4. Mocking advanced"
+    ]
+  },
+  {
+    "objectID": "topics/10_selenium.html",
+    "href": "topics/10_selenium.html",
+    "title": "7<. Selenium testing",
+    "section": "",
+    "text": "For selenium testing see first project and the more advanced second project.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "7<. Selenium testing"
+    ]
+  },
+  {
+    "objectID": "topics/5_performance_testing.html#original-material",
+    "href": "topics/5_performance_testing.html#original-material",
+    "title": "5. Performance testing",
+    "section": "Original material",
+    "text": "Original material\nThis page is a work-in-progress, the original materials can be accessed at ik-elte-sharepoint",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "5. Performance testing"
+    ]
+  },
+  {
+    "objectID": "topics/5_performance_testing.html#theory-background",
+    "href": "topics/5_performance_testing.html#theory-background",
+    "title": "5. Performance testing",
+    "section": "Theory background",
+    "text": "Theory background\n\nPerformance testing\n\nUmbrella term, encompassing a wide range of test types\nDeals with questions related to application speed, efficiency, and stability\nAlso deals with resource consumption, capacity planning and hardware sizing (e.g. memory, processors, disk space, and network bandwidth)\nTypes:\n\nLoad testing\nEndurance (stability, soak) testing\nStress testing\nCapacity (volume, flood) testing\nSpike testing\nScalability testing\n\n\n\n\nPerformance testing types\n\n1. Load testing:\n\nUsed to understand the behaviour of the SUT (System Under Test) under a specific expected load\nUsually applied in a controlled (laboratory) environment\n\n\n\n\n2. Endurance (stability, soak) testing:\n\nSimilar to load test, but focuses on the stability of the system over a bigger predefined time frame\nUsed to verify memory leaks, thread problems, database problems, overflows / underflows…etc. that may degrade performance or cause crash\n\n\n\n\n3. Stress testing:\n\nUsed to understand the upper limits of capacity of the SUT\n\nTest above normal operational capacity, around max. design capacity\n\n(It checks if a relatively small overload on short scale can be handled by scheduling, buffering, etc.)\n\n\n\n\n\n\n4. Capacity (volume, flood) testing:\n\nDetermines whether the SUT can manage the amount of workload that was designed for\nWhen this boundaries are not known in advance, it benchmarks the number of users or transactions that the system is able to handle\n\nThis can be used as a baseline for later testing\n\nThe volume of data is increased step-by-step to analyse the actual capacity\n\n\n\n5. Spike testing:\n\nUsed to understand the functioning of a system if the load consumedly exceeds the max design capacity for a short time period\nInvestigates whether the SUT crashes, terminates gracefully or just dismisses/delays the processing due to the sudden bursts of the requests\n\n\n\n6. Scalability testing:\n\nShows how the SUT is capable of scaling up/out/down considering some resources (CPU, GPU, memory or network usage)\n2 approaches (both can be used to find possible bottlenecks):\n\nIncrease the load to monitor the amount of different types of resources used\nScaling up/out the resources of the SUT with the same level of load\n\n\n\n\n\n\nScheduling of different types of performance tests\n\nLoad tests:\n\nRegularly\n\nEndurance tests:\n\nOnly at major milestones (less critical systems)\nOR\nContinuously in a dedicated server (more critical systems)\n\nCapacity tests:\n\nMeasure actual capacity once & retest sometimes\nRecalibrate if necessary\n\nSpike tests:\n\nFrequency depends how critical the SUT is\n\nScalability tests:\n\nOnce and apply again if we would like to increase the performance of the SUT or if the environment has been changed\n\nNumber of measurements, reference points:\n\n One measurement is not a measurement! \n\nMultiple performance tests are required to ensure consistent findings due to the problems related to hardware and frameworks used below the measured SUT\n\n A baseline is also required   where the measured parameters can be compared with\n\nThe reason for this is that the SUT is not completely independent from its environment (i.e. it can be connected to a real network...etc.).\n\n\n\n\n\nTools in performance testing\n\n3 main functionalities:\nLoad generation\n\nGenerate a given workload to the SUT\n\nPerformance monitoring and reporting\n\nInvestigate some performance related aspects of the SUT\nMay give an alert on lower performance conditions or detect and notify suspicious behaviours\nCreate a report\n\nLog analysis\n\nConverts existing logs into the desired format, highlights data with the desired metrics…etc.\nHelps searching on existing logs\nMay adds additional level of warnings and alerts to log data\n\n\n\n\nLoad generation – working principle\nThe simulation or emulation of the workload is achieved by creating virtual users that are distributed into load generators\n\n\nLoad generation – behaviour descriptions\n\n4 main approaches for the behaviour description of load generation:\n\nHardwired (packet-generators)\nCall-flow (traffic playback tools)\nSource code\nModel-based descriptions\n\nThese approaches scales between high performance with simple behaviour and medium performance with complex behaviour\nHardwired  ( packet generators )\n\nCreate a discrete chunk of communication in a predefined format\n\nSome data field of this packet can be changed, but the same for the entire load\n\nPros:\n\nSimplest approach →\n\nEasy to learn\nHighest possible performance\n\n\nCons:\n\nNot flexible\nDo not handle alternative behaviours\n\nExample tools: Netstress, MikroTik Traffic Generator of router OS\n\nCall - flow __ (__ traffic playback tools )\n\nEdit* or record an existing** traffic\n\n* With a call-flow editor\n** With a network analyzer tool, like Wireshark\n\nPlay back the given traffic many times to generate load\nPros:\n\nSimple, Easy-to-read format\nFlexible approach\n\nCons:\n\nDo not handle alternative behaviours\n\nExample tools: ApacheJMeter, MTS-Ericsson, LoadNinja,\n\nsimple short code that playbacks a WireShark trace\n\n\nSource code\n\nDescribe input and internal conditions and appropriate actions for them in program code\n\nPros:\n\nFlexible approach\nCan handle alternative behaviours\n\nCons:\n\nRequires programming skills both to develop and to read tests\nMaintainability could be a problem\nNo abstract, high level view\n\nModel-based descriptions\n\nUse formal models to describe the possible behaviour of the virtual users\nBeside the normal call-flow, alternate flows and exception flows are also considered\n\nPossible models:\n\nEFSM (Extended Finite State Machine)\nPetri Nets\nMarkov chains\nPTA (Probabilistic Timed Automata)\nETA (Extended Timed Automata)\n…etc.\n\n\n\n\n\nPerformance monitoring\n\nPerformance testing or performance monitoring tools monitor and report the behaviour of the SUT under various input conditions, such as…\n\nNumber of concurrent users\nFrequency and distribution of requests\nThe type of requests\nDifferent behaviours of users\n…etc.\n\n\n\n\nPerformance monitoring – measured parameters\n\nThese parameters are usually monitored during a performance test execution:\n\nHardware utilization:\n\nCPU Utilization\nMemory Utilization\nDisk utilization\nNetwork utilization\n\n\nThese parameters are usually monitored during a performance test execution:\n\nCharacteristics of the tested system:\n\nResponse time\n\nDifferent measurable parameters: worst / best / average / 90% percentile\n\nThroughput rate (number of requests processed per unit time), number of handled requests _ _\n\nNetwork throughput: rate of successful data delivery over a communication channel\n\nMaximum throughput/bandwidth capacity: maximum rate of data transfer via a given channel\n\nSystem throughput: rate of data delivery to all terminal nodes\n\nRate of successfully handled requests\n\nWhat is successfully handled?\n\nThe given request handled successfully at 1st/xth trying attempt or within a predefined time?\n\nDidn’t handled requests were lost, rejected for some reason or just delayed?\n\n\n\n\nSee GoS(Grade of Service) in telecommunication domain!\n\n\nIntegrate performance testing with other testing attributes\n\nPerformance testing is not a separate testing entity, it can be integrated into other testing attributes:\n\nFunctionality\n\nExample: besides working properly…\n\na  webshop _ should handle given number of users simultaneously_\na given node of telecom. network should handle given number of transactions\n\n\nAvailability and usability\n\nExample: Net-bank application\n\nSecurity\n\nExample: DoS attacks\n\nflood the system to make it inaccessible/bypass auth. method/do prohibited transactions\n\n\n…etc.\n\n\n\n\nPerformance testing tools – Apache JMeter\n\nApache JMeter:\nSimple performance test application\nFree, open source\nEasy to use, has good documentation\nTraffic playback tool: can record an actual traffic (from browser or native application) and play back as load\n\nTraffic can be also generated from a manually edited call-flow\n\nCan handle the following applications/server/protocol types:\n\nWeb - HTTP, HTTPS (Java, NodeJS, PHP, ASP.NET, …)\nSOAP / REST Webservices\nFTP\nDatabase via JDBC\nLDAP\nMessage-oriented middleware (MOM) via JMS\nMail - SMTP(S), POP3(S) and IMAP(S)\nNative commands or shell scripts\nTCP\nJava Objects\n\nInterfaces:\n\nGUI: for recording traffic and for setting, debugging and learning purposes\nCLI: for load test\n\nCLI: Command Line Interface, GUI: Graphical User Interface\n\nMulti-threading  framework allows concurrent sampling by many threads and simultaneous sampling of different functions by separate thread groups.\n\nOne master computer control multiple slaves to generate load to the target\n\nMaster : the system running JMeter GUI, which controls the test\nSlave : the system running JMeter-server, which takes commands from the GUI and send requests to the target system(s)\nTarget : the webserver we plan to stress test\n\nAn overview:\nPrerequisites: Install and start JMeter\n\nDownload JMeter and unpack into a desired folder (where you have write privileges)\nStart JMeter (using jmeter.bat (Windows) / jmeter (Unix) file in /bin folder)\n\nRecord an HTTPs traffic and playback with 5 parallel threads (users)\n\nAdd reports and analyse measurement parameters\n\nCreate a Web Test Plan from scratch (edit call-flow manually)\nDiscuss briefly additional possibilities of Apache JMeter\nRecord an HTTPs traffic and playback with 5 parallel threads (users)\nRecord HTTP/HTTPS traffic using the recording template\n\nSelect File  / Templates…  menu item or the click on following icon:\nSelect Recording template from the drop/down list:\nSelect the default parameters and press Create button\n\nSelect HTTP Request Defaults  element in the generated Test Plan\n\n\n\n\nSelect HTTP(s) script recorder  at the left and press Start button\n\nThis will start the JMeter proxy server which is used to intercept the browser requests.\n\nCheck the ApacheJMeterTemporaryRootCA.crt certificate located in bin subfolder of Jmeter\n\nIf this file is not generated (…   java.io.FileNotFoundException :  proxyserver.jks _ (Access is denied)_ __ __ error msg)\ndue access right problems, then set a folder in user.properties _ _ file (under bin subfolder of Jmeter)\nwhere you can write:\nproxy.cert.directory=&lt;destination folder&gt;\n\nInstall the given JMeter CA certificate to your browser\nIn your browser instead of automatically proxy setting, select manually proxy configuration.\n\nSet HTTP Proxy to localhost and port to 8888  and apply this settings to all protocols\n\nVisit a webpage with your browser (it will be very slow…) and click on some links (while JMeter is still running) then close your browser\nGo back to JMeter, and press Stop HTTP(s) script recorder\n\n\nExpand the Thread Group  at the left. There should be several samples, like this:\n\n\nSelect Thread Group and adjust some parameters:\nSave the TestPlan and validate it with clicking on Thread Group , then right click and Validate\nCheck the right-upper corner:\n\nClick into to see logs:\n\n\n\n Set the number of users, i.e. the number of parallel threads \n Set the amount of time (in secs) to get to the full number of virtual users for the load test \n Set how many times you want to repeat your test \n\n\n\n\nStart the given test with Run / Start menu item or with the button\nAt the right-upper corner the LED and the numbers show the status of the test:\n\nGreen LED shows that tests are running\nThe numbers denotes the active threads\n\nAt the end, the number of active threads begin to shrink\n\nWhen the test has been finished the LED turns into grey\n\n0/5 denotes that there are no more active threads\n\n\n\n\n\n\n\nOk, good, something running, but we do not know any parameters of the target…\nAdd statistics Summary Report as a Listener…\n\nRight click on Thread Group , then\nAdd/Listener/Summary Report\nRerun test and investigate the record during and after execution!\n\nAlso try Aggregate Report !\nWhat is the difference between the 2 statistics?\n\n\nUnderstand the parameters of reports:\nLabel: name of the sampler\n#Samples: Total number of requests sent to the server during the duration of the test\nAverage: Average is sum of all the sample time divided by total number of requests, also called as Mean (unit: msec)\nMedian: 50th percentile / 50% line: 50% of the requests were taking less than or equal to this time (unit: msec)\n90/95/99% line: 90/95/99% of the requests were taking less than or equal to this time (unit: msec)\nMin/Max: Min/Max sample time (unit: msec)\nStd. Dev.: Standard Deviation: a measure that is used to quantify the amount of variation or dispersion of a set of data values.\n\nA low standard deviation indicates that the data points tend to be close to the mean (also called the expected value) of the set, while a high standard deviation indicates that the data points are spread out over a wider range of values.\n(description from  wikipedia )\n\nError %: Percentage of failed tests\nThroughput: Number of requests processed per unit time. Used to identify the capacity of the server (but the limitation in the capacity can be also come from the limited capacity of the load generator (i.e. the clients used for testing), as in previous example)\nReceived/Sent KB/sec: self explanatory\nAvg. Bytes: Average response size\nNote that we used GUI for debugging/educational reasons, but the actual load testing should be done via CLI\nCLI: Command Line Interface, GUI: Graphical User Interface \n\nTry Graph Results !\n\n\nRun the load test again in CLI mode\n\njmeter -n -t name_of_testplan.jmx -l name_of_log.jtl\njmeter -n -t name_of_testplan.jmx -l name_of_log.jtl -H my.proxy.server -P 8000\n\n\nCLI: Command Line Interface\n\n\n\nCreate a Web test plan from scratch! (i.e. edit call-flow manually)\nSelect File / New  menu option\nAdding users with the Thread Group element:\n\nRight click on TestPlan , then Add/Threads (Users)/Thread Group\n\n\n\nSet the properties of Thread Group:\n\n Set the name of the threads \n Set the number of users, i.e. the number of parallel threads \n Set how long to delay (in secs) between starting each user \n Set how many times you want to repeat your test \nAdd HTTP Request elements properties:\nSet the name of the webserver where all HTTP requests\nwill be sent to ( brickset.com in the current example)\nNote that this is just the setting of defaults that HTTP\nrequest elements use, it does not send HTTP elements itself\n(it will be done in step 7).\n\nRight click on Users group,\nthen Add/Config Element/HTTP Request Defaults\n\n\nAdd HTTP cookie manager\n\nRight click on Users group, then Add/Config Element/HTTP Cookie Manager\nThis will ensure that each thread gets its own cookies\n\nAdding HTTP request\n\nWe will add 2 HTTP requests:\n\nGoing into the home page\nGoing into a subpage\n\n\nAdd reports to the TestPlan!\n\nRight click on Thread Group ,\nthen Add/Listener/\n\nValidate TestPlan\n\nRight click on Thread Group ,\nthen Validate\n\n\n\n\n\nWhat we did not tried in this demo, but may worth to check 2/1:\nDiscover the possibilities of CLI mode (full list of options)\nTesting of other protocols, types of load (like testing a database, an FTP site, an LDAP server, a webservice…etc)\nDistributed testing: handle multiple slaves that generates the same/different load\n\n\n\n\nWhat we did not tried in this demo, but may worth to check 2/2:\nHandle listeners, create own statistics\nCreate HTML test reports\nPattern matching with regular expressions\n...etc.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "5. Performance testing"
+    ]
+  },
+  {
+    "objectID": "topics/1_unit_basic.html#supporting-video",
+    "href": "topics/1_unit_basic.html#supporting-video",
+    "title": "1. Unit testing basics",
+    "section": "Supporting video",
+    "text": "Supporting video\n\n\n\n\n\n\n\nWhy is it called unit testing?\n\n\n\nIt is a simple fact that, the reason why it is called unit testing is because, the aim of the tests written by us (developers) is to assure the quality and reliability of the code implemented.\n\n\n\n\n\n\n\n\nDefinition (Unit testing 1.)\n\n\n\nA unit test is a piece of a code (usually a method) that invokes another piece of code and checks the correctness of some assumption afterward. If the assumptions turn out to be wrong, the unit test has failed. A unit is a method or function.\n\n\n\n\n\n\n\n\nDefinition (SUT and CUT)\n\n\n\nSUT stand for system under test, and some people like to use CUT (class under test or code under test). When you test something, you refer to the thing you’re testing as the SUT/CUT.\n\n\nNow I think the best way to understand this is to check how it looks in code, take a look at the following example.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "1. Unit testing basics"
+    ]
+  },
+  {
+    "objectID": "topics/1_unit_basic.html#example-1.",
+    "href": "topics/1_unit_basic.html#example-1.",
+    "title": "1. Unit testing basics",
+    "section": "Example 1.",
+    "text": "Example 1.\nTake a look at the code written in sample_1, which will be disected in the forthcoming few sections. The project resides under the folder app and the rest are build files generally, where settings.gradle what interests us. Inside the gradle settings, we can inspect what we will be testing during this first example. Namely, rootProject.name will tell us the package where the class resides and include will contain the name of it. If we go to App.java we can see that the SUT/CUT is class App. There are a few practical things to note at this point\n\nThe CUT is public which renders it testable from the outside, otherwise it would be extremely hard to “break” into the internals of the class at hand\nAll the functions that are implemented inside the class are public as well, which is also necessary for testing purposes\n\n\n\n\n\n\n\nIn case of sample_1/App.java what is the CUT? What is the smallest unit of code that can be tested?\n\n\n\nIt is always subjective to the actual codebase that you are working on, what would be the smallest amount/unit of code that can be tested by these unit testing techniques. Usually it is a good descriptor of the codebase at hand on how big is this thing actually.\n\n\nGoing further, to do unit testing it is a necessity to understand the actual code at hand, which in this case is the following\n\nThe class has three constructors, a default App(), a simple overload App(int aNumber), which sets only private member of the class and App(boolean aWait), which makes the constructor wait for a certain amount of time to evaluate.1\nHas a simple function returning a greeting String getGreeting()\nThe usual java public static void main(String[] args) function, nothing special about it\nA print function, public static void callNavi(String aMessage), which simply forwards the arguments to the standard output\nA multiply function public int multiply(int aLeft, int aRight), which gets two arguments, and multiplies two numbers.\n\n\n\n\n\n\n\nUnderstanding these functionalities, which ones are actually testable? And if they are testable, is it justified at all to test them?\n\n\n\nNow you can see sometimes, a function which is testable might not be a good candidate for tests because simply it is irrelevant and other cases there might be functions are not testable and relevant, which is the worst case possible in terms of testing.\n\n\nTo test the functionalities inside sample_1 we have to understand the build system a little bit better. Take a look at build.gradle file and see what it does in terms of helping us test the previous functionnalities. The structure is the following, plugins tells us what class/package/application are we building with the help of gradle. the next one is one of the most important ones, which is repositories, which tells gradle wherefrom to fetch the necessary libraries and packages to build and run the project and its dependencies. The next one is dependencies which as the name tells lists all the dependencies needed by our application. The testing block specifies the actual testing libraries that we will use throught the project to run the implemented tests. The last one is application, which defines what is the main class, the main entry point, which can be used by the frameworks.\nNow, let’s take a look at the already implemented test inside Apptest.java. The structure is the following\n\nIt starts by importing all the necessary packages, it is nothing special\nIt is a public class so the unit testing framework can access all the details inside it\nInside the class there is one member App mApp, which is basically the application that we are about to test.\nHere comes the cool part, the first function that will be run by our unt testing framework (junit5) is the usual Setup function with the @Before annotation. This function simply runs only once before all the tests are being run by our framework. In this case it is simply constructing our App class with 0 in the constructor argument.\nNext the function multiplicationOfZeroIntegereShouldReturnZero is being implemented. The usual test functions shall be annotated with @Test. Here comes the interesting part, inside this function there are assertions, which means the test is assumptions and asserting against them.\n\n\n\n\n\n\n\nAt this point, can you tell what might be the problem if we have multiple assertions inside a single test function?\n\n\n\nImagine having 10.000 tests and having multiple assertions inside them, how would you be able to pinpoint where the implementation might have gone wrong?\n\n\n\nThe similar function multiplicationOfZeroIntegereShouldReturnZeroWithMember has the same-ish functionality, however if you take a look it doesn’t have an instantiation of the class that will be tested during the evaluation.\nbeforeAffectsTest is simply demonstrating that one can just assert with a test function, which usually raises awareness for an unimplemented test case or in TDD tells the developer that this functionality need to be developed further.\nAnd at last the TearDown function with cleans up all the necessary memory/setups/etc after running the unit tests.\n\nAfter seeing how this code looks like, one can go further and pose the following definition on what is a unit test.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "1. Unit testing basics"
+    ]
+  },
+  {
+    "objectID": "topics/1_unit_basic.html#supporting-video-1",
+    "href": "topics/1_unit_basic.html#supporting-video-1",
+    "title": "1. Unit testing basics",
+    "section": "Supporting video",
+    "text": "Supporting video\n\n\n\n\n\n\n\nDefinition (Unit testing 2.)\n\n\n\nA unit of work is the sum of actions that take place between the invocation of a public method in the system and a single noticable end result by a test of that system. A noticeble end result can be observed without looking at the internal state of the system and only through its public APIs and behavior. An end result is any of the following\n\nThe invoked public method returns a value\nThere is a noticeable change in the state of behavior, that can be determined by interrogating the internal state\nThere is a callout to a 3rd – party system where over the test has no control of\n\n\n\nThis could be true, however if there is a 3rd party functionality that we have no control over, changing its functionality might affect our tests, which wouldn’t render them as unit tests anymore.\n\n\n\n\n\n\nDefinition (Unit testing 3.)\n\n\n\nA unit test is a piece of code that invokes a unit of work and checks one specific end result of that unit of work, whereas it is fully isolated. If the assumptions on the end result turn out to be wrong, the unit test has failed. A unit test’s scope can span as little as a method or as much as multiple classes.\n\nThe primary goal of unit testing is to\nTake the smallest piece of testable software in the application\nIsolate it from the remainder of the code\nDetermine whether it behaves exactly as you expected\n\n\n\nPractically, a unit test is a piece of code that\n\nInvokes another piece of code\nChecks the correctness of some assumption afterward\nIf the assumption turn out to be wrong, the unit test has failed. A unit is a method or function.\n\nProperties of good unit tests are\n\nIt should be automated and maintainable\nIt should be easy to implement\nIt should be relevant tomorrow\nAnyone should be able to run it at the push of a button\nIt should run quickly\nIt should be consistent in its results\nIt should be fully isolated\nWhen it fails, it should be easy to detect what was expected and determine how to pinpoint the problem\n\n\n\n\n\n\n\nDefinition (Unit testing 4.)\n\n\n\nA unit test is an automated piece of code that invokes the unit of work being tested, and then checks some assumptions about a single end result of that unit. A unit test is almost always written using a unit testing framework. It can be written easily and runs quickly. It’s trustworthy, readable, and maintainable. It’s consistent in it’s results as long as production code hasn’t changed",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "1. Unit testing basics"
+    ]
+  },
+  {
+    "objectID": "topics/1_unit_basic.html#supporting-video-2",
+    "href": "topics/1_unit_basic.html#supporting-video-2",
+    "title": "1. Unit testing basics",
+    "section": "Supporting video",
+    "text": "Supporting video",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "1. Unit testing basics"
+    ]
+  },
+  {
+    "objectID": "topics/1_unit_basic.html#tasks-1.",
+    "href": "topics/1_unit_basic.html#tasks-1.",
+    "title": "1. Unit testing basics",
+    "section": "Tasks 1.",
+    "text": "Tasks 1.\n\nRun the tests in sample_1, based on the instructions from github\nCheck what is wrong with the tests\nImplement the test functions for App where it is “logical”\n\nCould you test static functions? What is the problem with these?",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "1. Unit testing basics"
+    ]
+  },
+  {
+    "objectID": "topics/1_unit_basic.html#footnotes",
+    "href": "topics/1_unit_basic.html#footnotes",
+    "title": "1. Unit testing basics",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nAnd throwing an exception throws InterruptedException as necessary.↩︎",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "1. Unit testing basics"
+    ]
+  },
+  {
+    "objectID": "topics/2_unit_adv.html",
+    "href": "topics/2_unit_adv.html",
+    "title": "2. Unit testing advanced",
+    "section": "",
+    "text": "There can be cases where the task at hand is not as easy as it is with sample_1. One of the cases is when exceptions are at play. Take a look at the next example that we will go through here sample_2. Our first CUT will be Hellolink.java and let’s take a look at its implementation",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "2. Unit testing advanced"
+    ]
+  },
+  {
+    "objectID": "topics/2_unit_adv.html#supporting-video",
+    "href": "topics/2_unit_adv.html#supporting-video",
+    "title": "2. Unit testing advanced",
+    "section": "Supporting video",
+    "text": "Supporting video",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "2. Unit testing advanced"
+    ]
+  },
+  {
+    "objectID": "topics/2_unit_adv.html#example-1",
+    "href": "topics/2_unit_adv.html#example-1",
+    "title": "2. Unit testing advanced",
+    "section": "Example 1",
+    "text": "Example 1\nOne of our main goal here is to reach a high level of coverage, therefore we would like to test most of the functions. If we take a look at public int multiply(int aLeft, int aRight) how do we actually test such a function and assure that it will give us the correct results in all circumstances. Testing all the different numbers in the int type would take years, therefore there should be some other technique that we can apply to do testing on this function. Otherwise, implementing the test of each individual number for the int type would result in multiple millions lines of code, which is unmaintainable. To overcome these problems, one can apply the parameterized tests to handle the different cases from a small sized code. The solution goes as follows\n\nThe test function shall be annotated by the @ParameterizedTest annotation, where additionally the framework needs data to feed to the test function, which can be approached with @CsvSource annotation.\n\n\nTasks 1\n\nRun the sample_2 and inspect the report\nCheck what is wrong with public void numeric_test(int left, int right)\nImplement the missing functionality in Hellolink.java",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "2. Unit testing advanced"
+    ]
+  },
+  {
+    "objectID": "topics/2_unit_adv.html#supporting-video-1",
+    "href": "topics/2_unit_adv.html#supporting-video-1",
+    "title": "2. Unit testing advanced",
+    "section": "Supporting video",
+    "text": "Supporting video",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "2. Unit testing advanced"
+    ]
+  },
+  {
+    "objectID": "topics/2_unit_adv.html#example-2",
+    "href": "topics/2_unit_adv.html#example-2",
+    "title": "2. Unit testing advanced",
+    "section": "Example 2",
+    "text": "Example 2\nIt is good to have some sufficient numerical tests, but there are other functionalities that need some check-ups. One of the main issues with Hellolink.java is that, it exposes a constructor, which initializes a vector with a certain amount of parameters. Later on this could be a problem, since nobody assures that the users of our code won’t access out of bounds elements of our vector, which should be handled inside our functions. To do this, one can implement the public void IndexOutOfBoundsTest() function, which does that exactly. This function is simple, it initializes a local variable of our Hellolink.java class and then asserts against if the access of that vector raises an exception with the help of assertThrows.\nThere can be cases, when during TDD one implements the tests first, but softly doesn’ want them to fail at first. This goal can be achieved by simply putting the @Disabled annotation with a reasonable message in the test cases.\nSometimes the timing of the test running is important, therefore one needs to put certain blocks on the execution of test functions. This can be done by annotating, the test case with @Timeout(NUM), where NUM is the number if milliseconds that the test will be blocked.\n\nTasks 2\n\nTry to write a test such that, public int multiply(int aLeft, int aRight) throws an exception\nWrite a test such that certain cases inside the parameterized tests will be disabled",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "2. Unit testing advanced"
+    ]
+  },
+  {
+    "objectID": "topics/11_environment.html#setting-up-gradle---arch-linux",
+    "href": "topics/11_environment.html#setting-up-gradle---arch-linux",
+    "title": "8. Environment setup",
+    "section": "Setting up gradle - Arch Linux",
+    "text": "Setting up gradle - Arch Linux\nFirst things first you need to install docker first. To do it you will have to consult pacman with the following command sudo pacman -S docker. After it has installed everything for you it is optional but sometimes handy to install docker-compose as well. To do that, run sudo pacman -S docker-compose.\nAfter docker has been installed on your system, pull the gradle image as written here by running sudo docker pull gradle.\nThe previous steps can be done on\n\nUbuntu\nMac\nWindows, I’d suggest to use WSL2 on windows if it is possible, makes life a bit easier.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "8. Environment setup"
+    ]
+  },
+  {
+    "objectID": "topics/11_environment.html#supporting-video-1",
+    "href": "topics/11_environment.html#supporting-video-1",
+    "title": "8. Environment setup",
+    "section": "Supporting video",
+    "text": "Supporting video",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "8. Environment setup"
+    ]
+  },
+  {
+    "objectID": "topics/11_environment.html#running-the-samples---arch-linux",
+    "href": "topics/11_environment.html#running-the-samples---arch-linux",
+    "title": "8. Environment setup",
+    "section": "Running the samples - Arch Linux",
+    "text": "Running the samples - Arch Linux\nWhen docker based gradle is fetched you can run the commands from the editor of choice. Since I show the examples in VSCode I would suggest using it. As it is written on the gradle docker webpage you can run the examples from the sample’s root directory, by running the command docker run --rm -u gradle -v \"$PWD\":/home/gradle/project -w /home/gradle/project gradle gradle &lt;gradle-task&gt;.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "8. Environment setup"
     ]
   },
   {
