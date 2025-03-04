@@ -1,5 +1,5 @@
 ---
-title: 7<. Selenium testing
+title: 7. Selenium testing
 format:
     html:
         toc: true
