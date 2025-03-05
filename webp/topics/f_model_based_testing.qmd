@@ -86,3 +86,120 @@ graph TD
 
 ## FSM (Formal specification model)
 
+## FSM-based conformance testing 
+
+```{mermaid}
+graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A(Specification: FSM white box) <--> B(Implementation: FSM Impl)
+
+```
+
+```{mermaid}
+graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A(Requirements) --> B(Specification FSM M) --> C(Implementation FSM M, SUT)
+     B --> D[ Test suite: test case 1, ..., test case n]
+```
+
+```{mermaid}
+graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A[Test suite] -->|Input| B(Implementation FSM Impl, SUT) -->|Observed output| C(Tester)
+     A -->|Expected output| C
+     C --> D{Verdict}
+     
+
+```
+
+
+### FSM exercise 
+::: {.callout-note}
+## [Marklin Battery-Operated Signal 1.](https://www.maerklin.de/en/products/details/article/72201/)
+1. Explore the functionality of the given device
+and write a specification for it
+
+  * The device has 2 LEDs (red and green), a 2-way switch and a press button
+  * The 2-way switch turns the device off or on. When the device is turned on,
+the green LED lights up.
+  * The button can be used to change which LED lights; red or green.
+  * If no button is pressed for 7 secs the device changes the lights.
+
+2. Create FSM based on the specification
+  * Create state transition table
+  * Create state transition graph 
+
+3. Design an input/output sequence to test all functionalities of the
+specification
+
+*Waiting for 7 seconds can be handled as special timeout input message*
+:::
+
+
+## FSM exercise - solution graph
+```{dot}
+//| label: fig-toy_train_signal
+//| fig-cap: "State transition graph"
+//| file: ../graphs/toy_train_signal.dot
+```
+
+
+## FSM exercise - state transition table
+|             | Switch on   | Switch off  | press button | wait for 7 secs |
+| ----------- | ----------- | ----------- | ----------- | ----------- |
+| s_off      | s_green/green | _ | _ | _ |
+| s_green   | _        | s_off/_     | s_red/red | s_red/red |
+| s_red | _ | s_off/_ | s_green/green | s_green/green |
+
+
+## FSM exercise - solution example test sequence
+
+| Action (input) | Desired output |
+| --- | ----------- |
+| switch on | green |
+| wait for 7 secs | red |
+| wait for 7 secs | green |
+| press button | red |
+| switch off | _ |
+| switch on | green |
+| press button | red |
+| press button | green |
+| switch off | _ |
+
+## [Graphwalker](https://graphwalker.github.io/)
+
+* Open source, free MBT tool with GUI
+* Easy-to-use
+* Good [docuemntation](https://github.com/GraphWalker/graphwalker-project/wiki)
+
+Working process
+
+1. Creating a model
+2. Write adaptation code that interacts with the SUT
+3. Generate tests
+4. Executing tests
+
+## Graphwalker Studio - Installation and start
+
+1. Fetch the docker image by running `docker pull graphwalker/studio`
+2. Run the image `docker run -ti --rm -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/home/developer/.Xauthority --net=host --pid=host --ipc=host graphwalker/studio`
+
+## Graphwalker Studio - Alternative installation and start
+If the previous approach didn't work one can do the following steps
+
+1. [Download](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and install Java JDK
+  * Set `JAVA_HOME` variable in the system env list if not set auatomatically
+2. Install model editor [Graphwalker studio](https://graphwalker.github.io/download#studio)
+
+After installation
+
+1. Click on graphwalker studio `graphwalker-studio-4.3.2.jar`
+2. Open a web browser and type `http://localhost:9090/studio.html`
+
+## Graphwalker Studio - Battery operated signal example

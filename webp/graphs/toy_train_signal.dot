@@ -1,0 +1,11 @@
+digraph{
+node [shape=circle]
+"s_off" [peripheries=2]
+"s_off" -> "s_green" [label="switch on/green"]
+"s_red" -> "s_green" [label="timeout(7s)/green"]
+"s_red" -> "s_green" [label="press button/green"]
+"s_red" -> "s_off" [label="switch off/"]
+"s_green" -> "s_off" [label="switch off/"]
+"s_green" -> "s_red" [label="timeout(7s)/red"]
+"s_green" -> "s_red" [label="press button/red"]
+}

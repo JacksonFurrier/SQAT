@@ -344,6 +344,325 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="fsm-formal-specification-model" class="level2">
 <h2 class="anchored" data-anchor-id="fsm-formal-specification-model">FSM (Formal specification model)</h2>
+</section>
+<section id="fsm-based-conformance-testing" class="level2">
+<h2 class="anchored" data-anchor-id="fsm-based-conformance-testing">FSM-based conformance testing</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A(Specification: FSM white box) &lt;--&gt; B(Implementation: FSM Impl)
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A(Requirements) --&gt; B(Specification FSM M) --&gt; C(Implementation FSM M, SUT)
+     B --&gt; D[ Test suite: test case 1, ..., test case n]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A[Test suite] --&gt;|Input| B(Implementation FSM Impl, SUT) --&gt;|Observed output| C(Tester)
+     A --&gt;|Expected output| C
+     C --&gt; D{Verdict}
+     
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="fsm-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="fsm-exercise">FSM exercise</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<a href="https://www.maerklin.de/en/products/details/article/72201/">Marklin Battery-Operated Signal 1.</a>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Explore the functionality of the given device and write a specification for it</li>
+</ol>
+<ul>
+<li>The device has 2 LEDs (red and green), a 2-way switch and a press button</li>
+<li>The 2-way switch turns the device off or on. When the device is turned on, the green LED lights up.</li>
+<li>The button can be used to change which LED lights; red or green.</li>
+<li>If no button is pressed for 7 secs the device changes the lights.</li>
+</ul>
+<ol start="2" type="1">
+<li>Create FSM based on the specification</li>
+</ol>
+<ul>
+<li>Create state transition table</li>
+<li>Create state transition graph</li>
+</ul>
+<ol start="3" type="1">
+<li>Design an input/output sequence to test all functionalities of the specification</li>
+</ol>
+<p><em>Waiting for 7 seconds can be handled as special timeout input message</em></p>
+</div>
+</div>
+</section>
+</section>
+<section id="fsm-exercise---solution-graph" class="level2">
+<h2 class="anchored" data-anchor-id="fsm-exercise---solution-graph">FSM exercise - solution graph</h2>
+<div class="cell" data-file="../graphs/toy_train_signal.dot" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-toy_train_signal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-toy_train_signal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<svg width="672" height="480" viewbox="0.00 0.00 525.33 329.41" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 325.41)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-325.41 521.33,-325.41 521.33,4 -4,4"></polygon>
+<!-- s_off -->
+<g id="node1" class="node">
+<title>s_off</title>
+<ellipse fill="none" stroke="black" cx="343.07" cy="-286.53" rx="30.78" ry="30.78"></ellipse>
+<ellipse fill="none" stroke="black" cx="343.07" cy="-286.53" rx="34.77" ry="34.77"></ellipse>
+<text text-anchor="middle" x="343.07" y="-282.33" font-family="Times,serif" font-size="14.00">s_off</text>
+</g>
+<!-- s_green -->
+<g id="node2" class="node">
+<title>s_green</title>
+<ellipse fill="none" stroke="black" cx="231.07" cy="-157.78" rx="41.14" ry="41.14"></ellipse>
+<text text-anchor="middle" x="231.07" y="-153.58" font-family="Times,serif" font-size="14.00">s_green</text>
+</g>
+<!-- s_off&#45;&gt;s_green -->
+<g id="edge1" class="edge">
+<title>s_off-&gt;s_green</title>
+<path fill="none" stroke="black" d="M308.78,-279.54C282.86,-273.04 248.94,-259.83 232.04,-233.64 227.22,-226.19 224.91,-217.38 224.1,-208.47"></path>
+<polygon fill="black" stroke="black" points="227.6,-208.32 223.78,-198.44 220.6,-208.55 227.6,-208.32"></polygon>
+<text text-anchor="middle" x="276.58" y="-221.04" font-family="Times,serif" font-size="14.00">switch on/green</text>
+</g>
+<!-- s_green&#45;&gt;s_off -->
+<g id="edge5" class="edge">
+<title>s_green-&gt;s_off</title>
+<path fill="none" stroke="black" d="M268.34,-175.29C286.53,-185.04 307.38,-198.99 321.07,-216.84 326.77,-224.29 331.02,-233.26 334.18,-242.22"></path>
+<polygon fill="black" stroke="black" points="330.87,-243.37 337.2,-251.87 337.55,-241.28 330.87,-243.37"></polygon>
+<text text-anchor="middle" x="359.2" y="-221.04" font-family="Times,serif" font-size="14.00">switch off/</text>
+</g>
+<!-- s_red -->
+<g id="node3" class="node">
+<title>s_red</title>
+<ellipse fill="none" stroke="black" cx="231.07" cy="-31.95" rx="31.91" ry="31.91"></ellipse>
+<text text-anchor="middle" x="231.07" y="-27.75" font-family="Times,serif" font-size="14.00">s_red</text>
+</g>
+<!-- s_green&#45;&gt;s_red -->
+<g id="edge6" class="edge">
+<title>s_green-&gt;s_red</title>
+<path fill="none" stroke="black" d="M189.74,-156.52C112.99,-154.62 -39.51,-143.26 9.76,-81.91 31.79,-54.47 131.07,-41.47 188.9,-36.13"></path>
+<polygon fill="black" stroke="black" points="189.54,-39.59 199.19,-35.22 188.92,-32.62 189.54,-39.59"></polygon>
+<text text-anchor="middle" x="53.22" y="-86.11" font-family="Times,serif" font-size="14.00">timeout(7s)/red</text>
+</g>
+<!-- s_green&#45;&gt;s_red -->
+<g id="edge7" class="edge">
+<title>s_green-&gt;s_red</title>
+<path fill="none" stroke="black" d="M192.22,-144.4C159.42,-131.71 120.29,-109.88 137.25,-81.91 148.82,-62.82 170.53,-50.83 190.16,-43.49"></path>
+<polygon fill="black" stroke="black" points="191.55,-46.71 199.87,-40.16 189.27,-40.09 191.55,-46.71"></polygon>
+<text text-anchor="middle" x="182.98" y="-86.11" font-family="Times,serif" font-size="14.00">press button/red</text>
+</g>
+<!-- s_red&#45;&gt;s_off -->
+<g id="edge4" class="edge">
+<title>s_red-&gt;s_off</title>
+<path fill="none" stroke="black" d="M262.89,-35.56C316.44,-40.67 420.91,-54.04 443.07,-81.91 486.99,-137.12 420.47,-214.77 376.58,-256.41"></path>
+<polygon fill="black" stroke="black" points="374.15,-253.89 369.21,-263.27 378.91,-259.02 374.15,-253.89"></polygon>
+<text text-anchor="middle" x="487.2" y="-153.58" font-family="Times,serif" font-size="14.00">switch off/</text>
+</g>
+<!-- s_red&#45;&gt;s_green -->
+<g id="edge2" class="edge">
+<title>s_red-&gt;s_green</title>
+<path fill="none" stroke="black" d="M231.07,-63.93C231.07,-76.76 231.07,-91.96 231.07,-106.32"></path>
+<polygon fill="black" stroke="black" points="227.57,-106.57 231.07,-116.57 234.57,-106.57 227.57,-106.57"></polygon>
+<text text-anchor="middle" x="280.83" y="-86.11" font-family="Times,serif" font-size="14.00">timeout(7s)/green</text>
+</g>
+<!-- s_red&#45;&gt;s_green -->
+<g id="edge3" class="edge">
+<title>s_red-&gt;s_green</title>
+<path fill="none" stroke="black" d="M262.62,-38.95C286.24,-45.27 316.96,-57.8 332.07,-81.91 349,-108.93 313.72,-129.49 280.3,-142.16"></path>
+<polygon fill="black" stroke="black" points="278.74,-139.01 270.51,-145.69 281.11,-145.59 278.74,-139.01"></polygon>
+<text text-anchor="middle" x="387.58" y="-86.11" font-family="Times,serif" font-size="14.00">press button/green</text>
+</g>
+</g>
+</svg>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-toy_train_signal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: State transition graph
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fsm-exercise---state-transition-table" class="level2">
+<h2 class="anchored" data-anchor-id="fsm-exercise---state-transition-table">FSM exercise - state transition table</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Switch on</th>
+<th>Switch off</th>
+<th>press button</th>
+<th>wait for 7 secs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>s_off</td>
+<td>s_green/green</td>
+<td>_</td>
+<td>_</td>
+<td>_</td>
+</tr>
+<tr class="even">
+<td>s_green</td>
+<td>_</td>
+<td>s_off/_</td>
+<td>s_red/red</td>
+<td>s_red/red</td>
+</tr>
+<tr class="odd">
+<td>s_red</td>
+<td>_</td>
+<td>s_off/_</td>
+<td>s_green/green</td>
+<td>s_green/green</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fsm-exercise---solution-example-test-sequence" class="level2">
+<h2 class="anchored" data-anchor-id="fsm-exercise---solution-example-test-sequence">FSM exercise - solution example test sequence</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Action (input)</th>
+<th>Desired output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>switch on</td>
+<td>green</td>
+</tr>
+<tr class="even">
+<td>wait for 7 secs</td>
+<td>red</td>
+</tr>
+<tr class="odd">
+<td>wait for 7 secs</td>
+<td>green</td>
+</tr>
+<tr class="even">
+<td>press button</td>
+<td>red</td>
+</tr>
+<tr class="odd">
+<td>switch off</td>
+<td>_</td>
+</tr>
+<tr class="even">
+<td>switch on</td>
+<td>green</td>
+</tr>
+<tr class="odd">
+<td>press button</td>
+<td>red</td>
+</tr>
+<tr class="even">
+<td>press button</td>
+<td>green</td>
+</tr>
+<tr class="odd">
+<td>switch off</td>
+<td>_</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="graphwalker" class="level2">
+<h2 class="anchored" data-anchor-id="graphwalker"><a href="https://graphwalker.github.io/">Graphwalker</a></h2>
+<ul>
+<li>Open source, free MBT tool with GUI</li>
+<li>Easy-to-use</li>
+<li>Good <a href="https://github.com/GraphWalker/graphwalker-project/wiki">docuemntation</a></li>
+</ul>
+<p>Working process</p>
+<ol type="1">
+<li>Creating a model</li>
+<li>Write adaptation code that interacts with the SUT</li>
+<li>Generate tests</li>
+<li>Executing tests</li>
+</ol>
+</section>
+<section id="graphwalker-studio---installation-and-start" class="level2">
+<h2 class="anchored" data-anchor-id="graphwalker-studio---installation-and-start">Graphwalker Studio - Installation and start</h2>
+<ol type="1">
+<li>Fetch the docker image by running <code>docker pull graphwalker/studio</code></li>
+<li>Run the image <code>docker run -ti --rm -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/home/developer/.Xauthority --net=host --pid=host --ipc=host graphwalker/studio</code></li>
+</ol>
+</section>
+<section id="graphwalker-studio---alternative-installation-and-start" class="level2">
+<h2 class="anchored" data-anchor-id="graphwalker-studio---alternative-installation-and-start">Graphwalker Studio - Alternative installation and start</h2>
+<p>If the previous approach didn’t work one can do the following steps</p>
+<ol type="1">
+<li><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Download</a> and install Java JDK</li>
+</ol>
+<ul>
+<li>Set <code>JAVA_HOME</code> variable in the system env list if not set auatomatically</li>
+</ul>
+<ol start="2" type="1">
+<li>Install model editor <a href="https://graphwalker.github.io/download#studio">Graphwalker studio</a></li>
+</ol>
+<p>After installation</p>
+<ol type="1">
+<li>Click on graphwalker studio <code>graphwalker-studio-4.3.2.jar</code></li>
+<li>Open a web browser and type <code>http://localhost:9090/studio.html</code></li>
+</ol>
+</section>
+<section id="graphwalker-studio---battery-operated-signal-example" class="level2">
+<h2 class="anchored" data-anchor-id="graphwalker-studio---battery-operated-signal-example">Graphwalker Studio - Battery operated signal example</h2>
 
 
 </section>
