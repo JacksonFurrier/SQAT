@@ -1,8 +1,0 @@
----
-title: 7. Selenium testing
-format:
-    html:
-        toc: true
----
-
-For [selenium](https://en.wikipedia.org/wiki/Selenium_(software)) testing see [first project](https://gitlab.inf.elte.hu/software-testing/selenium-1) and the more advanced [second project](https://gitlab.inf.elte.hu/software-testing/selenium-2).

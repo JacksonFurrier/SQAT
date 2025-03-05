@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabor Arpad Nemeth">
+
+<title>5. Performance testing</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1a3a3ddb157f3ae3b1223cb331bd1f66.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label=""><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/JacksonFurrier/SQAT">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/JacksonFurrier/SQAT/issues">
+            Report a Bug
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/e_performance_testing.html">5. Performance testing</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/a_unit_basic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Unit testing basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/b_unit_adv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Unit testing advanced</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/c_unit_mock_basic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. Mocking basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/d_unit_mock_adv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Mocking advanced</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/e_performance_testing.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">5. Performance testing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/f_model_based_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Model based testing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/g_gitlab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Gitlab techniques</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/h_selenium.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Selenium testing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/i_environment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Environment setup</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/e_performance_testing.html">5. Performance testing</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">5. Performance testing</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Gabor Arpad Nemeth <a href="mailto:nga@inf.elte.hu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-2554-9860" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Eötvös Loránd University (Hungary)
+          </p>
+        <p class="affiliation">
+            
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="../images/performance/performance_testing_0.jpg" class="img-fluid"></p>
+<section id="original-material" class="level2">
+<h2 class="anchored" data-anchor-id="original-material">Original material</h2>
+<p>This page is a <strong>work-in-progress</strong>, the original materials can be accessed at <a href="https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EujiKdk5CYhBk9wlmyiWOLcBukqeP23QbJpjdta0Jj1Dpg?e=lhTveE">ik-elte-sharepoint</a></p>
+</section>
+<section id="theory-background" class="level2">
+<h2 class="anchored" data-anchor-id="theory-background">Theory background</h2>
+<section id="performance-testing" class="level3">
+<h3 class="anchored" data-anchor-id="performance-testing">Performance testing</h3>
+<ul>
+<li>Umbrella term, encompassing a wide range of test types</li>
+<li>Deals with questions related to application speed, efficiency, and stability</li>
+<li>Also deals with resource consumption, capacity planning and hardware sizing (e.g. memory, processors, disk space, and network bandwidth)</li>
+<li>Types:
+<ul>
+<li>Load testing</li>
+<li>Endurance (stability, soak) testing</li>
+<li>Stress testing</li>
+<li>Capacity (volume, flood) testing</li>
+<li>Spike testing</li>
+<li>Scalability testing</li>
+</ul></li>
+</ul>
+</section>
+<section id="performance-testing-types" class="level3">
+<h3 class="anchored" data-anchor-id="performance-testing-types">Performance testing types</h3>
+<section id="load-testing" class="level4">
+<h4 class="anchored" data-anchor-id="load-testing">1. Load testing:</h4>
+<ul>
+<li>Used to understand the behaviour of the SUT (System Under Test) under a specific expected load</li>
+<li>Usually applied in a controlled (laboratory) environment</li>
+</ul>
+<p><img src="../images/performance/performance_testing_1.jpg" class="img-fluid"></p>
+</section>
+<section id="endurance-stability-soak-testing" class="level4">
+<h4 class="anchored" data-anchor-id="endurance-stability-soak-testing">2. Endurance (stability, soak) testing:</h4>
+<ul>
+<li>Similar to load test, but focuses on the stability of the system over a bigger predefined time frame</li>
+<li>Used to verify memory leaks, thread problems, database problems, overflows / underflows…etc. that may degrade performance or cause crash</li>
+</ul>
+<p><img src="../images/performance/performance_testing_2.jpg" class="img-fluid"></p>
+</section>
+<section id="stress-testing" class="level4">
+<h4 class="anchored" data-anchor-id="stress-testing">3. Stress testing:</h4>
+<ul>
+<li>Used to understand the upper limits of capacity of the SUT
+<ul>
+<li>Test above normal operational capacity, around max. design capacity
+<ul>
+<li>(It checks if a relatively small overload on short scale can be handled by scheduling, buffering, etc.)</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="../images/performance/performance_testing_3.jpg" class="img-fluid"></p>
+</section>
+<section id="capacity-volume-flood-testing" class="level4">
+<h4 class="anchored" data-anchor-id="capacity-volume-flood-testing">4. Capacity (volume, flood) testing:</h4>
+<ul>
+<li>Determines whether the SUT can manage the amount of workload that was designed for</li>
+<li>When this boundaries are not known in advance, it <em>benchmarks</em> the number of users or transactions that the system is able to handle
+<ul>
+<li>This can be used as a <em>baseline</em> for later testing</li>
+</ul></li>
+<li>The volume of data is increased step-by-step to analyse the actual capacity</li>
+</ul>
+</section>
+<section id="spike-testing" class="level4">
+<h4 class="anchored" data-anchor-id="spike-testing">5. Spike testing:</h4>
+<ul>
+<li>Used to understand the functioning of a system if the load consumedly exceeds the max design capacity for a short time period</li>
+<li>Investigates whether the SUT crashes, terminates gracefully or just dismisses/delays the processing due to the sudden bursts of the requests</li>
+</ul>
+</section>
+<section id="scalability-testing" class="level4">
+<h4 class="anchored" data-anchor-id="scalability-testing">6. Scalability testing:</h4>
+<ul>
+<li>Shows how the SUT is capable of scaling up/out/down considering some resources (CPU, GPU, memory or network usage)</li>
+<li>2 approaches (both can be used to find possible bottlenecks):
+<ul>
+<li>Increase the load to monitor the amount of different types of resources used</li>
+<li>Scaling up/out the resources of the SUT with the same level of load</li>
+</ul></li>
+</ul>
+<p><img src="../images/performance/performance_testing_4.jpg" class="img-fluid"></p>
+</section>
+</section>
+<section id="scheduling-of-different-types-of-performance-tests" class="level3">
+<h3 class="anchored" data-anchor-id="scheduling-of-different-types-of-performance-tests">Scheduling of different types of performance tests</h3>
+<ul>
+<li><a href="slide4.xml">Load tests</a>:
+<ul>
+<li>Regularly</li>
+</ul></li>
+<li><a href="slide5.xml">Endurance tests</a>:
+<ul>
+<li>Only at major milestones (less critical systems)</li>
+<li>OR</li>
+<li>Continuously in a dedicated server (more critical systems)</li>
+</ul></li>
+<li><a href="slide7.xml">Capacity tests</a>:
+<ul>
+<li>Measure actual capacity once &amp; retest sometimes</li>
+<li>Recalibrate if necessary</li>
+</ul></li>
+<li><a href="slide8.xml">Spike tests</a>:
+<ul>
+<li>Frequency depends how critical the SUT is</li>
+</ul></li>
+<li><a href="slide9.xml">Scalability tests</a>:
+<ul>
+<li>Once and apply again if we would like to increase the performance of the SUT or if the environment has been changed</li>
+</ul></li>
+<li>Number of measurements, reference points:
+<ul>
+<li><span style="color:#ff0000"> <strong>One measurement is not a measurement!</strong> </span>
+<ul>
+<li>Multiple performance tests are required to ensure consistent findings due to the problems related to hardware and frameworks used below the measured SUT</li>
+</ul></li>
+<li><span style="color:#ff0000"> <strong>A baseline is also required </strong> </span> where the measured parameters can be compared with
+<ul>
+<li>The reason for this is that the SUT is not completely independent from its environment (i.e. it can be connected to a real network...etc.).</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="tools-in-performance-testing" class="level3">
+<h3 class="anchored" data-anchor-id="tools-in-performance-testing">Tools in performance testing</h3>
+<ul>
+<li>3 main functionalities:</li>
+<li>Load generation
+<ul>
+<li>Generate a given workload to the SUT</li>
+</ul></li>
+<li>Performance monitoring and reporting
+<ul>
+<li>Investigate some performance related aspects of the SUT</li>
+<li>May give an alert on lower performance conditions or detect and notify suspicious behaviours</li>
+<li>Create a report</li>
+</ul></li>
+<li>Log analysis
+<ul>
+<li>Converts existing logs into the desired format, highlights data with the desired metrics…etc.</li>
+<li>Helps searching on existing logs</li>
+<li>May adds additional level of warnings and alerts to log data</li>
+</ul></li>
+</ul>
+</section>
+<section id="load-generation-working-principle" class="level3">
+<h3 class="anchored" data-anchor-id="load-generation-working-principle">Load generation – working principle</h3>
+<p>The simulation or emulation of the workload is achieved by creating virtual users that are distributed into load generators</p>
+</section>
+<section id="load-generation-behaviour-descriptions" class="level3">
+<h3 class="anchored" data-anchor-id="load-generation-behaviour-descriptions">Load generation – behaviour descriptions</h3>
+<ul>
+<li><p>4 main approaches for the behaviour description of load generation:</p>
+<ul>
+<li>Hardwired (packet-generators)</li>
+<li>Call-flow (traffic playback tools)</li>
+<li>Source code</li>
+<li>Model-based descriptions</li>
+</ul></li>
+<li><p>These approaches scales between high performance with simple behaviour and medium performance with complex behaviour</p></li>
+<li><p><strong>Hardwired </strong> <strong>(</strong> <strong>packet generators</strong> <strong>)</strong></p>
+<ul>
+<li>Create a discrete chunk of communication in a predefined format
+<ul>
+<li>Some data field of this packet can be changed, but the same for the entire load</li>
+</ul></li>
+<li>Pros:
+<ul>
+<li>Simplest approach →
+<ul>
+<li>Easy to learn</li>
+<li>Highest possible performance</li>
+</ul></li>
+</ul></li>
+<li>Cons:
+<ul>
+<li>Not flexible</li>
+<li>Do not handle alternative behaviours</li>
+</ul></li>
+<li>Example tools: <a href="http://nutsaboutnets.com/netstress/">Netstress</a>, <span style="color:#ff0000"><a href="https://wiki.mikrotik.com/wiki/Manual:Performance_Testing_with_Traffic_Generator">MikroTik</a></span> <span style="color:#ff0000"><a href="https://wiki.mikrotik.com/wiki/Manual:Performance_Testing_with_Traffic_Generator">Traffic Generator of router OS</a></span></li>
+</ul></li>
+<li><p><strong>Call</strong> <strong>-</strong> <strong>flow</strong> __ (__ <strong>traffic playback tools</strong> <strong>)</strong></p>
+<ul>
+<li>Edit* or record an existing** traffic
+<ul>
+<li>* With a call-flow editor</li>
+<li>** With a network analyzer tool, like <a href="https://www.wireshark.org/">Wireshark</a></li>
+</ul></li>
+<li>Play back the given traffic many times to generate load</li>
+<li>Pros:
+<ul>
+<li>Simple, Easy-to-read format</li>
+<li>Flexible approach</li>
+</ul></li>
+<li>Cons:
+<ul>
+<li>Do not handle alternative behaviours</li>
+</ul></li>
+<li>Example tools: <a href="https://jmeter.apache.org/">Apache</a><a href="https://jmeter.apache.org/"></a><a href="https://jmeter.apache.org/">JMeter</a>, <a href="https://github.com/ericsson-mts">MTS-Ericsson</a>, <a href="https://loadninja.com/">LoadNinja</a>,
+<ul>
+<li>simple short code that playbacks a WireShark trace</li>
+</ul></li>
+</ul></li>
+<li><p><strong>Source code</strong></p>
+<ul>
+<li>Describe input and internal conditions and appropriate actions for them in program code</li>
+</ul></li>
+<li><p>Pros:</p>
+<ul>
+<li>Flexible approach</li>
+<li>Can handle alternative behaviours</li>
+</ul></li>
+<li><p>Cons:</p>
+<ul>
+<li>Requires programming skills both to develop and to read tests</li>
+<li>Maintainability could be a problem</li>
+<li>No abstract, high level view</li>
+</ul></li>
+<li><p><strong>Model-based descriptions</strong></p>
+<ul>
+<li>Use formal models to describe the possible behaviour of the virtual users</li>
+<li>Beside the normal call-flow, alternate flows and exception flows are also considered</li>
+</ul></li>
+<li><p>Possible models:</p>
+<ul>
+<li>EFSM (Extended Finite State Machine)</li>
+<li>Petri Nets</li>
+<li>Markov chains</li>
+<li>PTA (Probabilistic Timed Automata)</li>
+<li>ETA (Extended Timed Automata)</li>
+<li>…etc.</li>
+</ul></li>
+</ul>
+<p><img src="../images/performance/performance_testing_5.png" class="img-fluid"></p>
+</section>
+<section id="performance-monitoring" class="level3">
+<h3 class="anchored" data-anchor-id="performance-monitoring">Performance monitoring</h3>
+<ul>
+<li>Performance testing or performance monitoring tools monitor and report the behaviour of the SUT under various input conditions, such as…
+<ul>
+<li>Number of concurrent users</li>
+<li>Frequency and distribution of requests</li>
+<li>The type of requests</li>
+<li>Different behaviours of users</li>
+<li>…etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="performance-monitoring-measured-parameters" class="level3">
+<h3 class="anchored" data-anchor-id="performance-monitoring-measured-parameters">Performance monitoring – measured parameters</h3>
+<ul>
+<li>These parameters are usually monitored during a performance test execution:
+<ul>
+<li>Hardware utilization:
+<ul>
+<li>CPU Utilization</li>
+<li>Memory Utilization</li>
+<li>Disk utilization</li>
+<li>Network utilization</li>
+</ul></li>
+</ul></li>
+<li>These parameters are usually monitored during a performance test execution:
+<ul>
+<li>Characteristics of the tested system:
+<ul>
+<li>Response time
+<ul>
+<li>Different measurable parameters: worst / best / average / 90% percentile</li>
+</ul></li>
+<li>Throughput rate (number of requests processed per unit time), number of handled requests _ _
+<ul>
+<li>Network throughput: rate of successful data delivery over a communication channel
+<ul>
+<li>Maximum throughput/bandwidth capacity: maximum rate of data transfer via a given channel</li>
+</ul></li>
+<li>System throughput: rate of data delivery to all terminal nodes</li>
+</ul></li>
+<li>Rate of successfully handled requests
+<ul>
+<li>What is successfully handled?
+<ul>
+<li>The given request handled successfully at 1st/xth trying attempt or within a predefined time?</li>
+</ul></li>
+<li>Didn’t handled requests were lost, rejected for some reason or just delayed?</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>See <a href="https://en.wikipedia.org/wiki/Grade_of_service">GoS</a><a href="https://en.wikipedia.org/wiki/Grade_of_service">(Grade of Service)</a> in telecommunication domain!</p>
+</section>
+<section id="integrate-performance-testing-with-other-testing-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="integrate-performance-testing-with-other-testing-attributes">Integrate performance testing with other testing attributes</h3>
+<ul>
+<li>Performance testing is not a separate testing entity, it can be integrated into other testing attributes:
+<ul>
+<li>Functionality
+<ul>
+<li><em>Example: besides working properly…</em>
+<ul>
+<li><em>a </em> <em>webshop</em> _ should handle given number of users simultaneously_</li>
+<li><em>a given node of telecom. network should handle given number of transactions</em></li>
+</ul></li>
+</ul></li>
+<li>Availability and usability
+<ul>
+<li><em>Example: Net-bank application</em></li>
+</ul></li>
+<li>Security
+<ul>
+<li><em>Example: DoS attacks</em>
+<ul>
+<li><em>flood the system to make it inaccessible/bypass auth. method/do prohibited transactions</em></li>
+</ul></li>
+</ul></li>
+<li>…etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="performance-testing-tools-apache-jmeter" class="level3">
+<h3 class="anchored" data-anchor-id="performance-testing-tools-apache-jmeter">Performance testing tools – Apache JMeter</h3>
+<ul>
+<li><a href="https://jmeter.apache.org/">Apache JMeter</a>:</li>
+<li>Simple performance test application</li>
+<li>Free, open source</li>
+<li>Easy to use, has <a href="https://jmeter.apache.org/usermanual/index.html">good documentation</a></li>
+<li>Traffic playback tool: can record an actual traffic (from browser or native application) and play back as load
+<ul>
+<li>Traffic can be also generated from a manually edited call-flow</li>
+</ul></li>
+<li>Can handle the following applications/server/protocol types:
+<ul>
+<li>Web - HTTP, HTTPS (Java, NodeJS, PHP, ASP.NET, …)</li>
+<li>SOAP / REST Webservices</li>
+<li>FTP</li>
+<li>Database via JDBC</li>
+<li>LDAP</li>
+<li>Message-oriented middleware (MOM) via JMS</li>
+<li>Mail - SMTP(S), POP3(S) and IMAP(S)</li>
+<li>Native commands or shell scripts</li>
+<li>TCP</li>
+<li>Java Objects</li>
+</ul></li>
+<li>Interfaces:
+<ul>
+<li>GUI: for recording traffic and for setting, debugging and learning purposes</li>
+<li>CLI: for load test</li>
+</ul></li>
+<li><em>CLI: Command Line Interface, GUI: Graphical User Interface</em></li>
+</ul>
+<p><strong><a href="https://jmeter.apache.org/usermanual/jmeter_distributed_testing_step_by_step.html">Multi-threading</a></strong> <a href="https://jmeter.apache.org/usermanual/jmeter_distributed_testing_step_by_step.html">&nbsp;framework</a> allows concurrent sampling by many threads and simultaneous sampling of different functions by separate thread groups.</p>
+<p><img src="../images/performance/performance_testing_9.png" class="img-fluid"></p>
+<p>One master computer control multiple slaves to generate load to the target</p>
+<p><img src="../images/performance/performance_testing_10.png" class="img-fluid"></p>
+<p><strong>Master</strong> : the system running JMeter GUI, which controls the test</p>
+<p><strong>Slave</strong> : the system running JMeter-server, which takes commands from the GUI and send requests to the target system(s)</p>
+<p><strong>Target</strong> : the webserver we plan to stress test</p>
+<ul>
+<li><p>An overview:</p></li>
+<li><p>Prerequisites: Install and start JMeter</p>
+<ul>
+<li><a href="https://jmeter.apache.org/download_jmeter.cgi">Download</a> JMeter and unpack into a desired folder (where you have write privileges)</li>
+<li><a href="https://jmeter.apache.org/usermanual/get-started.html#running">Start</a> JMeter (using jmeter.bat (Windows) / jmeter (Unix) file in /bin folder)</li>
+</ul></li>
+<li><p>Record an HTTPs traffic and playback with 5 parallel threads (users)</p>
+<ul>
+<li>Add reports and analyse measurement parameters</li>
+</ul></li>
+<li><p>Create a Web Test Plan from scratch (edit call-flow manually)</p></li>
+<li><p>Discuss briefly additional possibilities of Apache JMeter</p></li>
+<li><p>Record an HTTPs traffic and playback with 5 parallel threads (users)</p></li>
+<li><p>Record HTTP/HTTPS traffic using the recording template</p>
+<ul>
+<li>Select <em>File </em> <em>/ Templates… </em> menu item or the click on following icon:</li>
+<li>Select <em>Recording</em> template from the drop/down list:</li>
+<li>Select the default parameters and press <em>Create</em> button</li>
+</ul></li>
+<li><p>Select <em>HTTP Request Defaults </em> element in the generated Test Plan</p></li>
+</ul>
+<p><img src="../images/performance/performance_testing_15.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_16.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_17.png" class="img-fluid"></p>
+<p>Select <em>HTTP(s) script recorder </em> at the left and press <em>Start</em> button</p>
+<p><img src="../images/performance/performance_testing_20.png" class="img-fluid"></p>
+<p>This will start the JMeter proxy server which is used to intercept the browser requests.</p>
+<ul>
+<li>Check the <em>ApacheJMeterTemporaryRootCA.crt</em> certificate located in <em>bin</em> subfolder of Jmeter
+<ul>
+<li>If this file is not generated (… &nbsp; <em>java.io.FileNotFoundException</em> <em>: </em> <em>proxyserver.jks</em> _ (Access is denied)_ __ __ error msg)</li>
+<li>due access right problems, then set a folder in <em>user.properties</em> _ _ file (under <em>bin</em> subfolder of Jmeter)</li>
+<li>where you can write:</li>
+<li>proxy.cert.directory=&lt;destination folder&gt;</li>
+</ul></li>
+<li><a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP%28S%29_Test_Script_Recorder">Install the given JMeter CA certificate to your browser</a></li>
+<li>In your browser instead of automatically proxy setting, select manually proxy configuration.
+<ul>
+<li>Set HTTP Proxy to <em>localhost</em> and port to <em>8888 </em> and apply this settings to all protocols</li>
+</ul></li>
+<li>Visit a webpage with your browser (it will be very slow…) and click on some links (while JMeter is still running) then close your browser</li>
+<li>Go back to JMeter, and press Stop <em>HTTP(s) script recorder</em></li>
+</ul>
+<p><img src="../images/performance/performance_testing_23.png" class="img-fluid"></p>
+<p>Expand the <em>Thread Group </em> at the left. There should be several samples, like this:</p>
+<p><img src="../images/performance/performance_testing_26.png" class="img-fluid"></p>
+<ul>
+<li>Select Thread Group and adjust some parameters:</li>
+<li>Save the TestPlan and validate it with clicking on <em>Thread Group</em> , then right click and <em>Validate</em></li>
+<li>Check the right-upper corner:
+<ul>
+<li>Click into to see logs:</li>
+</ul></li>
+</ul>
+<p><img src="../images/performance/performance_testing_28.png" class="img-fluid"></p>
+<p><span style="color:#ff0000"> <strong>Set the number of users, i.e. the number of parallel threads</strong> </span></p>
+<p><span style="color:#ff0000"> <strong>Set the amount of time (in secs) to get to the full number of virtual users for the load test</strong> </span></p>
+<p><span style="color:#ff0000"> <strong>Set how many times you want to repeat your test</strong> </span></p>
+<p><img src="../images/performance/performance_testing_29.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_30.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_32.png" class="img-fluid"></p>
+<ul>
+<li>Start the given test with Run / Start menu item or with the button</li>
+<li>At the right-upper corner the LED and the numbers show the status of the test:
+<ul>
+<li>Green LED shows that tests are running</li>
+<li>The numbers denotes the active threads
+<ul>
+<li>At the end, the number of active threads begin to shrink</li>
+</ul></li>
+<li>When the test has been finished the LED turns into grey
+<ul>
+<li>0/5 denotes that there are no more active threads</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><img src="../images/performance/performance_testing_34.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_35.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_36.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_37.png" class="img-fluid"></p>
+<p>Ok, good, something running, but we do not know any parameters of the target…</p>
+<p>Add statistics <em>Summary Report</em> as a Listener…</p>
+<p><img src="../images/performance/performance_testing_40.png" class="img-fluid"></p>
+<p>Right click on <em>Thread Group</em> , then</p>
+<p><em>Add/Listener/Summary Report</em></p>
+<p>Rerun test and investigate the record during and after execution!</p>
+<p><img src="../images/performance/performance_testing_43.png" class="img-fluid"></p>
+<p>Also try <em>Aggregate Report</em> !</p>
+<p>What is the difference between the 2 statistics?</p>
+<p><img src="../images/performance/performance_testing_46.png" class="img-fluid"></p>
+<ul>
+<li>Understand the parameters of reports:</li>
+<li><strong>Label:</strong> name of the sampler</li>
+<li><strong>#Samples:</strong> Total number of requests sent to the server during the duration of the test</li>
+<li><strong>Average:</strong> Average is sum of all the sample time divided by total number of requests, also called as Mean (unit: msec)</li>
+<li><strong>Median:</strong> 50th percentile / 50% line: 50% of the requests were taking less than or equal to this time (unit: msec)</li>
+<li><strong>90/95/99% line:</strong> 90/95/99% of the requests were taking less than or equal to this time (unit: msec)</li>
+<li><strong>Min/Max:</strong> Min/Max sample time (unit: msec)</li>
+<li><strong>Std. Dev.:</strong> Standard Deviation: a measure that is used to quantify the amount of variation or dispersion of a set of data values.
+<ul>
+<li>A low standard deviation indicates that the data points tend to be close to the mean (also called the expected value) of the set, while a high standard deviation indicates that the data points are spread out over a wider range of values.</li>
+<li><em>(description from </em> <em>wikipedia</em> <em>)</em></li>
+</ul></li>
+<li><strong>Error %:</strong> Percentage of failed tests</li>
+<li><strong>Throughput:</strong> Number of requests processed per unit time. Used to identify the capacity of the server (but the limitation in the capacity can be also come from the limited capacity of the load generator (i.e. the clients used for testing), as in previous example)</li>
+<li><strong>Received/Sent KB/sec:</strong> self explanatory</li>
+<li><strong>Avg. Bytes:</strong> Average response size</li>
+<li><em>Note that we used GUI for debugging/educational reasons, but the actual load testing should be done via CLI</em></li>
+<li><em>CLI: Command Line Interface, GUI: Graphical User Interface </em></li>
+</ul>
+<p>Try <em>Graph Results</em> !</p>
+<p><img src="../images/performance/performance_testing_50.png" class="img-fluid"></p>
+<ul>
+<li>Run the load test again in <a href="https://jmeter.apache.org/usermanual/get-started.html#non_gui">CLI mode</a>
+<ul>
+<li>jmeter -n -t name_of_testplan.jmx -l name_of_log.jtl</li>
+<li>jmeter -n -t name_of_testplan.jmx -l name_of_log.jtl -H my.proxy.server -P 8000</li>
+</ul></li>
+</ul>
+<p><em>CLI: Command Line Interface</em></p>
+<p><img src="../images/performance/performance_testing_53.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_54.png" class="img-fluid"></p>
+<ul>
+<li>Create a Web test plan from scratch! (i.e. edit call-flow manually)</li>
+<li>Select <em>File / New </em> menu option</li>
+<li>Adding users with the <em>Thread Group</em> element:
+<ul>
+<li>Right click on <em>TestPlan</em> , then <em>Add/Threads (Users)/Thread Group</em></li>
+</ul></li>
+</ul>
+<p><img src="../images/performance/performance_testing_57.png" class="img-fluid"></p>
+<p>Set the properties of <a href="https://jmeter.apache.org/usermanual/test_plan.html#thread_group">Thread Group</a>:</p>
+<p><img src="../images/performance/performance_testing_59.png" class="img-fluid"></p>
+<p><span style="color:#ff0000"> <strong>Set the name of the threads</strong> </span></p>
+<p><span style="color:#ff0000"> <strong>Set the number of users, i.e. the number of parallel threads</strong> </span></p>
+<p><span style="color:#ff0000"> <strong>Set how long to delay (in secs) between starting each user</strong> </span></p>
+<p><span style="color:#ff0000"> <strong>Set how many times you want to repeat your test</strong> </span></p>
+<p>Add HTTP Request elements properties:</p>
+<p>Set the name of the webserver where all HTTP requests</p>
+<p>will be sent to ( <em>brickset.com</em> in the current example)</p>
+<p>Note that this is just the setting of <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request_Defaults">defaults that HTTP</a></p>
+<p><a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request_Defaults">request elements use</a>, it does not send HTTP elements itself</p>
+<p>(it will be done in step 7).</p>
+<p><img src="../images/performance/performance_testing_62.png" class="img-fluid"></p>
+<p>Right click on Users group,</p>
+<p>then <em>Add/Config Element/HTTP Request Defaults</em></p>
+<p><img src="../images/performance/performance_testing_63.png" class="img-fluid"></p>
+<ul>
+<li>Add HTTP cookie manager
+<ul>
+<li>Right click on Users group, then <em>Add/Config Element/HTTP Cookie Manager</em></li>
+<li>This will ensure that each thread gets its own cookies</li>
+</ul></li>
+<li>Adding <a href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP request</a>
+<ul>
+<li>We will add 2 HTTP requests:
+<ul>
+<li>Going into the home page</li>
+<li>Going into a subpage</li>
+</ul></li>
+</ul></li>
+<li>Add reports to the TestPlan!
+<ul>
+<li>Right click on <em>Thread Group</em> ,</li>
+<li>then <em>Add/Listener/</em></li>
+</ul></li>
+<li>Validate TestPlan
+<ul>
+<li>Right click on <em>Thread Group</em> ,</li>
+<li>then <em>Validate</em></li>
+</ul></li>
+</ul>
+<p><img src="../images/performance/performance_testing_66.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_67.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_68.png" class="img-fluid"></p>
+<p>What we did not tried in this demo, but may worth to check 2/1:</p>
+<p>Discover the possibilities of <a href="https://jmeter.apache.org/usermanual/get-started.html#non_gui">CLI mode</a> (<a href="https://jmeter.apache.org/usermanual/get-started.html#options">full list of options</a>)</p>
+<p>Testing of other protocols, types of load (like testing <a href="https://jmeter.apache.org/usermanual/build-db-test-plan.html">a database</a>, <a href="https://jmeter.apache.org/usermanual/build-ftp-test-plan.html">an FTP site</a>, <a href="https://jmeter.apache.org/usermanual/build-ldap-test-plan.html">an LDAP server</a>, <a href="https://jmeter.apache.org/usermanual/build-ws-test-plan.html">a webservice</a>…etc)</p>
+<p><a href="https://jmeter.apache.org/usermanual/jmeter_distributed_testing_step_by_step.html">Distributed testing</a>: handle multiple slaves that generates the same/different load</p>
+<p><img src="../images/performance/performance_testing_71.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_72.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_73.png" class="img-fluid"></p>
+<p><img src="../images/performance/performance_testing_74.png" class="img-fluid"></p>
+<p>What we did not tried in this demo, but may worth to check 2/2:</p>
+<p><a href="https://jmeter.apache.org/usermanual/listeners.html">Handle listeners</a>, create own statistics</p>
+<p><a href="https://jmeter.apache.org/usermanual/generating-dashboard.html">Create HTML test reports</a></p>
+<p><a href="https://jmeter.apache.org/usermanual/regular_expressions.html">Pattern matching with regular expressions</a></p>
+<p>...etc.</p>
+<p><img src="../images/performance/performance_testing_77.png" class="img-fluid"></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

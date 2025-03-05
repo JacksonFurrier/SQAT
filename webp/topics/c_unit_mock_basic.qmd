@@ -1,0 +1,78 @@
+---
+title: 3. Mocking basics
+format:
+    html:
+        toc: true
+---
+![](../images/unit/mocking.webp)
+
+
+Mocking is one of the most powerful techniques in unit testing, which can be leveraged to solve complex problems in testing. There can be cases as mentioned in previous videos, that, one needs to test some implementation with 3rdparty functionality. However, the problem is that, one can not control these functionalities totally. To overcome this hurdle, one must use [mocking](https://en.wikipedia.org/wiki/Mock_object).
+
+### Supporting video
+{{< video https://youtu.be/Ss_gHE4tZdo 
+    title='Mocking basics i' 
+>}}
+
+
+## Example 1.
+The best way to understand mocking is to check examples of mocking, therefore we turn to [sample_2](https://github.com/JacksonFurrier/SQAT/tree/main/sample_2) and more specifically, to [NetworkConnection.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/NetworkConnection.java) and [NetworkConnectionTest.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/test/java/sample_2/NetworkConnectionTest.java). 
+
+First let's understand what `NetworkConnection.java` implementation is about. 
+
+* It has three members, `mUrl, mCharset, mQuery` denoting the URL that we plan to connect to, the coding charset that will be used during the established connection, and the query used to encode the different parameters during the connection establishment. 
+
+* The constructors doesn't need much description, however the function `public String GetHttpRequest() throws MalformedURLException, IOException` does need some further clarity.
+
+### Supporting video
+{{< video https://youtu.be/BD8hz1_tFws 
+    title='Mocking basics ii' 
+>}}
+
+### The GetHttpRequest() function
+To test this [GetHttpRequest()](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/NetworkConnection.java#L42) function is a tricky one. 
+
+1. It starts by `URLConnection vConnection = new URL( mUrl + "?" + mQuery).openConnection();` which is basically opening the connection to the remote website that was specified in the member string. 
+2. Next `vConnection.setRequestProperty("Accept-Charset", mCharset);` sets the properties of the connection request, in our case it is `UTF-8`
+3. After the connection has been established the code waits for a response by `InputStream vResponse = vConnection.getInputStream( );` and saves it into a local variable
+4. As a last step, the `InputStream` is traversed with a Scanner `Scanner scanner = new Scanner( vResponse )` using `\\A` as a delimiter. 
+
+To test this function one must overcome massive amount of hurdles to have it as an actual unit test. Lets start at the basics first to reach the point, where we are braced with the knowledge to test such complicated [chain-of-mocks](https://en.wikipedia.org/wiki/Mock_trainwreck) examples.
+
+### Mocking a simple function
+First check out the [NetworkConnectionTest.java](https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/test/java/sample_2/NetworkConnectionTest.java) 
+
+1. This test class start by doing a `BlackMagic()` as a Setup function by instantiating the `NetworkConnection` class
+2. The `HttpRequestReturnsNotNull()` test case simply tests if the `GetHttpRequest()` function returns `String` containing a space
+3. Now the most interesting for is the `HttpRequestReturnsNull()` where the actual mocking happens
+    * First we need to specify, which class we would like to mock `mNetworkConnection = mock( NetworkConnection.class );`
+    * The next step is `when( mNetworkConnection.GetHttpRequest()).thenReturn(" ");` to alter the functionality of the original class
+    * Asserting against the altering of the original functionality by `assertEquals(" ", mNetworkConnection.GetHttpRequest() );`
+
+This simple example shows that, basically with mocks we can alter the behaviour of any function inside our implementation. However, the first example is much more complicated than that, because there are some internal local variables initialized by 3rdparty functionalities, which makes [mock-injection](https://en.wikipedia.org/wiki/Dependency_injection) extremely hard.
+
+
+### Problems with testing GetHttpRequest() function
+The main issues with `public String GetHttpRequest() throws MalformedURLException, IOException` are the following
+
+* The first initialization is complicated as it is. `URLConnection` type on the left-hand-side initialized by a new `URL` class's `openConnection()` function. This will be extremely challenging because we can't access these from the outside, these are local functionalities and local variables. Further, `URLConnection` is `public abstract class` which is hard to mock
+* The next invocation, setting the rquest property on a local variable, which is challenging to handle
+* Forward, the inputstream handling is based on `URLConnection` type local variable, where the `getInputStream()` function needs to be mocked
+* In the `try` block a `Scanner` type is instantiated, where this needs to be mocked as well where the fact, `public final class` just complicates mocking
+* Inside the scanning `try` block only the `useDelimiter()` function needs to be mocked, however it is a bit complicated as discussed before
+
+TL;DR this task is challenging because there is the technique [chain-of-mocks](https://en.wikipedia.org/wiki/Mock_trainwreck) that need to be applied sequentally complicated by `abstract` and `final` classes that need to be mocked out.
+
+### Supporting video
+{{< video https://youtu.be/V95RgoNFKwI
+    title='Mocking basics iii' 
+>}}
+
+## Tasks 1.
+
+Implement a mocking strategy to gain control over all the external functionality inside `GetHttpRequest()`
+
+* `URL` and `URLConnection` need to be mocked from the outside
+* `setRequestProperty()` has to be mocked as well alongside with `getInputStream`
+* `InputStream` class has to be mocked
+* `Scanner` class has to be mocked with the `useDelimiter()` and `next()` function as well 

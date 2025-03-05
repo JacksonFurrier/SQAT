@@ -1,0 +1,517 @@
+---
+title: 5. Performance testing
+author:
+  - name: Gabor Arpad Nemeth
+    orcid: 0000-0003-2554-9860
+    email: nga@inf.elte.hu
+    affiliation:
+      - name: Eötvös Loránd University (Hungary)
+      - department : Computer Algebra
+---
+
+![](../images/performance/performance_testing_0.jpg)
+
+## Original material
+This page is a **work-in-progress**, the original materials can be accessed at [ik-elte-sharepoint](https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EujiKdk5CYhBk9wlmyiWOLcBukqeP23QbJpjdta0Jj1Dpg?e=lhTveE)
+
+## Theory background
+
+### Performance testing
+
+
+* Umbrella term\, encompassing a wide range of test types
+* Deals with questions related to application speed\, efficiency\, and stability
+* Also deals with resource consumption\, capacity planning and hardware sizing \(e\.g\. memory\, processors\, disk space\, and network bandwidth\)
+* Types:
+  * Load testing
+  * Endurance \(stability\, soak\) testing
+  * Stress testing
+  * Capacity \(volume\, flood\) testing
+  * Spike testing
+  * Scalability testing
+
+### Performance testing types
+
+#### 1. Load testing:
+
+* Used to understand the behaviour of the SUT \(System Under Test\) under a specific expected load
+* Usually applied in a controlled \(laboratory\) environment
+
+![](../images/performance/performance_testing_1.jpg)
+
+
+#### 2. Endurance \(stability\, soak\) testing:
+
+* Similar to load test\, but focuses on the stability of the system over a bigger predefined time frame
+* Used to verify memory leaks\, thread problems\, database problems\, overflows / underflows…etc\. that may degrade performance or cause crash
+
+![](../images/performance/performance_testing_2.jpg)
+
+#### 3. Stress testing:
+
+* Used to understand the upper limits of capacity of the SUT
+  * Test above normal operational capacity\, around max\. design capacity
+    * \(It checks if a relatively small overload on short scale can be handled by scheduling\, buffering\, etc\.\)
+
+![](../images/performance/performance_testing_3.jpg)
+
+#### 4. Capacity \(volume\, flood\) testing:
+
+* Determines whether the SUT can manage the amount of workload that was designed for
+* When this boundaries are not known in advance\, it  _benchmarks_  the number of users or transactions that the system is able to handle
+  * This can be used as a  _baseline_  for later testing
+* The volume of data is increased step\-by\-step to analyse the actual capacity
+
+
+#### 5. Spike testing:
+
+* Used to understand the functioning of a system if the load consumedly exceeds the max design capacity for a short time period
+* Investigates whether the SUT crashes\, terminates gracefully or just dismisses/delays the processing due to the sudden bursts of the requests
+
+
+#### 6. Scalability testing:
+
+* Shows how the SUT is capable of scaling up/out/down considering some resources \(CPU\, GPU\, memory or network usage\)
+* 2 approaches \(both can be used to find possible bottlenecks\):
+  * Increase the load to monitor the amount of different types of resources used
+  * Scaling up/out the resources of the SUT with the same level of load
+
+
+![](../images/performance/performance_testing_4.jpg)
+
+### Scheduling of different types of performance tests
+
+* [Load tests](slide4.xml):
+  * Regularly
+* [Endurance tests](slide5.xml):
+  * Only at major milestones \(less critical systems\)
+  * OR
+  * Continuously in a dedicated server \(more critical systems\)
+* [Capacity tests](slide7.xml):
+  * Measure actual capacity once & retest sometimes
+  * Recalibrate if  necessary
+* [Spike tests](slide8.xml):
+  * Frequency depends how critical the SUT is
+* [Scalability tests](slide9.xml):
+  * Once and apply again if we would like to increase the performance of the SUT or if the environment has been changed
+
+
+* Number of measurements\, reference points:
+  * <span style="color:#ff0000"> __One measurement is not a measurement\!__ </span>
+    * Multiple performance tests are required to ensure consistent findings due to the problems related to hardware and frameworks used below the measured SUT
+  * <span style="color:#ff0000"> __A baseline is also required __ </span> where the measured parameters can be compared with
+    * The reason for this is that the SUT is not completely independent from its environment \(i\.e\. it can be connected to a real network\.\.\.etc\.\)\.
+
+
+
+
+### Tools in performance testing
+
+* 3 main functionalities:
+* Load generation
+  * Generate a given workload to the SUT
+* Performance monitoring and reporting
+  * Investigate some performance related aspects of the SUT
+  * May give an alert on lower performance conditions or detect and notify suspicious behaviours
+  * Create a report
+* Log analysis
+  * Converts existing logs into the desired format\, highlights data with the desired metrics…etc\.
+  * Helps searching on existing logs
+  * May adds additional level of warnings and alerts to log data
+
+
+
+
+### Load generation – working principle
+
+The simulation or emulation of the workload is achieved by creating virtual users that are distributed into load generators
+
+### Load generation – behaviour descriptions
+
+* 4 main approaches for the behaviour description of load generation:
+  * Hardwired \(packet\-generators\)
+  * Call\-flow \(traffic playback tools\)
+  * Source code
+  * Model\-based descriptions
+* These approaches scales between high performance with simple behaviour and medium performance with complex behaviour
+
+* __Hardwired __  __\(__  __packet generators__  __\)__
+  * Create a discrete chunk of communication in a predefined format
+    * Some data field of this packet can be changed\, but the same for the entire load
+  * Pros:
+    * Simplest approach →
+      * Easy to learn
+      * Highest possible performance
+  * Cons:
+    * Not flexible
+    * Do not handle alternative behaviours
+  * Example tools: [Netstress](http://nutsaboutnets.com/netstress/)\,  <span style="color:#ff0000">[MikroTik](https://wiki.mikrotik.com/wiki/Manual:Performance_Testing_with_Traffic_Generator)</span>  <span style="color:#ff0000">[ Traffic Generator of router OS](https://wiki.mikrotik.com/wiki/Manual:Performance_Testing_with_Traffic_Generator)</span>
+
+
+* __Call__  __\-__  __flow__  __ \(__  __traffic playback tools__  __\)__
+  * Edit\* or record an existing\*\* traffic
+    * \* With a call\-flow editor
+    * \*\* With a network analyzer tool\, like [Wireshark](https://www.wireshark.org/)
+  * Play back the given traffic many times to generate load
+  * Pros:
+    * Simple\, Easy\-to\-read format
+    * Flexible approach
+  * Cons:
+    * Do not handle alternative behaviours
+  * Example tools: [Apache](https://jmeter.apache.org/)[ ](https://jmeter.apache.org/)[JMeter](https://jmeter.apache.org/)\, [MTS\-Ericsson](https://github.com/ericsson-mts)\, [LoadNinja](https://loadninja.com/)\,
+    * simple short code that playbacks a WireShark trace
+
+
+* __Source code__
+  * Describe input and internal conditions and appropriate actions for them in program code
+* Pros:
+  * Flexible approach
+  * Can handle alternative behaviours
+* Cons:
+  * Requires programming skills both to develop and to read tests
+  * Maintainability could be a problem
+  * No abstract\, high level view
+
+
+* __Model\-based descriptions__
+  * Use formal models to describe the possible behaviour of the virtual users
+  * Beside the normal call\-flow\, alternate flows and exception flows are also considered
+* Possible models:
+  * EFSM \(Extended Finite State Machine\)
+  * Petri Nets
+  * Markov chains
+  * PTA \(Probabilistic Timed Automata\)
+  * ETA \(Extended Timed Automata\)
+  * …etc\.
+
+![](../images/performance/performance_testing_5.png)
+
+
+### Performance monitoring
+
+* Performance testing or performance monitoring tools monitor and report the behaviour of the SUT under various input conditions\, such as…
+  * Number of concurrent users
+  * Frequency and distribution of requests
+  * The type of requests
+  * Different behaviours of users
+  * …etc\.
+
+
+### Performance monitoring – measured parameters
+
+* These parameters are usually monitored during a performance test execution:
+  * Hardware utilization:
+    * CPU Utilization
+    * Memory Utilization
+    * Disk utilization
+    * Network utilization
+
+* These parameters are usually monitored during a performance test execution:
+  * Characteristics of the tested system:
+    * Response time
+      * Different measurable parameters: worst / best / average / 90% percentile
+    * Throughput rate \(number of requests processed per unit time\)\, number of handled requests _	_
+      * Network throughput: rate of successful data delivery over a communication channel
+        * Maximum throughput/bandwidth capacity: maximum rate of data transfer via a given channel
+      * System throughput: rate of data delivery to all terminal nodes
+    * Rate of successfully handled requests
+      * What is successfully handled?
+        * The given request handled successfully at 1st/xth  trying attempt or within a predefined time?
+      * Didn’t handled requests were lost\, rejected for some reason or just delayed?
+
+See [GoS](https://en.wikipedia.org/wiki/Grade_of_service)[ \(Grade of Service\)](https://en.wikipedia.org/wiki/Grade_of_service) in telecommunication domain\!
+
+
+
+### Integrate performance testing with other testing attributes
+
+* Performance testing is not a separate testing entity\, it can be integrated into other testing attributes:
+  * Functionality
+    * _Example: besides working properly…_
+      * _a _  _webshop_  _ should handle given number of users simultaneously_
+      * _a given node of telecom\. network should handle given number of transactions_
+  * Availability and usability
+    * _Example: Net\-bank application_
+  * Security
+    * _Example: DoS attacks_
+      * _flood the system to make it inaccessible/bypass auth\. method/do prohibited transactions_
+  * …etc\.
+
+### Performance testing tools – Apache JMeter
+
+* [Apache JMeter](https://jmeter.apache.org/):
+* Simple performance test application
+* Free\, open source
+* Easy to use\, has [good documentation](https://jmeter.apache.org/usermanual/index.html)
+* Traffic playback tool: can record an actual traffic \(from browser or native application\) and play back as load
+  * Traffic can be also generated from a manually edited call\-flow
+* Can handle the following applications/server/protocol types:
+  * Web \- HTTP\, HTTPS \(Java\, NodeJS\, PHP\, ASP\.NET\, …\)
+  * SOAP / REST Webservices
+  * FTP
+  * Database via JDBC
+  * LDAP
+  * Message\-oriented middleware \(MOM\) via JMS
+  * Mail \- SMTP\(S\)\, POP3\(S\) and IMAP\(S\)
+  * Native commands or shell scripts
+  * TCP
+  * Java Objects
+* Interfaces:
+  * GUI: for recording traffic and for setting\, debugging and learning purposes
+  * CLI: for load test
+* _CLI: Command Line Interface\, 	GUI: Graphical User Interface_
+
+__[Multi\-threading](https://jmeter.apache.org/usermanual/jmeter_distributed_testing_step_by_step.html)__ [ framework](https://jmeter.apache.org/usermanual/jmeter_distributed_testing_step_by_step.html) allows concurrent sampling by many threads and simultaneous sampling of different functions by separate thread groups\.
+
+![](../images/performance/performance_testing_9.png)
+
+One master computer control multiple slaves to generate load to the target
+
+![](../images/performance/performance_testing_10.png)
+
+__Master__ : the system running JMeter GUI\, which controls the test
+
+__Slave__ : the system running JMeter\-server\, which takes commands from the GUI and send requests to the target system\(s\)
+
+__Target__ : the webserver we plan to stress test
+
+
+
+* An overview:
+* Prerequisites: Install and start JMeter
+  * [Download](https://jmeter.apache.org/download_jmeter.cgi) JMeter and unpack into a desired folder \(where you have write privileges\)
+  * [Start](https://jmeter.apache.org/usermanual/get-started.html#running) JMeter \(using jmeter\.bat \(Windows\) / jmeter \(Unix\) file in /bin folder\)
+* Record an HTTPs traffic and playback with 5 parallel threads \(users\)
+  * Add reports and analyse measurement parameters
+* Create a Web Test Plan from scratch \(edit call\-flow manually\)
+* Discuss briefly additional possibilities of Apache JMeter
+
+
+* Record an HTTPs traffic and playback with 5 parallel threads \(users\)
+* Record HTTP/HTTPS traffic using the recording template
+  * Select  _File _  _/ Templates… _ menu item or the click on following icon:
+  * Select   _Recording_  template from the drop/down list:
+  * Select the default parameters and press  _Create_  button
+* Select  _HTTP Request Defaults _ element in the generated Test Plan
+
+![](../images/performance/performance_testing_15.png)
+
+![](../images/performance/performance_testing_16.png)
+
+![](../images/performance/performance_testing_17.png)
+
+
+Select  _HTTP\(s\) script recorder _ at the left and press  _Start_  button
+
+![](../images/performance/performance_testing_20.png)
+
+This will start the JMeter proxy server which is used to intercept the browser requests\.
+
+
+* Check the  _ApacheJMeterTemporaryRootCA\.crt_  certificate located in  _bin_  subfolder of Jmeter
+  * If this file is not generated \(…   _java\.io\.FileNotFoundException_  _: _  _proxyserver\.jks_  _ \(Access is denied\)_  __ __ error msg\)
+  * due access right problems\, then set a folder in  _user\.properties_  _ _ file \(under  _bin_  subfolder of Jmeter\)
+  * where you can write:
+  * proxy\.cert\.directory=\<destination folder>
+* [Install the given JMeter CA certificate to your browser](https://jmeter.apache.org/usermanual/component_reference.html#HTTP%28S%29_Test_Script_Recorder)
+* In your browser instead of automatically proxy setting\, select manually proxy configuration\.
+  * Set HTTP Proxy to  _localhost_  and port to  _8888 _ and apply this settings to all protocols
+* Visit a webpage with your browser \(it will be very slow…\) and click on some links \(while JMeter is still running\) then close your browser
+* Go back to JMeter\, and press Stop  _HTTP\(s\) script recorder_
+
+![](../images/performance/performance_testing_23.png)
+
+
+Expand the  _Thread Group _ at the left\. There should be several samples\, like this:
+
+![](../images/performance/performance_testing_26.png)
+
+* Select Thread Group and adjust some parameters:
+* Save the TestPlan and validate it with clicking on  _Thread Group_ \, then right click and  _Validate_
+* Check the right\-upper corner:
+  * Click into        to see logs:
+
+
+![](../images/performance/performance_testing_28.png)
+
+<span style="color:#ff0000"> __Set the number of users\, i\.e\. the number of parallel threads__ </span>
+
+<span style="color:#ff0000"> __Set the amount of time \(in secs\) to get to the full number of virtual users for the load test__ </span>
+
+<span style="color:#ff0000"> __Set how many times you want to repeat your test__ </span>
+
+![](../images/performance/performance_testing_29.png)
+
+![](../images/performance/performance_testing_30.png)
+
+
+![](../images/performance/performance_testing_32.png)
+
+
+
+* Start the given test with Run / Start menu item or with	the	 button
+* At the right\-upper corner the LED and the numbers show the status of the test:
+  * Green LED shows that tests are running
+  * The numbers denotes the active threads
+    * At the end\, the number of active threads begin to shrink
+  * When the test has been finished the LED turns into grey
+    * 0/5 denotes that there are no more active threads
+
+![](../images/performance/performance_testing_34.png)
+
+![](../images/performance/performance_testing_35.png)
+
+![](../images/performance/performance_testing_36.png)
+
+![](../images/performance/performance_testing_37.png)
+
+
+Ok\, good\, something running\, but we do not know any parameters of the target…
+
+Add statistics  _Summary Report_  as a Listener…
+
+![](../images/performance/performance_testing_40.png)
+
+Right click on  _Thread Group_ \, then
+
+_Add/Listener/Summary Report_
+
+Rerun test and investigate the record during and after execution\!
+
+![](../images/performance/performance_testing_43.png)
+
+
+Also try  _Aggregate Report_ \!
+
+What is the difference between the 2 statistics?
+
+![](../images/performance/performance_testing_46.png)
+
+
+* Understand the parameters of reports:
+* __Label:__  name of the sampler
+* __\#Samples:__  Total number of requests sent to the server during the duration of the test
+* __Average:__  Average is sum of all the sample time divided by total number of requests\, also called as Mean \(unit: msec\)
+* __Median:__  50th percentile / 50% line: 50% of the requests were taking less than or equal to this time \(unit: msec\)
+* __90/95/99% line:__  90/95/99% of the requests were taking less than or equal to this time \(unit: msec\)
+* __Min/Max:__  Min/Max sample time \(unit: msec\)
+* __Std\. Dev\.:__  Standard Deviation: a measure that is used to quantify the amount of variation or dispersion of a set of data values\.
+  * A low standard deviation indicates that the data points tend to be close to the mean \(also called the expected value\) of the set\, while a high standard deviation indicates that the data points are spread out over a wider range of values\.
+  * _\(description from _  _wikipedia_  _\)_
+* __Error %:__  Percentage of failed tests
+* __Throughput:__  Number of requests processed per unit time\. Used to identify the capacity of the server \(but the limitation in the capacity can be also come from the limited capacity of the load generator \(i\.e\. the clients used for testing\)\, as in previous example\)
+* __Received/Sent KB/sec:__  self explanatory
+* __Avg\. Bytes:__  Average response size
+* _Note that we used GUI for debugging/educational reasons\, but the actual load testing should be done via CLI_
+* _CLI: Command Line Interface\, 	GUI: Graphical User Interface		_
+
+
+Try  _Graph Results_ \!
+
+![](../images/performance/performance_testing_50.png)
+
+
+* Run the load test again in [CLI mode](https://jmeter.apache.org/usermanual/get-started.html#non_gui)
+  * jmeter \-n \-t name\_of\_testplan\.jmx \-l name\_of\_log\.jtl
+  * jmeter \-n \-t name\_of\_testplan\.jmx \-l name\_of\_log\.jtl \-H my\.proxy\.server \-P 8000
+
+
+_CLI: Command Line Interface_
+
+![](../images/performance/performance_testing_53.png)
+
+![](../images/performance/performance_testing_54.png)
+
+* Create a Web test plan from scratch\! \(i\.e\. edit call\-flow manually\)
+* Select  _File / New _ menu option
+* Adding users with the  _Thread Group_  element:
+  * Right click on  _TestPlan_ \, then  _Add/Threads \(Users\)/Thread Group_
+
+![](../images/performance/performance_testing_57.png)
+
+
+Set the properties of [Thread Group](https://jmeter.apache.org/usermanual/test_plan.html#thread_group):
+
+![](../images/performance/performance_testing_59.png)
+
+<span style="color:#ff0000"> __Set the name of the threads__ </span>
+
+<span style="color:#ff0000"> __Set the number of users\, i\.e\. the number of parallel threads__ </span>
+
+<span style="color:#ff0000"> __Set how long to delay \(in secs\) between starting each user__ </span>
+
+<span style="color:#ff0000"> __Set how many times you want to repeat your test__ </span>
+
+Add HTTP Request elements properties:
+
+Set the name of the webserver where all HTTP requests
+
+will be sent to \( _brickset\.com_  in the current example\)
+
+Note that this is just the setting of [defaults that HTTP](https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request_Defaults)
+
+[request elements use](https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request_Defaults)\, it does not send HTTP elements itself
+
+\(it will be done in step 7\)\.
+
+![](../images/performance/performance_testing_62.png)
+
+Right click on Users group\,
+
+then  _Add/Config Element/HTTP Request Defaults_
+
+![](../images/performance/performance_testing_63.png)
+
+
+* Add HTTP cookie manager
+  * Right click on Users group\, then  _Add/Config Element/HTTP Cookie Manager_
+  * This will ensure that each thread gets its own cookies
+* Adding [HTTP request](https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request)
+  * We will add 2 HTTP requests:
+    * Going into the home page
+    * Going into a subpage
+* Add reports to the TestPlan\!
+  * Right click on  _Thread Group_ \,
+  * then  _Add/Listener/_
+* Validate TestPlan
+  * Right click on  _Thread Group_ \,
+  * then  _Validate_
+
+
+![](../images/performance/performance_testing_66.png)
+
+![](../images/performance/performance_testing_67.png)
+
+![](../images/performance/performance_testing_68.png)
+
+
+What we did not tried in this demo\, but may worth to check 2/1:
+
+Discover the possibilities of [CLI mode](https://jmeter.apache.org/usermanual/get-started.html#non_gui) \([full list of options](https://jmeter.apache.org/usermanual/get-started.html#options)\)
+
+Testing of other protocols\, types of load \(like testing [a database](https://jmeter.apache.org/usermanual/build-db-test-plan.html)\, [an FTP site](https://jmeter.apache.org/usermanual/build-ftp-test-plan.html)\, [an LDAP server](https://jmeter.apache.org/usermanual/build-ldap-test-plan.html)\, [a webservice](https://jmeter.apache.org/usermanual/build-ws-test-plan.html)…etc\)
+
+[Distributed testing](https://jmeter.apache.org/usermanual/jmeter_distributed_testing_step_by_step.html): handle multiple slaves that generates the same/different load
+
+
+![](../images/performance/performance_testing_71.png)
+
+![](../images/performance/performance_testing_72.png)
+
+![](../images/performance/performance_testing_73.png)
+
+![](../images/performance/performance_testing_74.png)
+
+
+What we did not tried in this demo\, but may worth to check 2/2:
+
+[Handle listeners](https://jmeter.apache.org/usermanual/listeners.html)\, create own statistics
+
+[Create HTML test reports](https://jmeter.apache.org/usermanual/generating-dashboard.html)
+
+[Pattern matching with regular expressions](https://jmeter.apache.org/usermanual/regular_expressions.html)
+
+\.\.\.etc\.
+
+![](../images/performance/performance_testing_77.png)
+

@@ -150,13 +150,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/10_selenium.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">7. Selenium testing</span></a>
+ <span class="menu-text">8. Selenium testing</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../topics/11_environment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">8. Environment setup</span></a>
+ <span class="menu-text">9. Environment setup</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -185,8 +185,14 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../topics/6_model_based_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Model based testing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../topics/9_gitlab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">6. Gitlab techniques</span></a>
+ <span class="menu-text">7. Gitlab techniques</span></a>
   </div>
 </li>
       </ul>
@@ -236,7 +242,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="../images/unit_testing_advanced.webp" class="img-fluid"></p>
+<p><img src="../images/unit/unit_testing_advanced.webp" class="img-fluid"></p>
 <p>There can be cases where the task at hand is not as easy as it is with <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_1">sample_1</a>. One of the cases is when <code>exception</code>s are at play. Take a look at the next example that we will go through here <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_2">sample_2</a>. Our first CUT will be <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/HelloLink.java">Hellolink.java</a> and let’s take a look at its implementation</p>
 <ul>
 <li>It has a default construction, with two overloads, <code>HelloLink(int aNumber)</code> taking a number and instantiating a member with a vector with the predefined size in the constructor, <code>HelloLink(boolean aWait)</code> which instantiates the object but waiting for 3000 milliseconds</li>
