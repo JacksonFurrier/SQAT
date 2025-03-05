@@ -67,6 +67,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
@@ -250,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="agenda" class="level2">
 <h2 class="anchored" data-anchor-id="agenda">Agenda</h2>
 <p>Short agenda:</p>
-<ul>
+<ol type="1">
 <li>Theory background of MBT (Model-based testing)</li>
 <li>FSM (Finite State Machine) models</li>
 <li>Editing specification models with GraphWalker Studio</li>
@@ -259,736 +262,88 @@ ul.task-list li input[type="checkbox"] {
 <li>GraphWalker Studio and</li>
 <li>Model &gt;&gt; Test &gt;&gt; Relax</li>
 </ul></li>
-</ul>
+</ol>
+</section>
+<section id="degree-of-automization" class="level2">
+<h2 class="anchored" data-anchor-id="degree-of-automization">Degree of automization</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A(Degree of automatization) --&gt; B(from the view of test execution) --&gt; C(Manual / Automated)
+  A --&gt; D(from the view of the test design) --&gt; E(Manually designed) --&gt; F(Generated)
+       
+    subgraph subE [" "]
+        E
+        noteE[ Test cases are designed by a test engineer based on specification]
+    end
+
+    subgraph subF [" "]
+        F
+        noteF[ Test cases are generated automatically from a test model or from the specification -&gt; MBT Model Based Testing]
+    end
+    
+    class subA,subB,subC sub
+    class noteA,noteB,noteC note
+
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </section>
 <section id="model-based-testing" class="level2">
-<h2 class="anchored" data-anchor-id="model-based-testing">Model-based testing</h2>
-<p><img src="../images/model_based/Model-based testing-1st part_1.jpg" class="img-fluid"></p>
-<ul>
-<li>Conformance testing
+<h2 class="anchored" data-anchor-id="model-based-testing">Model based testing</h2>
+<p>Conformance testing</p>
 <ul>
 <li>Given
 <ul>
-<li>Specification model
-<ul>
-<li><em>white box</em></li>
-</ul></li>
-<li>Implementation model
-<ul>
-<li><em>black box</em></li>
-</ul></li>
+<li>Specification model (white box)</li>
+<li>Implementation model (black box)</li>
 </ul></li>
 <li>Test if the implementation conforms to the specification?
 <ul>
-<li>Ie. determine if the two corresponding model descriptions are equivalent</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>Specification</p>
-<p>model</p>
-<p><img src="../images/model_based/Model-based testing-1st part_2.jpg" class="img-fluid"></p>
-<p>Implementation</p>
-<p>model</p>
-<p><img src="../images/model_based/Model-based testing-1st part_3.jpg" class="img-fluid"></p>
-<p><img src="../images/model_based/Model-based testing-1st part_4.jpg" class="img-fluid"></p>
-</section>
-<section id="fsm---a-formal-specification-model" class="level2">
-<h2 class="anchored" data-anchor-id="fsm---a-formal-specification-model">FSM - a formal specification model</h2>
-<p><em>state transition graph</em> <em>:</em></p>
-<p><em>state transition table</em> <em>:</em></p>
-<ul>
-<li><em>Finite State Machine</em></li>
-<li><em>(Mealy-model)</em></li>
-<li>M=(I, O, S, T)
-<ul>
-<li>I: set of input symbols</li>
-<li>O: set of output symbols</li>
-<li>S: set of states
-<ul>
-<li>so: initial state</li>
-</ul></li>
-<li>T: S x I → S x O: set of transitions
-<ul>
-<li>δ : S x I → S: next state function</li>
-<li>λ : S x I → O: output function</li>
-<li>Each t T: t=( <em>s</em> <em>x</em> _ _ , <em>s</em> <em>y</em> _ _ , <em>i</em> <em>x</em> _ _ , <em>o</em> <em>x</em> )</li>
-</ul></li>
+<li>I.E. determine if the two corresponding model descriptions are equivalent</li>
 </ul></li>
 </ul>
-<p><img src="../images/model_based/Model-based testing-1st part_5.png" class="img-fluid"></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"></th>
-<th style="text-align: center;">a</th>
-<th style="text-align: center;">b</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">s0</td>
-<td style="text-align: center;">s1, 0</td>
-<td style="text-align: center;">s2, 0</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">s1</td>
-<td style="text-align: center;">s3, 1</td>
-<td style="text-align: center;">s0, 1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">s2</td>
-<td style="text-align: center;">s2, 1</td>
-<td style="text-align: center;">s3, 1</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">s3</td>
-<td style="text-align: center;">s0, 0</td>
-<td style="text-align: center;">s1, 0</td>
-</tr>
-</tbody>
-</table>
-<p><img src="../images/model_based/Model-based testing-1st part_6.png" class="img-fluid"></p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A &lt;--&gt; B --&gt; C
+     B --&gt; D 
+
+    subgraph subA [" "]
+        A
+        noteE[Specification model]
+    end
+
+    subgraph subB [" "]
+        B
+        noteF[Implementation model]
+    end
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </section>
-<section id="fsm-based-conformance-testing" class="level2">
-<h2 class="anchored" data-anchor-id="fsm-based-conformance-testing">FSM-based conformance testing</h2>
-<p><img src="../images/model_based/Model-based testing-1st part_7.jpg" class="img-fluid"></p>
-<p><img src="../images/model_based/Model-based testing-1st part_8.jpg" class="img-fluid"></p>
-<p>Implementation:</p>
-<p>FSM <em>Imp</em> <em>l</em></p>
-<p><em>(black box)</em></p>
-<p>Specification:</p>
-<p>FSM <em>M</em></p>
-<p><em>(white box)</em></p>
-<p>Implementation FSM <em>Impl</em> ,</p>
-<p>SUT</p>
-<p>Specification FSM <em>M</em></p>
-<p>Implementation FSM <em>Impl</em> ,</p>
-<p>SUT</p>
-<p><em>FSM-based testing</em></p>
-<p><em>FSM-based test generation</em></p>
-</section>
-<section id="fsm-exercise" class="level2">
-<h2 class="anchored" data-anchor-id="fsm-exercise">FSM exercise</h2>
-<ul>
-<li><strong><a href="https://www.maerklin.de/en/products/details/article/72201/">Märklin</a></strong> <strong><a href="https://www.maerklin.de/en/products/details/article/72201/">Battery-Operated Signal</a></strong></li>
-<li>Explore the functionality of the given device</li>
-<li>&amp; write a specification for it!</li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_9.png" class="img-fluid"></p>
-<p>The device has 2 LEDs (red and green), a 2-way switch and a press button.</p>
-<p>The 2-way switch turns the device off or on. When the device is turned on,</p>
-<p>the green LED lights up.</p>
-<p>The button can be used to change which LED lights; red or green.</p>
-<p>If no button is pressed for 7 secs the device changes the lights.</p>
-<ul>
-<li><strong><a href="https://www.maerklin.de/en/products/details/article/72201/">Märklin</a></strong> <strong><a href="https://www.maerklin.de/en/products/details/article/72201/">Battery-Operated Signal</a></strong></li>
-<li>Explore the functionality of the given device &amp; write a specification for it!</li>
-<li>Create an FSM based on the specification!
-<ul>
-<li>Create a state transition table</li>
-<li>Create a state transition graph</li>
-<li><em>Waiting</em> _ for _ <em>7 seconds can be handled</em> _ as special _ <em>timeout</em> _ input message_</li>
-</ul></li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_10.png" class="img-fluid"></p>
-<p><img src="../images/model_based/Model-based testing-1st part_11.png" class="img-fluid"></p>
-<p><em>state transition table</em> <em>:</em></p>
-<table class="caption-top table">
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><span style="color:#ff0000">Next state / output</span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="fsm-exercise-solution" class="level2">
-<h2 class="anchored" data-anchor-id="fsm-exercise-solution">FSM exercise: solution</h2>
-<p><img src="../images/model_based/Model-based testing-1st part_12.png" class="img-fluid"></p>
-<p><em>state transition table</em> <em>:</em></p>
-<p><em>state transition graph</em> <em>:</em></p>
-<p><img src="../images/model_based/Model-based testing-1st part_13.png" class="img-fluid"></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;"></th>
-<th style="text-align: center;"><strong>switch on</strong></th>
-<th style="text-align: center;"><strong>switch off</strong></th>
-<th style="text-align: center;"><strong>press button</strong></th>
-<th style="text-align: center;"><strong>wait for 7 secs</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><strong>s_off</strong></td>
-<td style="text-align: center;">sgreen/green</td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;"><span style="color:#000000">-</span></td>
-<td style="text-align: center;"><span style="color:#000000">-</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong>s_green</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">soff/-</td>
-<td style="text-align: center;">sred/red</td>
-<td style="text-align: center;">sred/red</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>s_red</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">soff/-</td>
-<td style="text-align: center;">sgreen/green</td>
-<td style="text-align: center;">sgreen/green</td>
-</tr>
-</tbody>
-</table>
-<p>##FSM exercise</p>
-<ul>
-<li><strong><a href="https://www.maerklin.de/en/products/details/article/72201/">Märklin</a></strong> <strong><a href="https://www.maerklin.de/en/products/details/article/72201/">Battery-Operated Signal</a></strong></li>
-<li>Explore the functionality of the given device &amp; write a specification for it!</li>
-<li>Create an FSM based on the specification!</li>
-<li>Design an input/output sequence to test all functionalities of the specification!</li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_14.png" class="img-fluid"></p>
-<p><img src="../images/model_based/Model-based testing-1st part_15.png" class="img-fluid"></p>
-<p>##FSM exercise: solution</p>
-<p><img src="../images/model_based/Model-based testing-1st part_16.png" class="img-fluid"></p>
-<p><em>state transition table</em> <em>:</em></p>
-<p><em>state transition graph</em> <em>:</em></p>
-<p><img src="../images/model_based/Model-based testing-1st part_17.png" class="img-fluid"></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;"></th>
-<th style="text-align: center;"><strong>switch on</strong></th>
-<th style="text-align: center;"><strong>switch off</strong></th>
-<th style="text-align: center;"><strong>press button</strong></th>
-<th style="text-align: center;"><strong>wait for 7 secs</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><strong>s_off</strong></td>
-<td style="text-align: center;">sgreen/green</td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;"><span style="color:#000000">-</span></td>
-<td style="text-align: center;"><span style="color:#000000">-</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong>s_green</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">soff/-</td>
-<td style="text-align: center;">sred/red</td>
-<td style="text-align: center;">sred/red</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>s_red</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">soff/-</td>
-<td style="text-align: center;">sgreen/green</td>
-<td style="text-align: center;">sgreen/green</td>
-</tr>
-</tbody>
-</table>
-<p><em>example test sequence:</em></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;">Action (input)</th>
-<th style="text-align: center;">Desired output</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">switch on</td>
-<td style="text-align: center;">green</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">wait for 7 secs</td>
-<td style="text-align: center;">red</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">wait for 7 secs</td>
-<td style="text-align: center;">green</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">press button</td>
-<td style="text-align: center;">red</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">switch off</td>
-<td style="text-align: center;">-</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">switch on</td>
-<td style="text-align: center;">green</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">press button</td>
-<td style="text-align: center;">red</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">press button</td>
-<td style="text-align: center;">green</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">switch off</td>
-<td style="text-align: center;">-</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="graphwalker" class="level2">
-<h2 class="anchored" data-anchor-id="graphwalker">GraphWalker</h2>
-<p>Open source, free MBT tool with GUI</p>
-<p>Easy-to-use</p>
-<p><a href="https://github.com/GraphWalker/graphwalker-project/wiki">Good documentation</a></p>
-<p>Working process:</p>
-<p>Creating a model</p>
-<p>Write adaptation code that interacts with the SUT</p>
-<p>Generate tests</p>
-<p>Executing tests</p>
-<p><img src="../images/model_based/Model-based testing-1st part_18.png" class="img-fluid"></p>
-</section>
-<section id="graphwalker-studio-installation-and-start" class="level2">
-<h2 class="anchored" data-anchor-id="graphwalker-studio-installation-and-start">GraphWalker Studio: Installation and start</h2>
-<ul>
-<li>Installation prerequisites:
-<ul>
-<li><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Download</a> and install Java JDK (or at least Java RE) and add to path</li>
-<li>(using <em>JAVA_PATH</em> <a href="https://www.java.com/en/download/help/path.xml">system environment variable</a> in Windows)</li>
-</ul></li>
-<li>Install model editor:
-<ul>
-<li>Download <a href="https://graphwalker.github.io/download#studio">GraphWalker</a><a href="https://graphwalker.github.io/download#studio">Studio</a></li>
-</ul></li>
-<li>After installation:</li>
-<li>Click on GraphWalker Studio file <em>(graphwalker-studio-4.3.2.jar)</em></li>
-<li>Open a web browser and type <a href="http://localhost:9090/studio.html">http://localhost:9090/studio.html</a></li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_19.png" class="img-fluid"></p>
-<p><img src="../images/model_based/Model-based testing-1st part_20.png" class="img-fluid"></p>
-</section>
-<section id="graphwalker-studio-battery-operated-signal" class="level2">
-<h2 class="anchored" data-anchor-id="graphwalker-studio-battery-operated-signal">GraphWalker Studio: Battery-operated signal</h2>
-<ul>
-<li>Draw the FSM of battery-operated signal in <a href="https://graphwalker.github.io/download#studio">GW</a><a href="https://graphwalker.github.io/download#studio">Studio</a>
-<ul>
-<li>Set up names for states (vertices) and transitions (edges)</li>
-<li>Set <em>s_off</em> _ _ as starting state</li>
-<li>At the current stage do not care outputs <em>(they can be saved as variables if you insist)</em></li>
-<li>Save the model as <span style="color:#ff0000"> <em>Toy_train_signal.json</em> </span></li>
-</ul></li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_21.png" class="img-fluid"></p>
-<p><img src="../images/model_based/Model-based testing-1st part_22.png" class="img-fluid"></p>
-<p><img src="../images/model_based/Model-based testing-1st part_23.png" class="img-fluid"></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;"></th>
-<th style="text-align: center;"><strong>switch on</strong></th>
-<th style="text-align: center;"><strong>switch off</strong></th>
-<th style="text-align: center;"><strong>press button</strong></th>
-<th style="text-align: center;"><strong>wait for 7 secs</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><strong>s_off</strong></td>
-<td style="text-align: center;">s_green/green</td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;"><span style="color:#000000">-</span></td>
-<td style="text-align: center;"><span style="color:#000000">-</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong>s_green</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">s_off/-</td>
-<td style="text-align: center;">s_red/red</td>
-<td style="text-align: center;">s_red/red</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong>s_red</strong></td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">s_off/-</td>
-<td style="text-align: center;">s_green/green</td>
-<td style="text-align: center;">s_green/green</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-<section id="graphwalker-studio-help-41-create-a-model" class="level2">
-<h2 class="anchored" data-anchor-id="graphwalker-studio-help-41-create-a-model">GraphWalker Studio help 4/1: Create a model</h2>
-<ul>
-<li><strong>Create a vertex</strong> : On the&nbsp;editor&nbsp;area, while pressing the keyboard key&nbsp; <span style="color:#ff0000"> <em>v</em> </span> , click the&nbsp; <em>left mouse button</em> .</li>
-<li><strong>Create an edge</strong> : On the&nbsp;editor area, while pressing the keyboard key&nbsp; <span style="color:#ff0000"> <em>e</em> </span>
-<ul>
-<li><em>Click and hold the&nbsp;left mouse button&nbsp;on the first vertex</em> .</li>
-<li><em>Drag the mouse cursor to the second vertex and release the left mouse button over that vertex</em> .</li>
-</ul></li>
-<li><strong>Change the properties of a vertex/edge</strong> :
-<ul>
-<li>Select the given element with mouse click</li>
-<li>then click on at the left panel and</li>
-<li>Set the given property
-<ul>
-<li>Name</li>
-<li>Guarding conditions</li>
-<li>Output/actions</li>
-<li>Start element or not?</li>
-</ul></li>
-</ul></li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_24.png" class="img-fluid"></p>
-<p><img src="../images/model_based/Model-based testing-1st part_25.png" class="img-fluid"></p>
-<p><span style="color:#ff0000">Selected element</span></p>
-<p><span style="color:#ff0000">Add guarding conditions</span></p>
-<p><span style="color:#ff0000">Add output/actions</span></p>
-<p><span style="color:#ff0000">Set as start element</span></p>
-</section>
-<section id="graphwalker-studio-help-42-generators" class="level2">
-<h2 class="anchored" data-anchor-id="graphwalker-studio-help-42-generators">GraphWalker Studio help 4/2: Generators</h2>
-<p><strong>Define stopping conditions for tests:</strong></p>
-<p><strong>edge_coverage</strong> __ __ (an integer representing percentage of desired edge coverage)</p>
-<p><strong>vertex_coverage</strong> __ __ (an integer representing percentage of desired vertex coverage)</p>
-<p><strong>requirement_coverage</strong> __ __ (an integer representing percentage of desired requirement coverage)</p>
-<p><strong>dependency_edge_coverage</strong> __ __ (an integer representing dependency threshold)</p>
-<p><strong>reached_vertex</strong> __ __ (the name of the vertex to reach)</p>
-<p><strong>reached_edge</strong> __ __ (the name of the edge to reach)</p>
-<p><strong>time_duration</strong> __ __ (an integer representing the number of seconds to run)</p>
-<p><strong>length</strong> (an integer representing the total numbers of edge-vertex pairs)</p>
-<p><strong>never</strong></p>
-<p><img src="../images/model_based/Model-based testing-1st part_26.png" class="img-fluid"></p>
-<p><strong>Define generator:</strong></p>
-<p><strong>random</strong> (some stop condition(s))</p>
-<p><strong>weighted_random</strong> __ __ (some stop condition(s))</p>
-<p><strong>quick_random</strong> __ __ (some stop condition(s))</p>
-<p><strong>a_star</strong> __ __ (a stop condition that names a vertex or an edge )</p>
-<p><strong>predefined_path</strong> (predefined_path)</p>
-<p><strong>Define delays after each step</strong></p>
-<p><a href="https://github.com/GraphWalker/graphwalker-project/wiki/Generators-and-stop-conditions">More info in user guide</a></p>
-<hr>
-<p>The corresponding part of the user guide:</p>
-<p>Generators A&nbsp;generator&nbsp;is an algorithm that decides how to traverse a model. Different generators will generate different test sequences, and they will navigate in different ways. Multiple generators can be daisy chained, concatenated. random( some stop condition(s) ) Navigate through the model in a completely random manner, also called “Drunkard’s walk”, or “Random walk”. This algorithm selects an out-edge from a vertex by random, and repeats the process in the next vertex. weighted_random( some stop condition(s) ) Same as the&nbsp;random path generator&nbsp;(see above), but will use the&nbsp;weight&nbsp;keyword when generating a path. The weight is assigned to edges only, and it represents the probability of an edge getting chosen. quick_random( some stop condition(s) ) Tries to run the shortest path through a model, but in a fast way. This is how the algorithm works: Choose an edge not yet visited by random. Select the shortest path to that edge using Dijkstra’s algorithm Walk that path, and mark all the executed edges as visited. When reaching the selected edge in step 1, start all over, repeating steps 1-4. The algorithm works well for very large models, and generates reasonably short sequences. The downside is when used in conjunction with&nbsp;EFSM, the algorithm can choose a path which is blocked by a guard. a_star( a stop condition that names a vertex or an edge ) Will generate the shortest path to a specific vertex or edge. shortest_all_paths ==&gt; (Not released yet) Will calculate and generate the shortest path through the model. The cost for every edge is set to 1. This algorithm is not recommended because for larger models, and using data in the model&nbsp;EFSM, it will take a considerable time to calculate. Stop conditions A&nbsp;stop condition&nbsp;is condition that decides when a path is completed. The generator will generate a new step in the path until the stop condition is fulfilled. edge_coverage( an integer representing percentage of desired edge coverage ) The stop condition is a percentage. When, during execution, the percentage of traversed edges is reached, the test is stopped. If an edge is traversed more than once, it still counts as 1 when calculating the percentage coverage. vertex_coverage( an integer representing percentage of desired vertex coverage ) The stop condition is a percentage. When, during execution, the percentage of traversed states is reached, the test is stopped. If a vertex is traversed more than once, it still counts as 1 when calculating the percentage coverage. requirement_coverage( an integer representing percentage of desired requirement coverage ) The stop condition is a percentage. When, during execution, the percentage of traversed requirements is reached, the test is stopped. If a requirement is traversed more than once, it still counts as 1 when calculating the percentage coverage. dependency_edge_coverage( an integer representing dependency threshold ) The stop condition is a percentage. When, during execution, all of the traversed edges with dependency higher or equal to the dependency threshold are reached, the test is stopped. If an edge is traversed more than once, it still counts as 1, when calculating the percentage coverage. reached_vertex( the name of the vertex to reach ) The stop condition is a named vertex. When, during execution, the vertex is reached, the test is stopped. reached_edge( the name of the edge to reach ) The stop condition is a named edge. When, during execution, the edge is reached, the test is stopped. time_duration( an integer representing the number of seconds to run ) The stop condition is a time, representing the number of seconds that the test generator is allowed to execute. Please note that the time is compared with the execution for the whole test. This means that if you for example have: 2 models with common shared states both having&nbsp;time_duration&nbsp;stop condition set to 60 seconds Then both models will stop executing after 60 seconds, even if one of the models have not been visited. length( an integer ) The stop condition is a number, representing the total numbers of edge-vertex pairs generated by a generator. For example, if the number is 110, the test sequence would be 220 do-check actions (110 pairs of edges and vertices). never This special stop condition will never halt the generator.</p>
-<p>Examples Will never stop generating a path sequence. Executes forever in a random fashion. random(never)</p>
-<p>Walk randomly until the vertex coverage has reached 100%. random(vertex_coverage(100))</p>
-<p>Walk randomly until the edge coverage has reached 50%. random(edge_coverage(50))</p>
-<p>Walk randomly until the vertex&nbsp;v_SomeVertex&nbsp;is reached. random(reached_vertex(v_SomeVertex))</p>
-<p>Walk the shortest path to the edge&nbsp;e_SomeEdge&nbsp;and then stop. a_star(reached_edge(e_SomeEdge))</p>
-<p>Walk randomly until the requirement coverage has reached 100%. random(requirement_coverage(100))</p>
-<p>Walk randomly for 500 seconds. random(time_duration(500))</p>
-<p>Walk randomly until the path sequence has reached a length of 24 elements of edges and vertices. random(length(24))</p>
-<p>Walk randomly until the edge coverage has reached 100%, or we have executed for 500 seconds. random(edge_coverage(100) or time_duration(500))</p>
-<p>Walk randomly until the edge coverage has reached 100%, or we have executed for 500 seconds (same as above). random(edge_coverage(100) || time_duration(500))</p>
-<p>Walk randomly until the edge coverage has reached 100%, and we have reached the vertex&nbsp;v_SomeVertex. random(reached_vertex(v_SomeVertex) and edge_coverage(100))</p>
-<p>Walk randomly until the edge coverage has reached 100%, and we have reached the vertex&nbsp;v_SomeVertex&nbsp;(same as above). random(reached_vertex(v_SomeVertex) &amp;&amp; edge_coverage(100))</p>
-<p>Walk randomly until we have executed for 500 seconds, or we have both reached vertex&nbsp;v_SomeVertex&nbsp;and reached 100% vertex coverage. random((reached_vertex(v_SomeVertex) and vertex_coverage(100)) || time_duration(500))</p>
-<p>Walk randomly until the edge coverage has reached 100% and we have reached the vertex&nbsp;v_SomeVertex. Then start using the next strategy: walk randomly for 1 hour. random(reached_vertex(v_SomeVertex) and edge_coverage(100)) random(time_duration(3600))</p>
-<p>Walk randomly until all the edges with dependency higher or equal to 85% are reached. random(dependency_edge_coverage(85))</p>
-</section>
-<section id="graphwalker-studio-help-43-test-execution" class="level2">
-<h2 class="anchored" data-anchor-id="graphwalker-studio-help-43-test-execution">GraphWalker Studio help 4/3: Test execution</h2>
-<ul>
-<li>Execute the tests:</li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_27.png" class="img-fluid"></p>
-<p>Pause test execution</p>
-<p><img src="../images/model_based/Model-based testing-1st part_28.png" class="img-fluid"></p>
-<p>Stop test execution</p>
-<p>Blue: unvisited transition / state</p>
-<p>Green: traversed transition / visited state</p>
-<p>Black: currently executes</p>
-</section>
-<section id="graphwalker-studio-battery-operated-signal-1" class="level2">
-<h2 class="anchored" data-anchor-id="graphwalker-studio-battery-operated-signal-1">GraphWalker Studio: Battery-operated signal</h2>
-<ul>
-<li>Run the tests in <a href="error:ppt-link-parsing-issue">GW Studio</a>
-<ul>
-<li>…using different generators:
-<ul>
-<li>random / quick_random / weighted_random / a_star</li>
-</ul></li>
-<li>…using different stopping conditions:
-<ul>
-<li>edge_coverage / vertex_coverage (% of desired coverage)</li>
-<li>reached_vertex / reached_edge (desired destination)</li>
-<li>time_duration / length</li>
-</ul></li>
-<li>Run the generator with given settings multiple times!
-<ul>
-<li>What can you observe? Why?</li>
-</ul></li>
-</ul></li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_29.png" class="img-fluid"></p>
-<p><img src="../images/model_based/Model-based testing-1st part_30.png" class="img-fluid"></p>
-<ul>
-<li>Some examples using different generators:</li>
-<li><span style="color:#ff0000"> <strong>weighted_random</strong> </span> (edge_coverage(100))
-<ul>
-<li>Same as random, but uses weight keyword (a float value between 0.0 and 1.0 can be assigned to edges of the graph) as a probability to select an edge when generate a path
-<ul>
-<li>If no weight keyword is used for edges, then the probabilities will be the same for these edges</li>
-</ul></li>
-</ul></li>
-</ul>
-<p>Compared to random generator the length of test sequences are longer due the weighted distribution of edges (in my 5 conducted experiments they were <span style="color:#7030a0"> <strong>14, 24, 25, 40</strong> </span> , and <span style="color:#7030a0"> <strong>41</strong> </span> )</p>
-<p><img src="../images/model_based/Model-based testing-1st part_31.png" class="img-fluid"></p>
-<ul>
-<li>Some examples using different generators:</li>
-<li><span style="color:#ff0000"> <strong>quick_random</strong> </span> (edge_coverage(100))
-<ul>
-<li>Choose an edge not yet visited by random and find the shortest path to that edge using Dijkstra’s algorithm</li>
-<li>Mark all edges in this park as visited then continue with step 1 till stopping condition fulfilled</li>
-<li>Gives reasonable short test sequences, but do not care the guarding conditions of EFSMs (see next lesson)</li>
-<li>In my 5 conducted experiments quick_random traverses <span style="color:#7030a0"> <strong>9, 9, 11, 11</strong> </span> <span style="color:#7030a0"> </span> and <span style="color:#7030a0"> <strong>12</strong> </span> edges, respectively, to fulfill 100% edge cover condition, thus it is better than generator random. The optimal solution derived by <a href="slide29.xml">TT-method</a> requires only 9 edge traversals (the graph has 7 edges)</li>
-<li>Thus in multiple executions we can observe different test sequence lengths due random walking approach.</li>
-</ul></li>
-<li><span style="color:#ff0000"> <strong>a_star</strong> </span> <span style="color:#ff0000"> <strong>(</strong> </span> <span style="color:#ff0000"> <strong>reached_vertex</strong> </span> <span style="color:#ff0000"> <strong>(</strong> </span> <span style="color:#ff0000"> <strong>v_red</strong> </span> <span style="color:#ff0000"> <strong>))</strong> </span>
-<ul>
-<li>Reaches a given vertex or edge (defined in stopping condition) with the least cost using the <a href="https://en.wikipedia.org/wiki/A*_search_algorithm">A* algorithm</a></li>
-</ul></li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_32.png" class="img-fluid"></p>
-<p><em>Screenshot from </em> <em>GraphWalker</em> _ CLI version_</p>
-<p>Some examples using different generators:</p>
-<p><span style="color:#ff0000"> <strong>predefined_path</strong> </span> <span style="color:#ff0000"> <strong>(</strong> </span> <span style="color:#ff0000"> <strong>predefined_path</strong> </span> <span style="color:#ff0000"> <strong>)</strong> </span></p>
-<p>Enables the user to define an edge sequence that GraphWalker will use when executing. The predefined path can be specified by the user manually in the model file, or the <a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#6-test-generation">test suites generated by Model 》Test 》 Relax</a> can be added to the model using the <a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#9211-predefined_path-of-graphwalker">--</a><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#9211-predefined_path-of-graphwalker">predefined_path</a><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#9211-predefined_path-of-graphwalker">flag of Model 》Test 》 Relax</a></p>
-<p><img src="../images/model_based/Model-based testing-1st part_33.png" class="img-fluid"></p>
-</section>
-<section id="graphwalker-studio-summary-of-random-generators" class="level2">
-<h2 class="anchored" data-anchor-id="graphwalker-studio-summary-of-random-generators">GraphWalker Studio: Summary of Random Generators</h2>
-<ul>
-<li>Random tests
-<ul>
-<li>Can be useful for exploratory testing</li>
-<li>Not repeatable
-<ul>
-<li>No suitable for regression tests → suitable only for educational purposes/small projects/augmenting of other testing infrastructure</li>
-</ul></li>
-<li>Tests are not optimal
-<ul>
-<li>Impractical for the functional testing of a large-scale software</li>
-</ul></li>
-</ul></li>
-</ul>
-</section>
-<section id="some-systematic-test-generation-algorithms" class="level2">
-<h2 class="anchored" data-anchor-id="some-systematic-test-generation-algorithms">Some systematic test generation algorithms</h2>
-<p>n: number of states</p>
-<p>p: number of input symbols</p>
-<p>m: number of transitions</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><strong>Test generation algorithm</strong></th>
-<th style="text-align: center;"><strong>Complexity of test generation</strong></th>
-<th style="text-align: center;"><strong>Complexity of test suite</strong></th>
-<th style="text-align: center;"><strong>Structure of test suite</strong></th>
-<th style="text-align: center;"><strong>Coverage</strong></th>
-<th style="text-align: center;"><strong>Notes</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><strong><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#63-all-state">All-State</a></strong> <strong><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#63-all-state">(AS)</a></strong></td>
-<td style="text-align: center;">O(n2)</td>
-<td style="text-align: center;">O(m)</td>
-<td style="text-align: center;">1 test sequence</td>
-<td style="text-align: center;">100% state coverage</td>
-<td style="text-align: center;">Heuristic algorithm</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#64-transition-tour">Transition Tour (TT)</a></strong></td>
-<td style="text-align: center;">O(n3+m)</td>
-<td style="text-align: center;">O(m)</td>
-<td style="text-align: center;">1 test sequence</td>
-<td style="text-align: center;">100% state- and transition coverage. It guarantees to discover all output faults, but does not guarantee to find transfer faults</td>
-<td style="text-align: center;">The resulting test sequence is the shortest possible tour that provides 100% state- and transition coverage</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#65-all-transition-state">All-Transition-State (ATS)</a></strong></td>
-<td style="text-align: center;">O(n3+m) (ATS0 version), O(η(n3+m)) (iterative version),</td>
-<td style="text-align: center;">O(m) (ATS0 version), O(η⋅m) (iterative version),</td>
-<td style="text-align: center;">1 test sequence (with subparts)</td>
-<td style="text-align: center;">It guarantees to discover all output faults and it finds virtually all transfer faults</td>
-<td style="text-align: center;">Heuristic algorithm</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#67-harmonized-state-identifiers">Harmonized State Identifiers (HSI)</a></strong></td>
-<td style="text-align: center;">O(p⋅n3)</td>
-<td style="text-align: center;">O(p⋅n3)</td>
-<td style="text-align: center;">Structured test suite with multiple test sequences</td>
-<td style="text-align: center;">It guarantees to discover output and transfer faults and given number of extra states in implementation</td>
-<td style="text-align: center;">An improved version of this method exist, called H-method</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><strong><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#68-h-method">H-method</a></strong></td>
-<td style="text-align: center;">O(p⋅n3)</td>
-<td style="text-align: center;">O(p⋅n3)</td>
-<td style="text-align: center;">Structured test suite with multiple test sequences</td>
-<td style="text-align: center;">It guarantees to discover output and transfer faults and given number of extra states in implementation</td>
-<td style="text-align: center;">Improvement of the HSI-method</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><strong><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#69-n-switch-coverage">N-Switch</a></strong> <strong><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#69-n-switch-coverage">C</a></strong> <strong><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#69-n-switch-coverage">overage</a></strong></td>
-<td style="text-align: center;"><em>O((N+1) · m</em> <em>(k+1) · (N+1)</em> <em>)</em> , where <em>k=[0..N]</em> iteration limit</td>
-<td style="text-align: center;">O((N+1) · mN+1)</td>
-<td style="text-align: center;">1 test sequence</td>
-<td style="text-align: center;">It covers all topologically possible, consecutive <em>N+1</em> transitions</td>
-<td style="text-align: center;">The test generation time and the size of the resulting test sequence dramatically increases if <em>N</em> or the size of the input model increases!</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="model-test-relax" class="level2">
-<h2 class="anchored" data-anchor-id="model-test-relax">Model &gt;&gt; Test &gt;&gt; Relax</h2>
-<p>Open source, free MBT tool</p>
-<p>Developed in ELTE Faculty of Informatics</p>
-<p>Easy-to-use</p>
-<p>Models can be imported from GraphWalker Studio</p>
-<p>Has <a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#6-test-generation">systematic test generation algorithms</a>, <a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#53-model-conversions">model conversions</a></p>
-<p>Has <a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md">good user guide</a> and <a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/sample_models/applications/application_examples.md">sample test projects</a></p>
-<p><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/releases/3.6.0">Download executable (R5: Green kingfisher (v3.6.0)) from here</a></p>
-</section>
-<section id="model-test-relax-import-model-from-graphwalker-studio" class="level2">
-<h2 class="anchored" data-anchor-id="model-test-relax-import-model-from-graphwalker-studio">Model &gt;&gt; Test &gt;&gt; Relax: Import model from GraphWalker Studio</h2>
-<p>Models created with GraphWalker Studio does not handle input and output symbols, while Model 》 Test 》 Relax does.</p>
-<p>There are 2 options to handle this:</p>
-<p>1. Add i/o symbols to the model encoded in the edge names using the following format: edge_name <span style="color:#ff0000"> <strong>|</strong> </span> <em>input</em> <span style="color:#ff0000"> <strong>/</strong> </span> <em>output</em></p>
-<p><img src="../images/model_based/Model-based testing-1st part_34.png" class="img-fluid"></p>
-<p><em>(ASCII code for </em> <span style="color:#ff0000"> <em>|</em> </span> _ and _ <span style="color:#ff0000"> <em>/</em> </span> _ characters are _ <span style="color:#ff0000"> <em>124</em> </span> _ and _ <span style="color:#ff0000"> <em>047</em> </span> <em>, respectively;</em></p>
-<p><em>hold down ALT while type the character code using the numeric keypad). </em></p>
-<p>Then you can apply <a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#537-add-inputoutput-symbols-to-the-model">Add input/output symbols to the model</a><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#537-add-inputoutput-symbols-to-the-model"></a><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#537-add-inputoutput-symbols-to-the-model">functionality</a> of Model 》 Test 》 Relax:</p>
-<p>./MTR -o conversion -m add_iosymbols -f &lt;path&gt;/&lt;name of your model&gt;</p>
-<p><em>Note that the converted model is included in Model 》Test 》 Relax repository:</em></p>
-<p><em>See </em> <em><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/sample_models/introduction/Toy_train_signal.json">sample_models/introduction/</a></em></p>
-<p><em><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/sample_models/introduction/Toy_train_signal.json">Toy_train_signal.json</a></em></p>
-<p><img src="../images/model_based/Model-based testing-1st part_35.png" class="img-fluid"></p>
-<p><img src="../images/model_based/Model-based testing-1st part_36.png" class="img-fluid"></p>
-<p><span style="color:#ff0000"> <em>These warnings are expected as we did not define outputs for switch off transitions </em> </span></p>
-<p>OR:</p>
-<p>2. Add input/output symbols manually into in the <em>Toy_train_signal.json</em> _ _ JSON model (see “edges” in model file) after the “input” and “output” keywords:</p>
-<p><em>Note that this model is included in the Model 》Test 》 Relax repository:</em></p>
-<p><em>See </em> <em><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/sample_models/introduction/Toy_train_signal.json">sample_models</a></em> <em><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/sample_models/introduction/Toy_train_signal.json">/</a></em> <em><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/sample_models/introduction/Toy_train_signal.json">introduction/</a></em></p>
-<p><em><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/sample_models/introduction/Toy_train_signal.json">Toy_train_signal.json</a></em></p>
-<p><img src="../images/model_based/Model-based testing-1st part_37.png" class="img-fluid"></p>
-</section>
-<section id="model-test-relax-systematic-test-generation" class="level2">
-<h2 class="anchored" data-anchor-id="model-test-relax-systematic-test-generation">Model &gt;&gt; Test &gt;&gt; Relax: Systematic test generation</h2>
-<ul>
-<li><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#63-all-state">Transition Tour (TT)</a>:
-<ul>
-<li>Shortest tour that provides 100 state and transition coverage</li>
-<li>Based on <a href="https://en.wikipedia.org/wiki/Chinese_postman_problem">Directed Chinese Postman Problem</a></li>
-<li>./MTR -o t -m tt -f sample_models/introduction/Toy_train_signal.json <span style="color:#00b050">--</span> <span style="color:#00b050">transition_list</span></li>
-<li><span style="color:#0070c0"> <em>Note that the </em> </span> <span style="color:#00b050">--</span> <span style="color:#00b050">transition_list</span> <span style="color:#00b050"> </span> <span style="color:#0070c0"> <em>option </em> </span> <span style="color:#0070c0"> <em>add an</em> </span> <span style="color:#0070c0"> _ optional transition name/id list to the test cases, but not required for test generation_ </span></li>
-</ul></li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_38.png" class="img-fluid"></p>
-<p>./MTR -o t -m tt -f sample_models/introduction/Toy_train_signal.json <span style="color:#ffc000">--</span> <span style="color:#ffc000">graphviz</span> <span style="color:#00b050">--</span> <span style="color:#00b050">transition_list</span></p>
-<p><span style="color:#00b0f0"> <em>Console</em> </span> <span style="color:#00b0f0"> _ output:_ </span></p>
-<p>Add transition lists into test suite</p>
-<p>Create output to visualize models with <a href="https://graphviz.org/">Graphviz</a></p>
-<p><img src="../images/model_based/Model-based testing-1st part_39.png" class="img-fluid"></p>
-<p>Short summary about programs settings</p>
-<p>Short summary about input model</p>
-<p>TG: Test generator component</p>
-<p>Main steps of test generation</p>
-<p>Short summary about the resulting test sequence</p>
-<p>Test summary csv file is saved here</p>
-<p>Resulting test suite is saved here</p>
-<p>Name of the model</p>
-<p>Used test generation algorithm</p>
-<p>Transition lists are optional</p>
-<p>(see <span style="color:#00b050">--</span> <span style="color:#00b050">transition_list</span> switch)</p>
-<p>It can be used for learning/self checking or if one would like to import the results to GraphWalker</p>
-<p>List of applied input symbols</p>
-<p>List of desired output symbols derived from specification model</p>
-<p><img src="../images/model_based/Model-based testing-1st part_40.png" class="img-fluid"></p>
-</section>
-<section id="model-test-relax-1" class="level2">
-<h2 class="anchored" data-anchor-id="model-test-relax-1">Model &gt;&gt; Test &gt;&gt; Relax</h2>
-<ul>
-<li>Apply the generated test suite into the System Under Test
-<ul>
-<li><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/sample_models/introduction/introduction_examples.md#the-simulator">Toy Train Signal simulator</a></li>
-</ul></li>
-</ul>
-</section>
-<section id="model-test-relax-systematic-test-generation-1" class="level2">
-<h2 class="anchored" data-anchor-id="model-test-relax-systematic-test-generation-1">Model &gt;&gt; Test &gt;&gt; Relax: Systematic test generation</h2>
-<ul>
-<li><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#63-all-state">All-State (AS)</a>:
-<ul>
-<li>Traverses all states using <a href="https://en.wikipedia.org/wiki/Nearest_neighbour_algorithm">Nearest</a><a href="https://en.wikipedia.org/wiki/Nearest_neighbour_algorithm">Neighbour</a><a href="https://en.wikipedia.org/wiki/Nearest_neighbour_algorithm"></a>heuristic</li>
-<li>./MTR -m AS -f sample_models/introduction/Toy_train_signal.json <span style="color:#00b050">--</span> <span style="color:#00b050">transition_list</span></li>
-<li><span style="color:#0070c0"> <em>Note that the </em> </span> <span style="color:#00b050">--</span> <span style="color:#00b050">transition_list</span> <span style="color:#00b050"> </span> <span style="color:#0070c0"> <em>option </em> </span> <span style="color:#0070c0"> <em>add an</em> </span> <span style="color:#0070c0"> _ optional transition name/id list to the test cases, but not required for test generation_ </span></li>
-</ul></li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_41.png" class="img-fluid"></p>
-<ul>
-<li><a href="https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#65-all-transition-state">All-Transition-State (ATS)</a>:
-<ul>
-<li>Provides a tour that traverses all transitions, then all states and then tries to find alternative routes to states</li>
-<li>./MTR -m ATS -f sample_models/introduction/Toy_train_signal.json <span style="color:#00b050">--</span> <span style="color:#00b050">transition_list</span></li>
-<li><span style="color:#0070c0"> <em>Note that the </em> </span> <span style="color:#00b050">--</span> <span style="color:#00b050">transition_list</span> <span style="color:#00b050"> </span> <span style="color:#0070c0"> <em>option </em> </span> <span style="color:#0070c0"> <em>add an</em> </span> <span style="color:#0070c0"> _ optional transition name/id list to the test cases, but not required for test generation_ </span></li>
-</ul></li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_42.png" class="img-fluid"></p>
-<p><img src="../images/model_based/Model-based testing-1st part_43.png" class="img-fluid"></p>
-</section>
-<section id="model-test-relax-import-generated-tests-into-graphwalker" class="level2">
-<h2 class="anchored" data-anchor-id="model-test-relax-import-generated-tests-into-graphwalker">Model &gt;&gt; Test &gt;&gt; Relax: Import generated tests into GraphWalker</h2>
-<ul>
-<li>Generate test suite with the Transition Tour (TT) algorithm on the toy train signal example model using the --predefined_path flag:</li>
-<li>./MTR -o t -m tt -f sample_models/introduction/Toy_train_signal.json -- <span style="color:#ff0000"> <strong>predefined_path</strong> </span> <span style="color:#ff0000"> __ __ </span></li>
-<li>Execute the test suite in GraphWalker Studio.</li>
-</ul>
-<p><img src="../images/model_based/Model-based testing-1st part_44.png" class="img-fluid"></p>
-</section>
-<section id="model-test-relax-import-test-suites-into-graphwalker" class="level2">
-<h2 class="anchored" data-anchor-id="model-test-relax-import-test-suites-into-graphwalker">Model &gt;&gt; Test &gt;&gt; Relax: Import test suites into GraphWalker</h2>
+<section id="fsm-formal-specification-model" class="level2">
+<h2 class="anchored" data-anchor-id="fsm-formal-specification-model">FSM (Formal specification model)</h2>
 
 
 </section>

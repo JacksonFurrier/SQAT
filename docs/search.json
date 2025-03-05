@@ -388,11 +388,23 @@
     ]
   },
   {
+    "objectID": "topics/f_model_based_testing.html#degree-of-automization",
+    "href": "topics/f_model_based_testing.html#degree-of-automization",
+    "title": "6. Model based testing",
+    "section": "Degree of automization",
+    "text": "Degree of automization\n\n\n\n\n\ngraph TD\n    classDef sub opacity:0\n    classDef note fill:#ffd, stroke:#ccb\n    \n     A(Degree of automatization) --&gt; B(from the view of test execution) --&gt; C(Manual / Automated)\n  A --&gt; D(from the view of the test design) --&gt; E(Manually designed) --&gt; F(Generated)\n       \n    subgraph subE [\" \"]\n        E\n        noteE[ Test cases are designed by a test engineer based on specification]\n    end\n\n    subgraph subF [\" \"]\n        F\n        noteF[ Test cases are generated automatically from a test model or from the specification -&gt; MBT Model Based Testing]\n    end\n    \n    class subA,subB,subC sub\n    class noteA,noteB,noteC note",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "6. Model based testing"
+    ]
+  },
+  {
     "objectID": "topics/f_model_based_testing.html#model-based-testing",
     "href": "topics/f_model_based_testing.html#model-based-testing",
     "title": "6. Model based testing",
-    "section": "Model-based testing",
-    "text": "Model-based testing\n\n\nConformance testing\n\nGiven\n\nSpecification model\n\nwhite box\n\nImplementation model\n\nblack box\n\n\nTest if the implementation conforms to the specification?\n\nIe. determine if the two corresponding model descriptions are equivalent\n\n\n\nSpecification\nmodel\n\nImplementation\nmodel",
+    "section": "Model based testing",
+    "text": "Model based testing\nConformance testing\n\nGiven\n\nSpecification model (white box)\nImplementation model (black box)\n\nTest if the implementation conforms to the specification?\n\nI.E. determine if the two corresponding model descriptions are equivalent\n\n\n\n\n\n\n\ngraph TD\n    classDef sub opacity:0\n    classDef note fill:#ffd, stroke:#ccb\n    \n     A &lt;--&gt; B --&gt; C\n     B --&gt; D \n\n    subgraph subA [\" \"]\n        A\n        noteE[Specification model]\n    end\n\n    subgraph subB [\" \"]\n        B\n        noteF[Implementation model]\n    end",
     "crumbs": [
       "Home",
       "Topics",
@@ -400,59 +412,11 @@
     ]
   },
   {
-    "objectID": "topics/f_model_based_testing.html#model-test-relax-systematic-test-generation",
-    "href": "topics/f_model_based_testing.html#model-test-relax-systematic-test-generation",
+    "objectID": "topics/f_model_based_testing.html#fsm-formal-specification-model",
+    "href": "topics/f_model_based_testing.html#fsm-formal-specification-model",
     "title": "6. Model based testing",
-    "section": "Model >> Test >> Relax: Systematic test generation",
-    "text": "Model &gt;&gt; Test &gt;&gt; Relax: Systematic test generation\n\nTransition Tour (TT):\n\nShortest tour that provides 100 state and transition coverage\nBased on Directed Chinese Postman Problem\n./MTR -o t -m tt -f sample_models/introduction/Toy_train_signal.json -- transition_list\n Note that the   -- transition_list    option    add an   _ optional transition name/id list to the test cases, but not required for test generation_ \n\n\n\n./MTR -o t -m tt -f sample_models/introduction/Toy_train_signal.json -- graphviz -- transition_list\n Console   _ output:_ \nAdd transition lists into test suite\nCreate output to visualize models with Graphviz\n\nShort summary about programs settings\nShort summary about input model\nTG: Test generator component\nMain steps of test generation\nShort summary about the resulting test sequence\nTest summary csv file is saved here\nResulting test suite is saved here\nName of the model\nUsed test generation algorithm\nTransition lists are optional\n(see -- transition_list switch)\nIt can be used for learning/self checking or if one would like to import the results to GraphWalker\nList of applied input symbols\nList of desired output symbols derived from specification model",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#model-test-relax-1",
-    "href": "topics/f_model_based_testing.html#model-test-relax-1",
-    "title": "6. Model based testing",
-    "section": "Model >> Test >> Relax",
-    "text": "Model &gt;&gt; Test &gt;&gt; Relax\n\nApply the generated test suite into the System Under Test\n\nToy Train Signal simulator",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#model-test-relax-systematic-test-generation-1",
-    "href": "topics/f_model_based_testing.html#model-test-relax-systematic-test-generation-1",
-    "title": "6. Model based testing",
-    "section": "Model >> Test >> Relax: Systematic test generation",
-    "text": "Model &gt;&gt; Test &gt;&gt; Relax: Systematic test generation\n\nAll-State (AS):\n\nTraverses all states using NearestNeighbourheuristic\n./MTR -m AS -f sample_models/introduction/Toy_train_signal.json -- transition_list\n Note that the   -- transition_list    option    add an   _ optional transition name/id list to the test cases, but not required for test generation_ \n\n\n\n\nAll-Transition-State (ATS):\n\nProvides a tour that traverses all transitions, then all states and then tries to find alternative routes to states\n./MTR -m ATS -f sample_models/introduction/Toy_train_signal.json -- transition_list\n Note that the   -- transition_list    option    add an   _ optional transition name/id list to the test cases, but not required for test generation_",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#model-test-relax-import-generated-tests-into-graphwalker",
-    "href": "topics/f_model_based_testing.html#model-test-relax-import-generated-tests-into-graphwalker",
-    "title": "6. Model based testing",
-    "section": "Model >> Test >> Relax: Import generated tests into GraphWalker",
-    "text": "Model &gt;&gt; Test &gt;&gt; Relax: Import generated tests into GraphWalker\n\nGenerate test suite with the Transition Tour (TT) algorithm on the toy train signal example model using the --predefined_path flag:\n./MTR -o t -m tt -f sample_models/introduction/Toy_train_signal.json --  predefined_path   __ __ \nExecute the test suite in GraphWalker Studio.",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#model-test-relax-import-test-suites-into-graphwalker",
-    "href": "topics/f_model_based_testing.html#model-test-relax-import-test-suites-into-graphwalker",
-    "title": "6. Model based testing",
-    "section": "Model >> Test >> Relax: Import test suites into GraphWalker",
-    "text": "Model &gt;&gt; Test &gt;&gt; Relax: Import test suites into GraphWalker",
+    "section": "FSM (Formal specification model)",
+    "text": "FSM (Formal specification model)",
     "crumbs": [
       "Home",
       "Topics",
@@ -465,185 +429,5 @@
     "title": "Topics",
     "section": "",
     "text": "Visited topics during the discussion of Nuclear Cardiology"
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#fsm---a-formal-specification-model",
-    "href": "topics/f_model_based_testing.html#fsm---a-formal-specification-model",
-    "title": "6. Model based testing",
-    "section": "FSM - a formal specification model",
-    "text": "FSM - a formal specification model\nstate transition graph :\nstate transition table :\n\nFinite State Machine\n(Mealy-model)\nM=(I, O, S, T)\n\nI: set of input symbols\nO: set of output symbols\nS: set of states\n\nso: initial state\n\nT: S x I → S x O: set of transitions\n\nδ : S x I → S: next state function\nλ : S x I → O: output function\nEach t T: t=( s x _ _ , s y _ _ , i x _ _ , o x )\n\n\n\n\n\n\n\n\na\nb\n\n\n\n\ns0\ns1, 0\ns2, 0\n\n\ns1\ns3, 1\ns0, 1\n\n\ns2\ns2, 1\ns3, 1\n\n\ns3\ns0, 0\ns1, 0",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#fsm-based-conformance-testing",
-    "href": "topics/f_model_based_testing.html#fsm-based-conformance-testing",
-    "title": "6. Model based testing",
-    "section": "FSM-based conformance testing",
-    "text": "FSM-based conformance testing\n\n\nImplementation:\nFSM Imp l\n(black box)\nSpecification:\nFSM M\n(white box)\nImplementation FSM Impl ,\nSUT\nSpecification FSM M\nImplementation FSM Impl ,\nSUT\nFSM-based testing\nFSM-based test generation",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#fsm-exercise",
-    "href": "topics/f_model_based_testing.html#fsm-exercise",
-    "title": "6. Model based testing",
-    "section": "FSM exercise",
-    "text": "FSM exercise\n\nMärklin Battery-Operated Signal\nExplore the functionality of the given device\n& write a specification for it!\n\n\nThe device has 2 LEDs (red and green), a 2-way switch and a press button.\nThe 2-way switch turns the device off or on. When the device is turned on,\nthe green LED lights up.\nThe button can be used to change which LED lights; red or green.\nIf no button is pressed for 7 secs the device changes the lights.\n\nMärklin Battery-Operated Signal\nExplore the functionality of the given device & write a specification for it!\nCreate an FSM based on the specification!\n\nCreate a state transition table\nCreate a state transition graph\nWaiting _ for _ 7 seconds can be handled _ as special _ timeout _ input message_\n\n\n\n\nstate transition table :\n\n\n\n\n\n\n\n\n\n\n\n\nNext state / output",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#fsm-exercise-solution",
-    "href": "topics/f_model_based_testing.html#fsm-exercise-solution",
-    "title": "6. Model based testing",
-    "section": "FSM exercise: solution",
-    "text": "FSM exercise: solution\n\nstate transition table :\nstate transition graph :\n\n\n\n\n\n\n\n\n\n\n\n\nswitch on\nswitch off\npress button\nwait for 7 secs\n\n\n\n\ns_off\nsgreen/green\n-\n-\n-\n\n\ns_green\n-\nsoff/-\nsred/red\nsred/red\n\n\ns_red\n-\nsoff/-\nsgreen/green\nsgreen/green\n\n\n\n##FSM exercise\n\nMärklin Battery-Operated Signal\nExplore the functionality of the given device & write a specification for it!\nCreate an FSM based on the specification!\nDesign an input/output sequence to test all functionalities of the specification!\n\n\n\n##FSM exercise: solution\n\nstate transition table :\nstate transition graph :\n\n\n\n\n\n\n\n\n\n\n\n\nswitch on\nswitch off\npress button\nwait for 7 secs\n\n\n\n\ns_off\nsgreen/green\n-\n-\n-\n\n\ns_green\n-\nsoff/-\nsred/red\nsred/red\n\n\ns_red\n-\nsoff/-\nsgreen/green\nsgreen/green\n\n\n\nexample test sequence:\n\n\n\nAction (input)\nDesired output\n\n\n\n\nswitch on\ngreen\n\n\nwait for 7 secs\nred\n\n\nwait for 7 secs\ngreen\n\n\npress button\nred\n\n\nswitch off\n-\n\n\nswitch on\ngreen\n\n\npress button\nred\n\n\npress button\ngreen\n\n\nswitch off\n-",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#graphwalker",
-    "href": "topics/f_model_based_testing.html#graphwalker",
-    "title": "6. Model based testing",
-    "section": "GraphWalker",
-    "text": "GraphWalker\nOpen source, free MBT tool with GUI\nEasy-to-use\nGood documentation\nWorking process:\nCreating a model\nWrite adaptation code that interacts with the SUT\nGenerate tests\nExecuting tests",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#graphwalker-studio-installation-and-start",
-    "href": "topics/f_model_based_testing.html#graphwalker-studio-installation-and-start",
-    "title": "6. Model based testing",
-    "section": "GraphWalker Studio: Installation and start",
-    "text": "GraphWalker Studio: Installation and start\n\nInstallation prerequisites:\n\nDownload and install Java JDK (or at least Java RE) and add to path\n(using JAVA_PATH system environment variable in Windows)\n\nInstall model editor:\n\nDownload GraphWalkerStudio\n\nAfter installation:\nClick on GraphWalker Studio file (graphwalker-studio-4.3.2.jar)\nOpen a web browser and type http://localhost:9090/studio.html",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#graphwalker-studio-battery-operated-signal",
-    "href": "topics/f_model_based_testing.html#graphwalker-studio-battery-operated-signal",
-    "title": "6. Model based testing",
-    "section": "GraphWalker Studio: Battery-operated signal",
-    "text": "GraphWalker Studio: Battery-operated signal\n\nDraw the FSM of battery-operated signal in GWStudio\n\nSet up names for states (vertices) and transitions (edges)\nSet s_off _ _ as starting state\nAt the current stage do not care outputs (they can be saved as variables if you insist)\nSave the model as  Toy_train_signal.json \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nswitch on\nswitch off\npress button\nwait for 7 secs\n\n\n\n\ns_off\ns_green/green\n-\n-\n-\n\n\ns_green\n-\ns_off/-\ns_red/red\ns_red/red\n\n\ns_red\n-\ns_off/-\ns_green/green\ns_green/green",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#graphwalker-studio-help-41-create-a-model",
-    "href": "topics/f_model_based_testing.html#graphwalker-studio-help-41-create-a-model",
-    "title": "6. Model based testing",
-    "section": "GraphWalker Studio help 4/1: Create a model",
-    "text": "GraphWalker Studio help 4/1: Create a model\n\nCreate a vertex : On the editor area, while pressing the keyboard key   v  , click the  left mouse button .\nCreate an edge : On the editor area, while pressing the keyboard key   e \n\nClick and hold the left mouse button on the first vertex .\nDrag the mouse cursor to the second vertex and release the left mouse button over that vertex .\n\nChange the properties of a vertex/edge :\n\nSelect the given element with mouse click\nthen click on at the left panel and\nSet the given property\n\nName\nGuarding conditions\nOutput/actions\nStart element or not?\n\n\n\n\n\nSelected element\nAdd guarding conditions\nAdd output/actions\nSet as start element",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#graphwalker-studio-help-42-generators",
-    "href": "topics/f_model_based_testing.html#graphwalker-studio-help-42-generators",
-    "title": "6. Model based testing",
-    "section": "GraphWalker Studio help 4/2: Generators",
-    "text": "GraphWalker Studio help 4/2: Generators\nDefine stopping conditions for tests:\nedge_coverage __ __ (an integer representing percentage of desired edge coverage)\nvertex_coverage __ __ (an integer representing percentage of desired vertex coverage)\nrequirement_coverage __ __ (an integer representing percentage of desired requirement coverage)\ndependency_edge_coverage __ __ (an integer representing dependency threshold)\nreached_vertex __ __ (the name of the vertex to reach)\nreached_edge __ __ (the name of the edge to reach)\ntime_duration __ __ (an integer representing the number of seconds to run)\nlength (an integer representing the total numbers of edge-vertex pairs)\nnever\n\nDefine generator:\nrandom (some stop condition(s))\nweighted_random __ __ (some stop condition(s))\nquick_random __ __ (some stop condition(s))\na_star __ __ (a stop condition that names a vertex or an edge )\npredefined_path (predefined_path)\nDefine delays after each step\nMore info in user guide\n\nThe corresponding part of the user guide:\nGenerators A generator is an algorithm that decides how to traverse a model. Different generators will generate different test sequences, and they will navigate in different ways. Multiple generators can be daisy chained, concatenated. random( some stop condition(s) ) Navigate through the model in a completely random manner, also called “Drunkard’s walk”, or “Random walk”. This algorithm selects an out-edge from a vertex by random, and repeats the process in the next vertex. weighted_random( some stop condition(s) ) Same as the random path generator (see above), but will use the weight keyword when generating a path. The weight is assigned to edges only, and it represents the probability of an edge getting chosen. quick_random( some stop condition(s) ) Tries to run the shortest path through a model, but in a fast way. This is how the algorithm works: Choose an edge not yet visited by random. Select the shortest path to that edge using Dijkstra’s algorithm Walk that path, and mark all the executed edges as visited. When reaching the selected edge in step 1, start all over, repeating steps 1-4. The algorithm works well for very large models, and generates reasonably short sequences. The downside is when used in conjunction with EFSM, the algorithm can choose a path which is blocked by a guard. a_star( a stop condition that names a vertex or an edge ) Will generate the shortest path to a specific vertex or edge. shortest_all_paths ==&gt; (Not released yet) Will calculate and generate the shortest path through the model. The cost for every edge is set to 1. This algorithm is not recommended because for larger models, and using data in the model EFSM, it will take a considerable time to calculate. Stop conditions A stop condition is condition that decides when a path is completed. The generator will generate a new step in the path until the stop condition is fulfilled. edge_coverage( an integer representing percentage of desired edge coverage ) The stop condition is a percentage. When, during execution, the percentage of traversed edges is reached, the test is stopped. If an edge is traversed more than once, it still counts as 1 when calculating the percentage coverage. vertex_coverage( an integer representing percentage of desired vertex coverage ) The stop condition is a percentage. When, during execution, the percentage of traversed states is reached, the test is stopped. If a vertex is traversed more than once, it still counts as 1 when calculating the percentage coverage. requirement_coverage( an integer representing percentage of desired requirement coverage ) The stop condition is a percentage. When, during execution, the percentage of traversed requirements is reached, the test is stopped. If a requirement is traversed more than once, it still counts as 1 when calculating the percentage coverage. dependency_edge_coverage( an integer representing dependency threshold ) The stop condition is a percentage. When, during execution, all of the traversed edges with dependency higher or equal to the dependency threshold are reached, the test is stopped. If an edge is traversed more than once, it still counts as 1, when calculating the percentage coverage. reached_vertex( the name of the vertex to reach ) The stop condition is a named vertex. When, during execution, the vertex is reached, the test is stopped. reached_edge( the name of the edge to reach ) The stop condition is a named edge. When, during execution, the edge is reached, the test is stopped. time_duration( an integer representing the number of seconds to run ) The stop condition is a time, representing the number of seconds that the test generator is allowed to execute. Please note that the time is compared with the execution for the whole test. This means that if you for example have: 2 models with common shared states both having time_duration stop condition set to 60 seconds Then both models will stop executing after 60 seconds, even if one of the models have not been visited. length( an integer ) The stop condition is a number, representing the total numbers of edge-vertex pairs generated by a generator. For example, if the number is 110, the test sequence would be 220 do-check actions (110 pairs of edges and vertices). never This special stop condition will never halt the generator.\nExamples Will never stop generating a path sequence. Executes forever in a random fashion. random(never)\nWalk randomly until the vertex coverage has reached 100%. random(vertex_coverage(100))\nWalk randomly until the edge coverage has reached 50%. random(edge_coverage(50))\nWalk randomly until the vertex v_SomeVertex is reached. random(reached_vertex(v_SomeVertex))\nWalk the shortest path to the edge e_SomeEdge and then stop. a_star(reached_edge(e_SomeEdge))\nWalk randomly until the requirement coverage has reached 100%. random(requirement_coverage(100))\nWalk randomly for 500 seconds. random(time_duration(500))\nWalk randomly until the path sequence has reached a length of 24 elements of edges and vertices. random(length(24))\nWalk randomly until the edge coverage has reached 100%, or we have executed for 500 seconds. random(edge_coverage(100) or time_duration(500))\nWalk randomly until the edge coverage has reached 100%, or we have executed for 500 seconds (same as above). random(edge_coverage(100) || time_duration(500))\nWalk randomly until the edge coverage has reached 100%, and we have reached the vertex v_SomeVertex. random(reached_vertex(v_SomeVertex) and edge_coverage(100))\nWalk randomly until the edge coverage has reached 100%, and we have reached the vertex v_SomeVertex (same as above). random(reached_vertex(v_SomeVertex) && edge_coverage(100))\nWalk randomly until we have executed for 500 seconds, or we have both reached vertex v_SomeVertex and reached 100% vertex coverage. random((reached_vertex(v_SomeVertex) and vertex_coverage(100)) || time_duration(500))\nWalk randomly until the edge coverage has reached 100% and we have reached the vertex v_SomeVertex. Then start using the next strategy: walk randomly for 1 hour. random(reached_vertex(v_SomeVertex) and edge_coverage(100)) random(time_duration(3600))\nWalk randomly until all the edges with dependency higher or equal to 85% are reached. random(dependency_edge_coverage(85))",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#graphwalker-studio-help-43-test-execution",
-    "href": "topics/f_model_based_testing.html#graphwalker-studio-help-43-test-execution",
-    "title": "6. Model based testing",
-    "section": "GraphWalker Studio help 4/3: Test execution",
-    "text": "GraphWalker Studio help 4/3: Test execution\n\nExecute the tests:\n\n\nPause test execution\n\nStop test execution\nBlue: unvisited transition / state\nGreen: traversed transition / visited state\nBlack: currently executes",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#graphwalker-studio-battery-operated-signal-1",
-    "href": "topics/f_model_based_testing.html#graphwalker-studio-battery-operated-signal-1",
-    "title": "6. Model based testing",
-    "section": "GraphWalker Studio: Battery-operated signal",
-    "text": "GraphWalker Studio: Battery-operated signal\n\nRun the tests in GW Studio\n\n…using different generators:\n\nrandom / quick_random / weighted_random / a_star\n\n…using different stopping conditions:\n\nedge_coverage / vertex_coverage (% of desired coverage)\nreached_vertex / reached_edge (desired destination)\ntime_duration / length\n\nRun the generator with given settings multiple times!\n\nWhat can you observe? Why?\n\n\n\n\n\n\nSome examples using different generators:\n weighted_random  (edge_coverage(100))\n\nSame as random, but uses weight keyword (a float value between 0.0 and 1.0 can be assigned to edges of the graph) as a probability to select an edge when generate a path\n\nIf no weight keyword is used for edges, then the probabilities will be the same for these edges\n\n\n\nCompared to random generator the length of test sequences are longer due the weighted distribution of edges (in my 5 conducted experiments they were  14, 24, 25, 40  , and  41  )\n\n\nSome examples using different generators:\n quick_random  (edge_coverage(100))\n\nChoose an edge not yet visited by random and find the shortest path to that edge using Dijkstra’s algorithm\nMark all edges in this park as visited then continue with step 1 till stopping condition fulfilled\nGives reasonable short test sequences, but do not care the guarding conditions of EFSMs (see next lesson)\nIn my 5 conducted experiments quick_random traverses  9, 9, 11, 11    and  12  edges, respectively, to fulfill 100% edge cover condition, thus it is better than generator random. The optimal solution derived by TT-method requires only 9 edge traversals (the graph has 7 edges)\nThus in multiple executions we can observe different test sequence lengths due random walking approach.\n\n a_star   (   reached_vertex   (   v_red   )) \n\nReaches a given vertex or edge (defined in stopping condition) with the least cost using the A* algorithm\n\n\n\nScreenshot from  GraphWalker _ CLI version_\nSome examples using different generators:\n predefined_path   (   predefined_path   ) \nEnables the user to define an edge sequence that GraphWalker will use when executing. The predefined path can be specified by the user manually in the model file, or the test suites generated by Model 》Test 》 Relax can be added to the model using the --predefined_pathflag of Model 》Test 》 Relax",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#graphwalker-studio-summary-of-random-generators",
-    "href": "topics/f_model_based_testing.html#graphwalker-studio-summary-of-random-generators",
-    "title": "6. Model based testing",
-    "section": "GraphWalker Studio: Summary of Random Generators",
-    "text": "GraphWalker Studio: Summary of Random Generators\n\nRandom tests\n\nCan be useful for exploratory testing\nNot repeatable\n\nNo suitable for regression tests → suitable only for educational purposes/small projects/augmenting of other testing infrastructure\n\nTests are not optimal\n\nImpractical for the functional testing of a large-scale software",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#some-systematic-test-generation-algorithms",
-    "href": "topics/f_model_based_testing.html#some-systematic-test-generation-algorithms",
-    "title": "6. Model based testing",
-    "section": "Some systematic test generation algorithms",
-    "text": "Some systematic test generation algorithms\nn: number of states\np: number of input symbols\nm: number of transitions\n\n\n\nTest generation algorithm\nComplexity of test generation\nComplexity of test suite\nStructure of test suite\nCoverage\nNotes\n\n\n\n\nAll-State (AS)\nO(n2)\nO(m)\n1 test sequence\n100% state coverage\nHeuristic algorithm\n\n\nTransition Tour (TT)\nO(n3+m)\nO(m)\n1 test sequence\n100% state- and transition coverage. It guarantees to discover all output faults, but does not guarantee to find transfer faults\nThe resulting test sequence is the shortest possible tour that provides 100% state- and transition coverage\n\n\nAll-Transition-State (ATS)\nO(n3+m) (ATS0 version), O(η(n3+m)) (iterative version),\nO(m) (ATS0 version), O(η⋅m) (iterative version),\n1 test sequence (with subparts)\nIt guarantees to discover all output faults and it finds virtually all transfer faults\nHeuristic algorithm\n\n\nHarmonized State Identifiers (HSI)\nO(p⋅n3)\nO(p⋅n3)\nStructured test suite with multiple test sequences\nIt guarantees to discover output and transfer faults and given number of extra states in implementation\nAn improved version of this method exist, called H-method\n\n\nH-method\nO(p⋅n3)\nO(p⋅n3)\nStructured test suite with multiple test sequences\nIt guarantees to discover output and transfer faults and given number of extra states in implementation\nImprovement of the HSI-method\n\n\nN-Switch C overage\nO((N+1) · m (k+1) · (N+1) ) , where k=[0..N] iteration limit\nO((N+1) · mN+1)\n1 test sequence\nIt covers all topologically possible, consecutive N+1 transitions\nThe test generation time and the size of the resulting test sequence dramatically increases if N or the size of the input model increases!",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#model-test-relax",
-    "href": "topics/f_model_based_testing.html#model-test-relax",
-    "title": "6. Model based testing",
-    "section": "Model >> Test >> Relax",
-    "text": "Model &gt;&gt; Test &gt;&gt; Relax\nOpen source, free MBT tool\nDeveloped in ELTE Faculty of Informatics\nEasy-to-use\nModels can be imported from GraphWalker Studio\nHas systematic test generation algorithms, model conversions\nHas good user guide and sample test projects\nDownload executable (R5: Green kingfisher (v3.6.0)) from here",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#model-test-relax-import-model-from-graphwalker-studio",
-    "href": "topics/f_model_based_testing.html#model-test-relax-import-model-from-graphwalker-studio",
-    "title": "6. Model based testing",
-    "section": "Model >> Test >> Relax: Import model from GraphWalker Studio",
-    "text": "Model &gt;&gt; Test &gt;&gt; Relax: Import model from GraphWalker Studio\nModels created with GraphWalker Studio does not handle input and output symbols, while Model 》 Test 》 Relax does.\nThere are 2 options to handle this:\n1. Add i/o symbols to the model encoded in the edge names using the following format: edge_name  |  input  /  output\n\n(ASCII code for   |  _ and _  /  _ characters are _  124  _ and _  047  , respectively;\nhold down ALT while type the character code using the numeric keypad). \nThen you can apply Add input/output symbols to the modelfunctionality of Model 》 Test 》 Relax:\n./MTR -o conversion -m add_iosymbols -f &lt;path&gt;/&lt;name of your model&gt;\nNote that the converted model is included in Model 》Test 》 Relax repository:\nSee  sample_models/introduction/\nToy_train_signal.json\n\n\n These warnings are expected as we did not define outputs for switch off transitions  \nOR:\n2. Add input/output symbols manually into in the Toy_train_signal.json _ _ JSON model (see “edges” in model file) after the “input” and “output” keywords:\nNote that this model is included in the Model 》Test 》 Relax repository:\nSee  sample_models / introduction/\nToy_train_signal.json",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
   }
 ]
