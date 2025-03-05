@@ -424,25 +424,6 @@
     ]
   },
   {
-    "objectID": "topics.html",
-    "href": "topics.html",
-    "title": "Topics",
-    "section": "",
-    "text": "Visited topics during the discussion of Nuclear Cardiology"
-  },
-  {
-    "objectID": "topics/f_model_based_testing.html#fsm-exercise---solution",
-    "href": "topics/f_model_based_testing.html#fsm-exercise---solution",
-    "title": "6. Model based testing",
-    "section": "FSM exercise - solution",
-    "text": "FSM exercise - solution\n\n\n\n\n\n\n\n\n\n\n\ns_off\n\n\ns_off\n\n\n\ns_green\n\ns_green\n\n\n\ns_off-&gt;s_green\n\n\nswitch on/green\n\n\n\ns_green-&gt;s_off\n\n\nswitch off/\n\n\n\ns_red\n\ns_red\n\n\n\ns_green-&gt;s_red\n\n\ntimeout(7s)/red\n\n\n\ns_green-&gt;s_red\n\n\npress button/red\n\n\n\ns_red-&gt;s_off\n\n\nswitch off/\n\n\n\ns_red-&gt;s_green\n\n\ntimeout(7s)/green\n\n\n\ns_red-&gt;s_green\n\n\npress button/green\n\n\n\n\n\n\nFigure 1: State transition graph",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
     "objectID": "topics/f_model_based_testing.html#fsm-based-conformance-testing",
     "href": "topics/f_model_based_testing.html#fsm-based-conformance-testing",
     "title": "6. Model based testing",
@@ -479,18 +460,6 @@
     ]
   },
   {
-    "objectID": "topics/f_model_based_testing.html#fsm-exercise---solution-graph-1",
-    "href": "topics/f_model_based_testing.html#fsm-exercise---solution-graph-1",
-    "title": "6. Model based testing",
-    "section": "FSM exercise - solution graph",
-    "text": "FSM exercise - solution graph\n\n\n\n\n\n\n\n\n\n\n\ns_off\n\n\ns_off\n\n\n\ns_green\n\ns_green\n\n\n\ns_off-&gt;s_green\n\n\nswitch on/green\n\n\n\ns_green-&gt;s_off\n\n\nswitch off/\n\n\n\ns_red\n\ns_red\n\n\n\ns_green-&gt;s_red\n\n\ntimeout(7s)/red\n\n\n\ns_green-&gt;s_red\n\n\npress button/red\n\n\n\ns_red-&gt;s_off\n\n\nswitch off/\n\n\n\ns_red-&gt;s_green\n\n\ntimeout(7s)/green\n\n\n\ns_red-&gt;s_green\n\n\npress button/green\n\n\n\n\n\n\nFigure 2: State transition graph",
-    "crumbs": [
-      "Home",
-      "Topics",
-      "6. Model based testing"
-    ]
-  },
-  {
     "objectID": "topics/f_model_based_testing.html#fsm-exercise---solution-example-test-sequence",
     "href": "topics/f_model_based_testing.html#fsm-exercise---solution-example-test-sequence",
     "title": "6. Model based testing",
@@ -507,7 +476,7 @@
     "href": "topics/f_model_based_testing.html#graphwalker",
     "title": "6. Model based testing",
     "section": "Graphwalker",
-    "text": "Graphwalker\n\nOpen source, free MBT tool with GUI\nEasy-to-use\nGood docuemntation\n\nWorking process\n\nCreating a model\nWrite adaptation code that interacts with the SUT\nGenerate tests\nExecuting tests",
+    "text": "Graphwalker\n\nOpen source, free MBT tool with GUI\nEasy-to-use\nGood documentation\n\nWorking process\n\nCreating a model\nWrite adaptation code that interacts with the SUT\nGenerate tests\nExecuting tests",
     "crumbs": [
       "Home",
       "Topics",
@@ -549,5 +518,12 @@
       "Topics",
       "6. Model based testing"
     ]
+  },
+  {
+    "objectID": "topics.html",
+    "href": "topics.html",
+    "title": "Topics",
+    "section": "",
+    "text": "Visited topics during the discussion of Nuclear Cardiology"
   }
 ]

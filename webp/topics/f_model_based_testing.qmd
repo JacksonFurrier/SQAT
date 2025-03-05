@@ -176,7 +176,7 @@ specification
 
 * Open source, free MBT tool with GUI
 * Easy-to-use
-* Good [docuemntation](https://github.com/GraphWalker/graphwalker-project/wiki)
+* Good [documentation](https://github.com/GraphWalker/graphwalker-project/wiki)
 
 Working process
 
