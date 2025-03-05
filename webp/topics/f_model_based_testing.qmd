@@ -56,7 +56,7 @@ model
 
 
 
-# FSM -  a formal specification model
+## FSM -  a formal specification model
 
 _state transition graph_  _:_
 
@@ -90,7 +90,7 @@ _state transition table_  _:_
 
 
 
-# FSM-based conformance testing
+## FSM-based conformance testing
 
 ![](../images/model_based/Model-based%20testing-1st%20part_7.jpg)
 
@@ -124,7 +124,7 @@ _FSM\-based test generation_
 
 
 
-# FSM exercise
+## FSM exercise
 
 
 
@@ -171,7 +171,7 @@ _state transition table_  _:_
 
 
 
-# FSM exercise: solution
+## FSM exercise: solution
 
 ![](../images/model_based/Model-based%20testing-1st%20part_12.png)
 
@@ -189,7 +189,7 @@ _state transition graph_  _:_
 
 
 
-# FSM exercise
+##FSM exercise
 
 
 
@@ -205,7 +205,7 @@ _state transition graph_  _:_
 
 
 
-# FSM exercise: solution
+##FSM exercise: solution
 
 ![](../images/model_based/Model-based%20testing-1st%20part_16.png)
 
@@ -237,7 +237,7 @@ _example test sequence:_
 
 
 
-# GraphWalker
+## GraphWalker
 
 Open source\, free MBT tool with GUI
 
@@ -259,7 +259,7 @@ Executing tests
 
 
 
-# GraphWalker Studio: Installation and start
+## GraphWalker Studio: Installation and start
 
 
 
@@ -279,7 +279,7 @@ Executing tests
 
 
 
-# GraphWalker Studio: Battery-operated signal
+## GraphWalker Studio: Battery-operated signal
 
 
 
@@ -305,7 +305,7 @@ Executing tests
 ---
 
 
-# GraphWalker Studio help 4/1: Create a model
+## GraphWalker Studio help 4/1: Create a model
 
 
 
@@ -337,7 +337,7 @@ Executing tests
 
 
 
-# GraphWalker Studio help 4/2: Generators
+## GraphWalker Studio help 4/2: Generators
 
 __Define stopping conditions for tests:__
 
@@ -473,7 +473,7 @@ random(dependency_edge_coverage(85))
 
 
 
-# GraphWalker Studio help 4/3: Test execution
+## GraphWalker Studio help 4/3: Test execution
 
 
 
@@ -498,7 +498,7 @@ Black: currently executes
 
 
 
-# GraphWalker Studio: Battery-operated signal
+## GraphWalker Studio: Battery-operated signal
 
 
 
@@ -562,7 +562,7 @@ Enables the user to define an edge sequence that GraphWalker will use when execu
 
 
 
-# GraphWalker Studio: Summary of Random Generators
+## GraphWalker Studio: Summary of Random Generators
 
 
 
@@ -573,10 +573,8 @@ Enables the user to define an edge sequence that GraphWalker will use when execu
     * Tests are not optimal
       * Impractical for the functional testing of a large\-scale software
 
-
-
-
-# Some systematic test generation algorithms
+ 
+## Some systematic test generation algorithms
 
 n: number of states
 
@@ -593,9 +591,7 @@ m: number of transitions
 | __[H\-method](https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#68-h-method)__ | O\(p⋅n3\) | O\(p⋅n3\) | Structured test suite with multiple test sequences | It guarantees to discover output and transfer faults and given number of extra states in implementation | Improvement of the HSI\-method |
 | __[N\-Switch ](https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#69-n-switch-coverage)__  __[C](https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#69-n-switch-coverage)__  __[overage](https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#69-n-switch-coverage)__ | _O\(\(N\+1\) · m_  _\(k\+1\) · \(N\+1\)_  _\)_ \, where  _k=\[0\.\.N\]_  iteration limit | O\(\(N\+1\) · mN\+1\) | 1 test sequence | It covers all topologically possible\, consecutive  _N\+1_  transitions | The test generation time and the size of the resulting test sequence dramatically increases if  _N_  or the size of the input model increases\! |
 
-
-
-# Model 》 Test 》 Relax
+## Model >> Test >> Relax
 
 Open source\, free MBT tool
 
@@ -613,7 +609,7 @@ Has [good user guide](https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/maste
 
 
 
-# Model 》 Test 》 Relax: Import model from GraphWalker Studio
+## Model >> Test >> Relax: Import model from GraphWalker Studio
 
 Models created with GraphWalker Studio does not handle input and output symbols\, while Model 》 Test 》 Relax does\.
 
@@ -714,10 +710,7 @@ List of desired output symbols derived from specification model
 ![](../images/model_based/Model-based%20testing-1st%20part_40.png)
 
 
-
 ## Model >> Test >> Relax
-
-
 
 * Apply the generated test suite into the System Under Test
   * [Toy Train Signal simulator](https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/sample_models/introduction/introduction_examples.md#the-simulator)
@@ -725,19 +718,12 @@ List of desired output symbols derived from specification model
 
 ## Model >> Test >> Relax: Systematic test generation
 
-
-
 * [All\-State \(AS\)](https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#63-all-state):
   * Traverses all states using [Nearest ](https://en.wikipedia.org/wiki/Nearest_neighbour_algorithm)[Neighbour](https://en.wikipedia.org/wiki/Nearest_neighbour_algorithm)[ ](https://en.wikipedia.org/wiki/Nearest_neighbour_algorithm)heuristic
   * \./MTR \-m AS \-f sample\_models/introduction/Toy\_train\_signal\.json  <span style="color:#00b050">\-\-</span>  <span style="color:#00b050">transition\_list</span>
   * <span style="color:#0070c0"> _Note that the _ </span>  <span style="color:#00b050">\-\-</span>  <span style="color:#00b050">transition\_list</span>  <span style="color:#00b050"> </span>  <span style="color:#0070c0"> _option _ </span>  <span style="color:#0070c0"> _add an_ </span>  <span style="color:#0070c0"> _ optional transition name/id list to the test cases\, but not required for test generation_ </span>
 
-
 ![](../images/model_based/Model-based%20testing-1st%20part_41.png)
-
-
-
-
 
 * [All\-Transition\-State \(ATS\)](https://gitlab.inf.elte.hu/nga/ModelTestRelax/-/blob/master/docs/user_guide.md#65-all-transition-state):
   * Provides a tour that traverses all transitions\, then all states and then tries to find alternative routes to states
@@ -753,16 +739,11 @@ List of desired output symbols derived from specification model
 
 ## Model >> Test >> Relax: Import generated tests into GraphWalker
 
-
-
 * Generate test suite with the Transition Tour \(TT\) algorithm on the toy train signal example model using the \-\-predefined\_path flag:
 * \./MTR \-o t \-m tt \-f sample\_models/introduction/Toy\_train\_signal\.json \-\- <span style="color:#ff0000"> __predefined\_path__ </span>  <span style="color:#ff0000"> __ __ </span>
 * Execute the test suite in GraphWalker Studio\.
 
-
 ![](../images/model_based/Model-based%20testing-1st%20part_44.png)
-
-
 
 ## Model >> Test >> Relax: Import test suites into GraphWalker
 
