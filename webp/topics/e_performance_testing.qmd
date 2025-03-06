@@ -9,8 +9,6 @@ author:
       - department : Computer Algebra
 ---
 
-![](../images/performance/performance_testing_0.jpg)
-
 ## Original material
 This page is a **work-in-progress**, the original materials can be accessed at [ik-elte-sharepoint](https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EujiKdk5CYhBk9wlmyiWOLcBukqeP23QbJpjdta0Jj1Dpg?e=lhTveE)
 
@@ -37,7 +35,40 @@ This page is a **work-in-progress**, the original materials can be accessed at [
 * Used to understand the behaviour of the SUT \(System Under Test\) under a specific expected load
 * Usually applied in a controlled \(laboratory\) environment
 
-![](../images/performance/performance_testing_1.jpg)
+```{python}
+#| title: Load testing
+#| echo : false
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define time and load values
+time = np.array([0, 1, 4, 9, 10])
+load = np.array([0, 80, 80, 80, 0])  # Sample values
+
+# Plot the load vs time graph
+plt.figure(figsize=(6,4))
+plt.plot(time, load, color='green', linestyle='-', linewidth=2)
+plt.axhline(y=90, color='red', linestyle='--', linewidth=2, label='Max capacity')
+
+# Labels and annotations
+plt.xlabel("Time", fontsize=12, fontweight='bold')
+plt.ylabel("Load", fontsize=12, fontweight='bold')
+plt.text(5, 92, "Max capacity", fontsize=10, color='black')
+
+# Formatting the axes
+plt.xticks([])
+plt.yticks([])
+
+plt.xlim(0, 10)
+plt.ylim(0, 100)
+
+# Adding arrows for axes
+plt.annotate("", xy=(10, 0), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+plt.annotate("", xy=(0, 100), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+
+plt.show()
+```
 
 
 #### 2. Endurance \(stability\, soak\) testing:
@@ -45,7 +76,40 @@ This page is a **work-in-progress**, the original materials can be accessed at [
 * Similar to load test\, but focuses on the stability of the system over a bigger predefined time frame
 * Used to verify memory leaks\, thread problems\, database problems\, overflows / underflows…etc\. that may degrade performance or cause crash
 
-![](../images/performance/performance_testing_2.jpg)
+```{python}
+#| title: Endurance testing
+#| echo : false
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define time and load values
+time = np.array([0, 1, 4, 9, 10])
+load = np.array([0, 60, 60, 60, 60])  # Sample values
+
+# Plot the load vs time graph
+plt.figure(figsize=(8,3))
+plt.plot(time, load, color='brown', linestyle='-', linewidth=2)
+plt.axhline(y=90, color='red', linestyle='--', linewidth=2, label='Max capacity')
+plt.axhline(y=60, color='green', linestyle='--', linewidth=2, label='Normal expected utilization')
+
+# Labels and annotations
+plt.xlabel("Time", fontsize=12, fontweight='bold')
+plt.ylabel("Load", fontsize=12, fontweight='bold')
+plt.text(6, 92, "Max capacity", fontsize=10, color='black')
+plt.text(6, 62, "Normal expected utilization", fontsize=10, color='black')
+
+# Formatting the axes
+plt.xticks([])
+plt.yticks([])
+plt.xlim(0, 10)
+plt.ylim(0, 100)
+
+# Adding arrows for axes
+plt.annotate("", xy=(10, 0), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+plt.annotate("", xy=(0, 100), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+
+plt.show()
+```
 
 #### 3. Stress testing:
 
@@ -53,7 +117,46 @@ This page is a **work-in-progress**, the original materials can be accessed at [
   * Test above normal operational capacity\, around max\. design capacity
     * \(It checks if a relatively small overload on short scale can be handled by scheduling\, buffering\, etc\.\)
 
-![](../images/performance/performance_testing_3.jpg)
+```{python}
+#| title: Stress testing
+#| echo : false
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define time values
+time = np.linspace(0, 10, 100)
+
+# Define load values with oscillations
+tau = 3  # Time constant for initial rise
+#load = 90 * (1 - np.exp(-time/tau)) + 5 * np.sin(2 * np.pi * time / 2)
+
+load = np.piecewise(time, [time < 5, time >= 5], [lambda x: 74 * (1 - np.exp(-x/tau)), lambda x: 60  + 5 * np.sin(2 * np.pi * x / 2)])
+
+# Plot the load vs time graph
+plt.figure(figsize=(8,4))
+plt.plot(time, load, color='purple', linestyle='-', linewidth=2)
+plt.axhline(y=60, color='red', linestyle='--', linewidth=2, label='Max capacity')
+
+# Labels and annotations
+plt.xlabel("Time", fontsize=12, fontweight='bold')
+plt.ylabel("Load", fontsize=12, fontweight='bold')
+plt.text(2, 72, "Max capacity", fontsize=10, color='black')
+
+# Formatting the axes
+plt.xticks([])
+plt.yticks([])
+plt.xlim(0, 10)
+plt.ylim(0, 100)
+
+# Adding arrows for axes
+plt.annotate("", xy=(10, 0), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+plt.annotate("", xy=(0, 100), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+
+plt.show()
+
+
+```
 
 #### 4. Capacity \(volume\, flood\) testing:
 
@@ -75,9 +178,6 @@ This page is a **work-in-progress**, the original materials can be accessed at [
 * 2 approaches \(both can be used to find possible bottlenecks\):
   * Increase the load to monitor the amount of different types of resources used
   * Scaling up/out the resources of the SUT with the same level of load
-
-
-![](../images/performance/performance_testing_4.jpg)
 
 ### Scheduling of different types of performance tests
 
