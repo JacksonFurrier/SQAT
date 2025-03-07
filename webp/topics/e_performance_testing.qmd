@@ -170,6 +170,44 @@ plt.show()
   * This can be used as a  _baseline_  for later testing
 * The volume of data is increased step\-by\-step to analyse the actual capacity
 
+```{python}
+#| title: Capacity testing
+#| echo : false
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define time and load values
+time = np.array([0, 2, 6, 7, 9, 10])
+load = np.array([0, 70, 70, 90, 90, 0])  # Stepwise increasing and decreasing
+
+# Plot the load vs time graph
+plt.figure(figsize=(8,4))
+plt.plot(time, load, color='navy', linestyle='-', linewidth=2)
+plt.axhline(y=90, color='red', linestyle='--', linewidth=2, label='Max capacity')
+
+# Labels and annotations
+plt.xlabel("Time", fontsize=12, fontweight='bold')
+plt.ylabel("Load", fontsize=12, fontweight='bold')
+plt.text(7.5, 92, "Max capacity", fontsize=10, color='black')
+
+# Formatting the axes
+plt.xticks([])
+plt.yticks([])
+plt.xlim(0, 10)
+plt.ylim(0, 100)
+
+# Adding arrows for axes
+plt.annotate("", xy=(10, 0), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+plt.annotate("", xy=(0, 100), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+
+plt.show()
+
+
+
+```
+
 
 #### 5. Spike testing:
 
@@ -177,12 +215,86 @@ plt.show()
 * Investigates whether the SUT crashes\, terminates gracefully or just dismisses/delays the processing due to the sudden bursts of the requests
 
 
+```{python}
+#| title: Spike testing
+#| echo : false
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define time values
+time = np.linspace(0, 10, 100)
+
+# Define load values with a sharp peak
+tau = 2  # Time constant for initial rise
+load = (time ** 3) * np.exp(-time) * 500  # Exponential peak behavior
+
+# Plot the load vs time graph
+plt.figure(figsize=(6,6))
+plt.plot(time, load, color='deepskyblue', linestyle='-', linewidth=2)
+plt.axhline(y=90, color='red', linestyle='--', linewidth=2, label='Max capacity')
+
+# Labels and annotations
+plt.xlabel("Time", fontsize=12, fontweight='bold')
+plt.ylabel("Load", fontsize=12, fontweight='bold')
+plt.text(3, 75, "Max capacity", fontsize=10, color='black')
+
+# Formatting the axes
+plt.xticks([])
+plt.yticks([])
+plt.xlim(0, 10)
+plt.ylim(0, max(load)*1.1)
+
+# Adding arrows for axes
+plt.annotate("", xy=(10, 0), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+plt.annotate("", xy=(0, max(load)*1.1), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+
+plt.show()
+```
+
 #### 6. Scalability testing:
 
 * Shows how the SUT is capable of scaling up/out/down considering some resources \(CPU\, GPU\, memory or network usage\)
 * 2 approaches \(both can be used to find possible bottlenecks\):
   * Increase the load to monitor the amount of different types of resources used
   * Scaling up/out the resources of the SUT with the same level of load
+
+```{python}
+#| title: Scalability testing
+#| echo : false
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Define time values
+time = np.linspace(0, 10, 100)
+
+# Define load values with a linear increase
+load = time * 10  # Linearly increasing load
+
+# Plot the load vs time graph
+plt.figure(figsize=(8,4))
+plt.plot(time, load, color='orange', linestyle='-', linewidth=2)
+plt.axhline(y=90, color='red', linestyle='--', linewidth=2, label='Max capacity')
+
+# Labels and annotations
+plt.xlabel("Time", fontsize=12, fontweight='bold')
+plt.ylabel("Load", fontsize=12, fontweight='bold')
+plt.text(7, 92, "Max capacity", fontsize=10, color='black')
+
+# Formatting the axes
+plt.xticks([])
+plt.yticks([])
+plt.xlim(0, 10)
+plt.ylim(0, max(load)*1.1)
+
+# Adding arrows for axes
+plt.annotate("", xy=(10, 0), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+plt.annotate("", xy=(0, max(load)*1.1), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color='blue', lw=2))
+
+plt.show()
+
+```
 
 ### Scheduling of different types of performance tests
 

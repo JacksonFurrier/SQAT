@@ -1,5 +1,5 @@
 ---
-title: 6. Model based testing - first part
+title: 6. Model based testing (A)
 author:
   - name: Gabor Arpad Nemeth
     orcid: 0000-0003-2554-9860
