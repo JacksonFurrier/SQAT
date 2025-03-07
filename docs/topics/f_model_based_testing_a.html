@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Gabor Arpad Nemeth">
 
-<title>3. Mocking basics</title>
+<title>6. Model based testing (A)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,11 +67,14 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed">
+<body class="nav-sidebar floating nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -112,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/c_unit_mock_basic.html">3. Mocking basics</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/f_model_based_testing_a.html">6. Model based testing (A)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -155,7 +159,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/c_unit_mock_basic.html" class="sidebar-item-text sidebar-link active">
+  <a href="../topics/c_unit_mock_basic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">3. Mocking basics</span></a>
   </div>
 </li>
@@ -173,7 +177,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/f_model_based_testing_a.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/f_model_based_testing_a.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">6. Model based testing (A)</span></a>
   </div>
 </li>
@@ -208,37 +212,36 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#supporting-video" id="toc-supporting-video" class="nav-link active" data-scroll-target="#supporting-video">Supporting video</a></li>
-  <li><a href="#example-1." id="toc-example-1." class="nav-link" data-scroll-target="#example-1.">Example 1.</a>
-  <ul class="collapse">
-  <li><a href="#supporting-video-1" id="toc-supporting-video-1" class="nav-link" data-scroll-target="#supporting-video-1">Supporting video</a></li>
-  <li><a href="#the-gethttprequest-function" id="toc-the-gethttprequest-function" class="nav-link" data-scroll-target="#the-gethttprequest-function">The GetHttpRequest() function</a></li>
-  <li><a href="#mocking-a-simple-function" id="toc-mocking-a-simple-function" class="nav-link" data-scroll-target="#mocking-a-simple-function">Mocking a simple function</a></li>
-  <li><a href="#problems-with-testing-gethttprequest-function" id="toc-problems-with-testing-gethttprequest-function" class="nav-link" data-scroll-target="#problems-with-testing-gethttprequest-function">Problems with testing GetHttpRequest() function</a></li>
-  <li><a href="#supporting-video-2" id="toc-supporting-video-2" class="nav-link" data-scroll-target="#supporting-video-2">Supporting video</a></li>
-  </ul></li>
-  <li><a href="#tasks-1." id="toc-tasks-1." class="nav-link" data-scroll-target="#tasks-1.">Tasks 1.</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/c_unit_mock_basic.html">3. Mocking basics</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/f_model_based_testing_a.html">6. Model based testing (A)</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">3. Mocking basics</h1>
+<h1 class="title">6. Model based testing (A)</h1>
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Gabor Arpad Nemeth <a href="mailto:nga@inf.elte.hu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-2554-9860" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Eötvös Loránd University (Hungary)
+          </p>
+        <p class="affiliation">
+            
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    
+      
   
     
   </div>
@@ -248,76 +251,436 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="../images/unit/mocking.webp" class="img-fluid"></p>
-<p>Mocking is one of the most powerful techniques in unit testing, which can be leveraged to solve complex problems in testing. There can be cases as mentioned in previous videos, that, one needs to test some implementation with 3rdparty functionality. However, the problem is that, one can not control these functionalities totally. To overcome this hurdle, one must use <a href="https://en.wikipedia.org/wiki/Mock_object">mocking</a>.</p>
-<section id="supporting-video" class="level3">
-<h3 class="anchored" data-anchor-id="supporting-video">Supporting video</h3>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/Ss_gHE4tZdo" title="Mocking basics i" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<section id="original-material" class="level2">
+<h2 class="anchored" data-anchor-id="original-material">Original material</h2>
+<p>This page is a <strong>work-in-progress</strong>, the original materials can be accessed at <a href="https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EjW498cdWiFEnA3At2DRKLABiVrxzyh3CTXgp1gZhHQwhg?e=8ZPzBa">ik-elte-sharepoint</a></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<a href="https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EjW498cdWiFEnA3At2DRKLABiVrxzyh3CTXgp1gZhHQwhg?e=8ZPzBa">Course material</a>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Please don’t forget that this link only works if you log into the university account, either into your e-mail or cloud service.</p>
+</div>
+</div>
 </section>
-<section id="example-1." class="level2">
-<h2 class="anchored" data-anchor-id="example-1.">Example 1.</h2>
-<p>The best way to understand mocking is to check examples of mocking, therefore we turn to <a href="https://github.com/JacksonFurrier/SQAT/tree/main/sample_2">sample_2</a> and more specifically, to <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/NetworkConnection.java">NetworkConnection.java</a> and <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/test/java/sample_2/NetworkConnectionTest.java">NetworkConnectionTest.java</a>.</p>
-<p>First let’s understand what <code>NetworkConnection.java</code> implementation is about.</p>
-<ul>
-<li><p>It has three members, <code>mUrl, mCharset, mQuery</code> denoting the URL that we plan to connect to, the coding charset that will be used during the established connection, and the query used to encode the different parameters during the connection establishment.</p></li>
-<li><p>The constructors doesn’t need much description, however the function <code>public String GetHttpRequest() throws MalformedURLException, IOException</code> does need some further clarity.</p></li>
-</ul>
-<section id="supporting-video-1" class="level3">
-<h3 class="anchored" data-anchor-id="supporting-video-1">Supporting video</h3>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/BD8hz1_tFws" title="Mocking basics ii" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section>
-<section id="the-gethttprequest-function" class="level3">
-<h3 class="anchored" data-anchor-id="the-gethttprequest-function">The GetHttpRequest() function</h3>
-<p>To test this <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/main/java/sample_2/NetworkConnection.java#L42">GetHttpRequest()</a> function is a tricky one.</p>
+<section id="agenda" class="level2">
+<h2 class="anchored" data-anchor-id="agenda">Agenda</h2>
+<p>Short agenda:</p>
 <ol type="1">
-<li>It starts by <code>URLConnection vConnection = new URL( mUrl + "?" + mQuery).openConnection();</code> which is basically opening the connection to the remote website that was specified in the member string.</li>
-<li>Next <code>vConnection.setRequestProperty("Accept-Charset", mCharset);</code> sets the properties of the connection request, in our case it is <code>UTF-8</code></li>
-<li>After the connection has been established the code waits for a response by <code>InputStream vResponse = vConnection.getInputStream( );</code> and saves it into a local variable</li>
-<li>As a last step, the <code>InputStream</code> is traversed with a Scanner <code>Scanner scanner = new Scanner( vResponse )</code> using <code>\\A</code> as a delimiter.</li>
-</ol>
-<p>To test this function one must overcome massive amount of hurdles to have it as an actual unit test. Lets start at the basics first to reach the point, where we are braced with the knowledge to test such complicated <a href="https://en.wikipedia.org/wiki/Mock_trainwreck">chain-of-mocks</a> examples.</p>
-</section>
-<section id="mocking-a-simple-function" class="level3">
-<h3 class="anchored" data-anchor-id="mocking-a-simple-function">Mocking a simple function</h3>
-<p>First check out the <a href="https://github.com/JacksonFurrier/SQAT/blob/main/sample_2/app/src/test/java/sample_2/NetworkConnectionTest.java">NetworkConnectionTest.java</a></p>
-<ol type="1">
-<li>This test class start by doing a <code>BlackMagic()</code> as a Setup function by instantiating the <code>NetworkConnection</code> class</li>
-<li>The <code>HttpRequestReturnsNotNull()</code> test case simply tests if the <code>GetHttpRequest()</code> function returns <code>String</code> containing a space</li>
-<li>Now the most interesting for is the <code>HttpRequestReturnsNull()</code> where the actual mocking happens
+<li>Theory background of MBT (Model-based testing)</li>
+<li>FSM (Finite State Machine) models</li>
+<li>Editing specification models with GraphWalker Studio</li>
+<li>Generate simple test sequences with…
 <ul>
-<li>First we need to specify, which class we would like to mock <code>mNetworkConnection = mock( NetworkConnection.class );</code></li>
-<li>The next step is <code>when( mNetworkConnection.GetHttpRequest()).thenReturn(" ");</code> to alter the functionality of the original class</li>
-<li>Asserting against the altering of the original functionality by <code>assertEquals(" ", mNetworkConnection.GetHttpRequest() );</code></li>
+<li>GraphWalker Studio and</li>
+<li>Model &gt;&gt; Test &gt;&gt; Relax</li>
 </ul></li>
 </ol>
-<p>This simple example shows that, basically with mocks we can alter the behaviour of any function inside our implementation. However, the first example is much more complicated than that, because there are some internal local variables initialized by 3rdparty functionalities, which makes <a href="https://en.wikipedia.org/wiki/Dependency_injection">mock-injection</a> extremely hard.</p>
 </section>
-<section id="problems-with-testing-gethttprequest-function" class="level3">
-<h3 class="anchored" data-anchor-id="problems-with-testing-gethttprequest-function">Problems with testing GetHttpRequest() function</h3>
-<p>The main issues with <code>public String GetHttpRequest() throws MalformedURLException, IOException</code> are the following</p>
+<section id="degree-of-automization" class="level2">
+<h2 class="anchored" data-anchor-id="degree-of-automization">Degree of automization</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A(Degree of automatization) --&gt; B(from the view of test execution) --&gt; C(Manual / Automated)
+  A --&gt; D(from the view of the test design) --&gt; E(Manually designed) --&gt; F(Generated)
+       
+    subgraph subE [" "]
+        E
+        noteE[ Test cases are designed by a test engineer based on specification]
+    end
+
+    subgraph subF [" "]
+        F
+        noteF[ Test cases are generated automatically from a test model or from the specification -&gt; MBT Model Based Testing]
+    end
+    
+    class subA,subB,subC sub
+    class noteA,noteB,noteC note
+
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="model-based-testing" class="level2">
+<h2 class="anchored" data-anchor-id="model-based-testing">Model based testing</h2>
+<p>Conformance testing</p>
 <ul>
-<li>The first initialization is complicated as it is. <code>URLConnection</code> type on the left-hand-side initialized by a new <code>URL</code> class’s <code>openConnection()</code> function. This will be extremely challenging because we can’t access these from the outside, these are local functionalities and local variables. Further, <code>URLConnection</code> is <code>public abstract class</code> which is hard to mock</li>
-<li>The next invocation, setting the rquest property on a local variable, which is challenging to handle</li>
-<li>Forward, the inputstream handling is based on <code>URLConnection</code> type local variable, where the <code>getInputStream()</code> function needs to be mocked</li>
-<li>In the <code>try</code> block a <code>Scanner</code> type is instantiated, where this needs to be mocked as well where the fact, <code>public final class</code> just complicates mocking</li>
-<li>Inside the scanning <code>try</code> block only the <code>useDelimiter()</code> function needs to be mocked, however it is a bit complicated as discussed before</li>
-</ul>
-<p>TL;DR this task is challenging because there is the technique <a href="https://en.wikipedia.org/wiki/Mock_trainwreck">chain-of-mocks</a> that need to be applied sequentally complicated by <code>abstract</code> and <code>final</code> classes that need to be mocked out.</p>
-</section>
-<section id="supporting-video-2" class="level3">
-<h3 class="anchored" data-anchor-id="supporting-video-2">Supporting video</h3>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/V95RgoNFKwI" title="Mocking basics iii" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-</section>
-</section>
-<section id="tasks-1." class="level2">
-<h2 class="anchored" data-anchor-id="tasks-1.">Tasks 1.</h2>
-<p>Implement a mocking strategy to gain control over all the external functionality inside <code>GetHttpRequest()</code></p>
+<li>Given
 <ul>
-<li><code>URL</code> and <code>URLConnection</code> need to be mocked from the outside</li>
-<li><code>setRequestProperty()</code> has to be mocked as well alongside with <code>getInputStream</code></li>
-<li><code>InputStream</code> class has to be mocked</li>
-<li><code>Scanner</code> class has to be mocked with the <code>useDelimiter()</code> and <code>next()</code> function as well</li>
+<li>Specification model (white box)</li>
+<li>Implementation model (black box)</li>
+</ul></li>
+<li>Test if the implementation conforms to the specification?
+<ul>
+<li>I.E. determine if the two corresponding model descriptions are equivalent</li>
+</ul></li>
 </ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A &lt;--&gt; B --&gt; C
+     B --&gt; D 
+
+    subgraph subA [" "]
+        A
+        noteE[Specification model]
+    end
+
+    subgraph subB [" "]
+        B
+        noteF[Implementation model]
+    end
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="fsm-formal-specification-model" class="level2">
+<h2 class="anchored" data-anchor-id="fsm-formal-specification-model">FSM (Formal specification model)</h2>
+</section>
+<section id="fsm-based-conformance-testing" class="level2">
+<h2 class="anchored" data-anchor-id="fsm-based-conformance-testing">FSM-based conformance testing</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A(Specification: FSM white box) &lt;--&gt; B(Implementation: FSM Impl)
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A(Requirements) --&gt; B(Specification FSM M) --&gt; C(Implementation FSM M, SUT)
+     B --&gt; D[ Test suite: test case 1, ..., test case n]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    classDef sub opacity:0
+    classDef note fill:#ffd, stroke:#ccb
+    
+     A[Test suite] --&gt;|Input| B(Implementation FSM Impl, SUT) --&gt;|Observed output| C(Tester)
+     A --&gt;|Expected output| C
+     C --&gt; D{Verdict}
+     
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="fsm-exercise" class="level3">
+<h3 class="anchored" data-anchor-id="fsm-exercise">FSM exercise</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<a href="https://www.maerklin.de/en/products/details/article/72201/">Marklin Battery-Operated Signal 1.</a>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Explore the functionality of the given device and write a specification for it</li>
+</ol>
+<ul>
+<li>The device has 2 LEDs (red and green), a 2-way switch and a press button</li>
+<li>The 2-way switch turns the device off or on. When the device is turned on, the green LED lights up.</li>
+<li>The button can be used to change which LED lights; red or green.</li>
+<li>If no button is pressed for 7 secs the device changes the lights.</li>
+</ul>
+<ol start="2" type="1">
+<li>Create FSM based on the specification</li>
+</ol>
+<ul>
+<li>Create state transition table</li>
+<li>Create state transition graph</li>
+</ul>
+<ol start="3" type="1">
+<li>Design an input/output sequence to test all functionalities of the specification</li>
+</ol>
+<p><em>Waiting for 7 seconds can be handled as special timeout input message</em></p>
+</div>
+</div>
+</section>
+</section>
+<section id="fsm-exercise---solution-graph" class="level2">
+<h2 class="anchored" data-anchor-id="fsm-exercise---solution-graph">FSM exercise - solution graph</h2>
+<div class="cell" data-file="../graphs/toy_train_signal.dot" data-layout-align="default">
+<div class="cell-output-display">
+<div id="fig-toy_train_signal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-toy_train_signal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<svg width="672" height="480" viewbox="0.00 0.00 525.33 329.41" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 325.41)">
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-325.41 521.33,-325.41 521.33,4 -4,4"></polygon>
+<!-- s_off -->
+<g id="node1" class="node">
+<title>s_off</title>
+<ellipse fill="none" stroke="black" cx="343.07" cy="-286.53" rx="30.78" ry="30.78"></ellipse>
+<ellipse fill="none" stroke="black" cx="343.07" cy="-286.53" rx="34.77" ry="34.77"></ellipse>
+<text text-anchor="middle" x="343.07" y="-282.33" font-family="Times,serif" font-size="14.00">s_off</text>
+</g>
+<!-- s_green -->
+<g id="node2" class="node">
+<title>s_green</title>
+<ellipse fill="none" stroke="black" cx="231.07" cy="-157.78" rx="41.14" ry="41.14"></ellipse>
+<text text-anchor="middle" x="231.07" y="-153.58" font-family="Times,serif" font-size="14.00">s_green</text>
+</g>
+<!-- s_off&#45;&gt;s_green -->
+<g id="edge1" class="edge">
+<title>s_off-&gt;s_green</title>
+<path fill="none" stroke="black" d="M308.78,-279.54C282.86,-273.04 248.94,-259.83 232.04,-233.64 227.22,-226.19 224.91,-217.38 224.1,-208.47"></path>
+<polygon fill="black" stroke="black" points="227.6,-208.32 223.78,-198.44 220.6,-208.55 227.6,-208.32"></polygon>
+<text text-anchor="middle" x="276.58" y="-221.04" font-family="Times,serif" font-size="14.00">switch on/green</text>
+</g>
+<!-- s_green&#45;&gt;s_off -->
+<g id="edge5" class="edge">
+<title>s_green-&gt;s_off</title>
+<path fill="none" stroke="black" d="M268.34,-175.29C286.53,-185.04 307.38,-198.99 321.07,-216.84 326.77,-224.29 331.02,-233.26 334.18,-242.22"></path>
+<polygon fill="black" stroke="black" points="330.87,-243.37 337.2,-251.87 337.55,-241.28 330.87,-243.37"></polygon>
+<text text-anchor="middle" x="359.2" y="-221.04" font-family="Times,serif" font-size="14.00">switch off/</text>
+</g>
+<!-- s_red -->
+<g id="node3" class="node">
+<title>s_red</title>
+<ellipse fill="none" stroke="black" cx="231.07" cy="-31.95" rx="31.91" ry="31.91"></ellipse>
+<text text-anchor="middle" x="231.07" y="-27.75" font-family="Times,serif" font-size="14.00">s_red</text>
+</g>
+<!-- s_green&#45;&gt;s_red -->
+<g id="edge6" class="edge">
+<title>s_green-&gt;s_red</title>
+<path fill="none" stroke="black" d="M189.74,-156.52C112.99,-154.62 -39.51,-143.26 9.76,-81.91 31.79,-54.47 131.07,-41.47 188.9,-36.13"></path>
+<polygon fill="black" stroke="black" points="189.54,-39.59 199.19,-35.22 188.92,-32.62 189.54,-39.59"></polygon>
+<text text-anchor="middle" x="53.22" y="-86.11" font-family="Times,serif" font-size="14.00">timeout(7s)/red</text>
+</g>
+<!-- s_green&#45;&gt;s_red -->
+<g id="edge7" class="edge">
+<title>s_green-&gt;s_red</title>
+<path fill="none" stroke="black" d="M192.22,-144.4C159.42,-131.71 120.29,-109.88 137.25,-81.91 148.82,-62.82 170.53,-50.83 190.16,-43.49"></path>
+<polygon fill="black" stroke="black" points="191.55,-46.71 199.87,-40.16 189.27,-40.09 191.55,-46.71"></polygon>
+<text text-anchor="middle" x="182.98" y="-86.11" font-family="Times,serif" font-size="14.00">press button/red</text>
+</g>
+<!-- s_red&#45;&gt;s_off -->
+<g id="edge4" class="edge">
+<title>s_red-&gt;s_off</title>
+<path fill="none" stroke="black" d="M262.89,-35.56C316.44,-40.67 420.91,-54.04 443.07,-81.91 486.99,-137.12 420.47,-214.77 376.58,-256.41"></path>
+<polygon fill="black" stroke="black" points="374.15,-253.89 369.21,-263.27 378.91,-259.02 374.15,-253.89"></polygon>
+<text text-anchor="middle" x="487.2" y="-153.58" font-family="Times,serif" font-size="14.00">switch off/</text>
+</g>
+<!-- s_red&#45;&gt;s_green -->
+<g id="edge2" class="edge">
+<title>s_red-&gt;s_green</title>
+<path fill="none" stroke="black" d="M231.07,-63.93C231.07,-76.76 231.07,-91.96 231.07,-106.32"></path>
+<polygon fill="black" stroke="black" points="227.57,-106.57 231.07,-116.57 234.57,-106.57 227.57,-106.57"></polygon>
+<text text-anchor="middle" x="280.83" y="-86.11" font-family="Times,serif" font-size="14.00">timeout(7s)/green</text>
+</g>
+<!-- s_red&#45;&gt;s_green -->
+<g id="edge3" class="edge">
+<title>s_red-&gt;s_green</title>
+<path fill="none" stroke="black" d="M262.62,-38.95C286.24,-45.27 316.96,-57.8 332.07,-81.91 349,-108.93 313.72,-129.49 280.3,-142.16"></path>
+<polygon fill="black" stroke="black" points="278.74,-139.01 270.51,-145.69 281.11,-145.59 278.74,-139.01"></polygon>
+<text text-anchor="middle" x="387.58" y="-86.11" font-family="Times,serif" font-size="14.00">press button/green</text>
+</g>
+</g>
+</svg>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-toy_train_signal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: State transition graph
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fsm-exercise---state-transition-table" class="level2">
+<h2 class="anchored" data-anchor-id="fsm-exercise---state-transition-table">FSM exercise - state transition table</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Switch on</th>
+<th>Switch off</th>
+<th>press button</th>
+<th>wait for 7 secs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>s_off</td>
+<td>s_green/green</td>
+<td>_</td>
+<td>_</td>
+<td>_</td>
+</tr>
+<tr class="even">
+<td>s_green</td>
+<td>_</td>
+<td>s_off/_</td>
+<td>s_red/red</td>
+<td>s_red/red</td>
+</tr>
+<tr class="odd">
+<td>s_red</td>
+<td>_</td>
+<td>s_off/_</td>
+<td>s_green/green</td>
+<td>s_green/green</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fsm-exercise---solution-example-test-sequence" class="level2">
+<h2 class="anchored" data-anchor-id="fsm-exercise---solution-example-test-sequence">FSM exercise - solution example test sequence</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Action (input)</th>
+<th>Desired output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>switch on</td>
+<td>green</td>
+</tr>
+<tr class="even">
+<td>wait for 7 secs</td>
+<td>red</td>
+</tr>
+<tr class="odd">
+<td>wait for 7 secs</td>
+<td>green</td>
+</tr>
+<tr class="even">
+<td>press button</td>
+<td>red</td>
+</tr>
+<tr class="odd">
+<td>switch off</td>
+<td>_</td>
+</tr>
+<tr class="even">
+<td>switch on</td>
+<td>green</td>
+</tr>
+<tr class="odd">
+<td>press button</td>
+<td>red</td>
+</tr>
+<tr class="even">
+<td>press button</td>
+<td>green</td>
+</tr>
+<tr class="odd">
+<td>switch off</td>
+<td>_</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="graphwalker" class="level2">
+<h2 class="anchored" data-anchor-id="graphwalker"><a href="https://graphwalker.github.io/">Graphwalker</a></h2>
+<ul>
+<li>Open source, free MBT tool with GUI</li>
+<li>Easy-to-use</li>
+<li>Good <a href="https://github.com/GraphWalker/graphwalker-project/wiki">documentation</a></li>
+</ul>
+<p>Working process</p>
+<ol type="1">
+<li>Creating a model</li>
+<li>Write adaptation code that interacts with the SUT</li>
+<li>Generate tests</li>
+<li>Executing tests</li>
+</ol>
+</section>
+<section id="graphwalker-studio---installation-and-start" class="level2">
+<h2 class="anchored" data-anchor-id="graphwalker-studio---installation-and-start">Graphwalker Studio - Installation and start</h2>
+<ol type="1">
+<li>Fetch the docker image by running <code>docker pull graphwalker/studio</code></li>
+<li>Run the image <code>docker run -ti --rm -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/home/developer/.Xauthority --net=host --pid=host --ipc=host graphwalker/studio</code></li>
+</ol>
+</section>
+<section id="graphwalker-studio---alternative-installation-and-start" class="level2">
+<h2 class="anchored" data-anchor-id="graphwalker-studio---alternative-installation-and-start">Graphwalker Studio - Alternative installation and start</h2>
+<p>If the previous approach didn’t work one can do the following steps</p>
+<ol type="1">
+<li><a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Download</a> and install Java JDK</li>
+</ol>
+<ul>
+<li>Set <code>JAVA_HOME</code> variable in the system env list if not set auatomatically</li>
+</ul>
+<ol start="2" type="1">
+<li>Install model editor <a href="https://graphwalker.github.io/download#studio">Graphwalker studio</a></li>
+</ol>
+<p>After installation</p>
+<ol type="1">
+<li>Click on graphwalker studio <code>graphwalker-studio-4.3.2.jar</code></li>
+<li>Open a web browser and type <code>http://localhost:9090/studio.html</code></li>
+</ol>
+</section>
+<section id="graphwalker-studio---battery-operated-signal-example" class="level2">
+<h2 class="anchored" data-anchor-id="graphwalker-studio---battery-operated-signal-example">Graphwalker Studio - Battery operated signal example</h2>
 
 
 </section>
