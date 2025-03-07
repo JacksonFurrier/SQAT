@@ -260,7 +260,7 @@
     "href": "topics/e_performance_testing.html",
     "title": "5. Performance testing",
     "section": "",
-    "text": "This page is a work-in-progress, the original materials can be accessed at ik-elte-sharepoint",
+    "text": "This page is a work-in-progress, the original materials can be accessed at ik-elte-sharepoint\n\n\n\n\n\n\nCourse material\n\n\n\nPlease don’t forget that this link only works if you log into the university account, either into your e-mail or cloud service.",
     "crumbs": [
       "Home",
       "Topics",
@@ -272,7 +272,7 @@
     "href": "topics/e_performance_testing.html#original-material",
     "title": "5. Performance testing",
     "section": "",
-    "text": "This page is a work-in-progress, the original materials can be accessed at ik-elte-sharepoint",
+    "text": "This page is a work-in-progress, the original materials can be accessed at ik-elte-sharepoint\n\n\n\n\n\n\nCourse material\n\n\n\nPlease don’t forget that this link only works if you log into the university account, either into your e-mail or cloud service.",
     "crumbs": [
       "Home",
       "Topics",
@@ -376,159 +376,171 @@
     ]
   },
   {
-    "objectID": "topics/f_model_based_testing.html#original-material",
-    "href": "topics/f_model_based_testing.html#original-material",
-    "title": "6. Model based testing",
-    "section": "Original material",
-    "text": "Original material\nThis page is a work-in-progress, the original materials can be accessed at ik-elte-sharepoint",
+    "objectID": "topics/f_model_based_testing.html",
+    "href": "topics/f_model_based_testing.html",
+    "title": "6. Model based testing - first part",
+    "section": "",
+    "text": "This page is a work-in-progress, the original materials can be accessed at ik-elte-sharepoint\n\n\n\n\n\n\nCourse material\n\n\n\nPlease don’t forget that this link only works if you log into the university account, either into your e-mail or cloud service.",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
+    ]
+  },
+  {
+    "objectID": "topics/f_model_based_testing.html#original-material",
+    "href": "topics/f_model_based_testing.html#original-material",
+    "title": "6. Model based testing - first part",
+    "section": "",
+    "text": "This page is a work-in-progress, the original materials can be accessed at ik-elte-sharepoint\n\n\n\n\n\n\nCourse material\n\n\n\nPlease don’t forget that this link only works if you log into the university account, either into your e-mail or cloud service.",
+    "crumbs": [
+      "Home",
+      "Topics",
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#agenda",
     "href": "topics/f_model_based_testing.html#agenda",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "Agenda",
     "text": "Agenda\nShort agenda:\n\nTheory background of MBT (Model-based testing)\nFSM (Finite State Machine) models\nEditing specification models with GraphWalker Studio\nGenerate simple test sequences with…\n\nGraphWalker Studio and\nModel &gt;&gt; Test &gt;&gt; Relax",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#degree-of-automization",
     "href": "topics/f_model_based_testing.html#degree-of-automization",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "Degree of automization",
     "text": "Degree of automization\n\n\n\n\n\ngraph TD\n    classDef sub opacity:0\n    classDef note fill:#ffd, stroke:#ccb\n    \n     A(Degree of automatization) --&gt; B(from the view of test execution) --&gt; C(Manual / Automated)\n  A --&gt; D(from the view of the test design) --&gt; E(Manually designed) --&gt; F(Generated)\n       \n    subgraph subE [\" \"]\n        E\n        noteE[ Test cases are designed by a test engineer based on specification]\n    end\n\n    subgraph subF [\" \"]\n        F\n        noteF[ Test cases are generated automatically from a test model or from the specification -&gt; MBT Model Based Testing]\n    end\n    \n    class subA,subB,subC sub\n    class noteA,noteB,noteC note",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#model-based-testing",
     "href": "topics/f_model_based_testing.html#model-based-testing",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "Model based testing",
     "text": "Model based testing\nConformance testing\n\nGiven\n\nSpecification model (white box)\nImplementation model (black box)\n\nTest if the implementation conforms to the specification?\n\nI.E. determine if the two corresponding model descriptions are equivalent\n\n\n\n\n\n\n\ngraph TD\n    classDef sub opacity:0\n    classDef note fill:#ffd, stroke:#ccb\n    \n     A &lt;--&gt; B --&gt; C\n     B --&gt; D \n\n    subgraph subA [\" \"]\n        A\n        noteE[Specification model]\n    end\n\n    subgraph subB [\" \"]\n        B\n        noteF[Implementation model]\n    end",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#fsm-formal-specification-model",
     "href": "topics/f_model_based_testing.html#fsm-formal-specification-model",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "FSM (Formal specification model)",
     "text": "FSM (Formal specification model)",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#fsm-based-conformance-testing",
     "href": "topics/f_model_based_testing.html#fsm-based-conformance-testing",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "FSM-based conformance testing",
     "text": "FSM-based conformance testing\n\n\n\n\n\ngraph TD\n    classDef sub opacity:0\n    classDef note fill:#ffd, stroke:#ccb\n    \n     A(Specification: FSM white box) &lt;--&gt; B(Implementation: FSM Impl)\n\n\n\n\n\n\n\n\n\n\n\n\ngraph TD\n    classDef sub opacity:0\n    classDef note fill:#ffd, stroke:#ccb\n    \n     A(Requirements) --&gt; B(Specification FSM M) --&gt; C(Implementation FSM M, SUT)\n     B --&gt; D[ Test suite: test case 1, ..., test case n]\n\n\n\n\n\n\n\n\n\n\n\ngraph TD\n    classDef sub opacity:0\n    classDef note fill:#ffd, stroke:#ccb\n    \n     A[Test suite] --&gt;|Input| B(Implementation FSM Impl, SUT) --&gt;|Observed output| C(Tester)\n     A --&gt;|Expected output| C\n     C --&gt; D{Verdict}\n     \n\n\n\n\n\n\n\n\nFSM exercise\n\n\n\n\n\n\nMarklin Battery-Operated Signal 1.\n\n\n\n\nExplore the functionality of the given device and write a specification for it\n\n\nThe device has 2 LEDs (red and green), a 2-way switch and a press button\nThe 2-way switch turns the device off or on. When the device is turned on, the green LED lights up.\nThe button can be used to change which LED lights; red or green.\nIf no button is pressed for 7 secs the device changes the lights.\n\n\nCreate FSM based on the specification\n\n\nCreate state transition table\nCreate state transition graph\n\n\nDesign an input/output sequence to test all functionalities of the specification\n\nWaiting for 7 seconds can be handled as special timeout input message",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#fsm-exercise---solution-graph",
     "href": "topics/f_model_based_testing.html#fsm-exercise---solution-graph",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "FSM exercise - solution graph",
     "text": "FSM exercise - solution graph\n\n\n\n\n\n\n\n\n\n\n\ns_off\n\n\ns_off\n\n\n\ns_green\n\ns_green\n\n\n\ns_off-&gt;s_green\n\n\nswitch on/green\n\n\n\ns_green-&gt;s_off\n\n\nswitch off/\n\n\n\ns_red\n\ns_red\n\n\n\ns_green-&gt;s_red\n\n\ntimeout(7s)/red\n\n\n\ns_green-&gt;s_red\n\n\npress button/red\n\n\n\ns_red-&gt;s_off\n\n\nswitch off/\n\n\n\ns_red-&gt;s_green\n\n\ntimeout(7s)/green\n\n\n\ns_red-&gt;s_green\n\n\npress button/green\n\n\n\n\n\n\nFigure 1: State transition graph",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#fsm-exercise---state-transition-table",
     "href": "topics/f_model_based_testing.html#fsm-exercise---state-transition-table",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "FSM exercise - state transition table",
     "text": "FSM exercise - state transition table\n\n\n\n\n\n\n\n\n\n\n\nSwitch on\nSwitch off\npress button\nwait for 7 secs\n\n\n\n\ns_off\ns_green/green\n_\n_\n_\n\n\ns_green\n_\ns_off/_\ns_red/red\ns_red/red\n\n\ns_red\n_\ns_off/_\ns_green/green\ns_green/green",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#fsm-exercise---solution-example-test-sequence",
     "href": "topics/f_model_based_testing.html#fsm-exercise---solution-example-test-sequence",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "FSM exercise - solution example test sequence",
     "text": "FSM exercise - solution example test sequence\n\n\n\nAction (input)\nDesired output\n\n\n\n\nswitch on\ngreen\n\n\nwait for 7 secs\nred\n\n\nwait for 7 secs\ngreen\n\n\npress button\nred\n\n\nswitch off\n_\n\n\nswitch on\ngreen\n\n\npress button\nred\n\n\npress button\ngreen\n\n\nswitch off\n_",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#graphwalker",
     "href": "topics/f_model_based_testing.html#graphwalker",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "Graphwalker",
     "text": "Graphwalker\n\nOpen source, free MBT tool with GUI\nEasy-to-use\nGood documentation\n\nWorking process\n\nCreating a model\nWrite adaptation code that interacts with the SUT\nGenerate tests\nExecuting tests",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#graphwalker-studio---installation-and-start",
     "href": "topics/f_model_based_testing.html#graphwalker-studio---installation-and-start",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "Graphwalker Studio - Installation and start",
     "text": "Graphwalker Studio - Installation and start\n\nFetch the docker image by running docker pull graphwalker/studio\nRun the image docker run -ti --rm -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/home/developer/.Xauthority --net=host --pid=host --ipc=host graphwalker/studio",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#graphwalker-studio---alternative-installation-and-start",
     "href": "topics/f_model_based_testing.html#graphwalker-studio---alternative-installation-and-start",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "Graphwalker Studio - Alternative installation and start",
     "text": "Graphwalker Studio - Alternative installation and start\nIf the previous approach didn’t work one can do the following steps\n\nDownload and install Java JDK\n\n\nSet JAVA_HOME variable in the system env list if not set auatomatically\n\n\nInstall model editor Graphwalker studio\n\nAfter installation\n\nClick on graphwalker studio graphwalker-studio-4.3.2.jar\nOpen a web browser and type http://localhost:9090/studio.html",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {
     "objectID": "topics/f_model_based_testing.html#graphwalker-studio---battery-operated-signal-example",
     "href": "topics/f_model_based_testing.html#graphwalker-studio---battery-operated-signal-example",
-    "title": "6. Model based testing",
+    "title": "6. Model based testing - first part",
     "section": "Graphwalker Studio - Battery operated signal example",
     "text": "Graphwalker Studio - Battery operated signal example",
     "crumbs": [
       "Home",
       "Topics",
-      "6. Model based testing"
+      "6. Model based testing - first part"
     ]
   },
   {

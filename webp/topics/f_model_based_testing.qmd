@@ -1,5 +1,5 @@
 ---
-title: 6. Model based testing
+title: 6. Model based testing - first part
 author:
   - name: Gabor Arpad Nemeth
     orcid: 0000-0003-2554-9860
@@ -9,11 +9,13 @@ author:
       - department : Computer Algebra
 ---
 
-
-![](../images/model_based/Model-based%20testing-1st%20part_0.jpg)
-
 ## Original material
 This page is a **work-in-progress**, the original materials can be accessed at [ik-elte-sharepoint](https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EjW498cdWiFEnA3At2DRKLABiVrxzyh3CTXgp1gZhHQwhg?e=8ZPzBa)
+
+::: {.callout-important}
+## [Course material](https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EjW498cdWiFEnA3At2DRKLABiVrxzyh3CTXgp1gZhHQwhg?e=8ZPzBa)
+Please don't forget that this link only works if you log into the university account, either into your e-mail or cloud service.
+:::
 
 ## Agenda
 

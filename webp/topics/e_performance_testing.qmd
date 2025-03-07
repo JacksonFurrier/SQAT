@@ -12,6 +12,11 @@ author:
 ## Original material
 This page is a **work-in-progress**, the original materials can be accessed at [ik-elte-sharepoint](https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EujiKdk5CYhBk9wlmyiWOLcBukqeP23QbJpjdta0Jj1Dpg?e=lhTveE)
 
+::: {.callout-important}
+## [Course material](https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EujiKdk5CYhBk9wlmyiWOLcBukqeP23QbJpjdta0Jj1Dpg?e=lhTveE)
+Please don't forget that this link only works if you log into the university account, either into your e-mail or cloud service.
+:::
+
 ## Theory background
 
 ### Performance testing
