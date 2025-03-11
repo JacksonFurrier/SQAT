@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Gabor Arpad Nemeth">
 
-<title>6. Model based testing (B)</title>
+<title>9. Environment setup</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating nav-fixed fullcontent">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -113,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/f_model_based_testing_b.html">6. Model based testing (B)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/j_environment.html">9. Environment setup</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -180,7 +179,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/f_model_based_testing_b.html" class="sidebar-item-text sidebar-link active">
+  <a href="../topics/f_model_based_testing_b.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">6. Model based testing (B)</span></a>
   </div>
 </li>
@@ -210,7 +209,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../topics/j_environment.html" class="sidebar-item-text sidebar-link">
+  <a href="../topics/j_environment.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">9. Environment setup</span></a>
   </div>
 </li>
@@ -221,36 +220,31 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#supporting-video" id="toc-supporting-video" class="nav-link active" data-scroll-target="#supporting-video">Supporting video</a></li>
+  <li><a href="#setting-up-gradle---arch-linux" id="toc-setting-up-gradle---arch-linux" class="nav-link" data-scroll-target="#setting-up-gradle---arch-linux">Setting up gradle - Arch Linux</a></li>
+  <li><a href="#supporting-video-1" id="toc-supporting-video-1" class="nav-link" data-scroll-target="#supporting-video-1">Supporting video</a></li>
+  <li><a href="#running-the-samples---arch-linux" id="toc-running-the-samples---arch-linux" class="nav-link" data-scroll-target="#running-the-samples---arch-linux">Running the samples - Arch Linux</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/f_model_based_testing_b.html">6. Model based testing (B)</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/a_unit_basic.html">Topics</a></li><li class="breadcrumb-item"><a href="../topics/j_environment.html">9. Environment setup</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">6. Model based testing (B)</h1>
+<h1 class="title">9. Environment setup</h1>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliations</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Gabor Arpad Nemeth <a href="mailto:nga@inf.elte.hu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-2554-9860" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Eötvös Loránd University (Hungary)
-          </p>
-        <p class="affiliation">
-            
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
+    
   
     
   </div>
@@ -260,22 +254,28 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="original-material" class="level2">
-<h2 class="anchored" data-anchor-id="original-material">Original material</h2>
-<p>This page is a <strong>work-in-progress</strong>, the original materials can be accessed at <a href="https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EoUtwUW9LlhMmw1BgeGwCSsBo3pqx7KawpBvB0MSNsW8MQ?e=yRbBld">ik-elte-sharepoint</a></p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<a href="https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EjW498cdWiFEnA3At2DRKLABiVrxzyh3CTXgp1gZhHQwhg?e=8ZPzBa">Course material</a>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Please don’t forget that this link only works if you log into the university account, either into your e-mail or cloud service.</p>
-</div>
-</div>
+<section id="supporting-video" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-video">Supporting video</h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/4-8p-MguKH0" title="Environment setup - docker" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="setting-up-gradle---arch-linux" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-gradle---arch-linux">Setting up gradle - Arch Linux</h2>
+<p>First things first you need to install <code>docker</code> first. To do it you will have to consult <code>pacman</code> with the following command <code>sudo pacman -S docker</code>. After it has installed everything for you it is optional but sometimes handy to install <code>docker-compose</code> as well. To do that, run <code>sudo pacman -S docker-compose</code>.</p>
+<p>After <a href="https://www.docker.com/">docker</a> has been installed on your system, pull the gradle image as written <a href="https://hub.docker.com/_/gradle/">here</a> by running <code>sudo docker pull gradle</code>.</p>
+<p>The previous steps can be done on</p>
+<ol type="1">
+<li><a href="https://docs.docker.com/engine/install/ubuntu/">Ubuntu</a></li>
+<li><a href="https://docs.docker.com/desktop/setup/install/mac-install/">Mac</a></li>
+<li><a href="https://docs.docker.com/desktop/setup/install/windows-install/">Windows</a>, I’d suggest to use WSL2 on windows if it is possible, makes life a bit easier.</li>
+</ol>
+</section>
+<section id="supporting-video-1" class="level2">
+<h2 class="anchored" data-anchor-id="supporting-video-1">Supporting video</h2>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/UcLXq-HaSUg" title="Environment setup - running the samples" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="running-the-samples---arch-linux" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-samples---arch-linux">Running the samples - Arch Linux</h2>
+<p>When docker based gradle is fetched you can run the commands from the editor of choice. Since I show the examples in <a href="https://code.visualstudio.com/">VSCode</a> I would suggest using it. As it is written on the <a href="https://hub.docker.com/_/gradle/">gradle docker webpage</a> you can run the examples from the sample’s root directory, by running the command <code>docker run --rm -u gradle -v "$PWD":/home/gradle/project -w /home/gradle/project gradle gradle &lt;gradle-task&gt;</code>.</p>
 
 
 </section>

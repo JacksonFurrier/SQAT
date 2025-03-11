@@ -1,0 +1,18 @@
+---
+title: 6. Model based testing (C)
+author:
+  - name: Gabor Arpad Nemeth
+    orcid: 0000-0003-2554-9860
+    email: nga@inf.elte.hu
+    affiliation:
+      - name: Eötvös Loránd University (Hungary)
+      - department : Computer Algebra
+---
+
+## Original material
+This page is a **work-in-progress**, the original materials can be accessed at [ik-elte-sharepoint]()
+
+::: {.callout-important}
+## [Course material]()
+Please don't forget that this link only works if you log into the university account, either into your e-mail or cloud service.
+:::
