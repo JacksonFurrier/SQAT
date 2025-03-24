@@ -10,9 +10,9 @@ author:
 ---
 
 ## Original material
-This page is a **work-in-progress**, the original materials can be accessed at [ik-elte-sharepoint]()
+This page is a **work-in-progress**, the original materials can be accessed at [ik-elte-sharepoint](https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EvcrSJlX5z9BvdmDI6qwtOcB0bryxoCjgOd_MklDLrF4Vg?e=Th8gV5)
 
 ::: {.callout-important}
-## [Course material]()
+## [Course material](https://ikelte-my.sharepoint.com/:f:/g/personal/nga_inf_elte_hu/EvcrSJlX5z9BvdmDI6qwtOcB0bryxoCjgOd_MklDLrF4Vg?e=Th8gV5)
 Please don't forget that this link only works if you log into the university account, either into your e-mail or cloud service.
 :::
