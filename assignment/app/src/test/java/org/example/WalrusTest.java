@@ -3,10 +3,84 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class WalrusTest {
+    private Walrus walrus;
+    private CannedWalrusFood canOfFood;
+    private WalrusFood food1;
+    private WalrusFood food2;
+
+    //Setting up the enviroment
+    @Before
+    public void setUp() {
+        walrus = new Walrus();
+        food1 = new WalrusFood();
+        food2 = new WalrusFood();
+        canOfFood = new CannedWalrusFood(food1);
+    }
+
     @Test public void appHasAGreeting() {
+    }
+    @Test
+    public void testWalrusCanEatWithValidFood() {
+        walrus.addToStomach(food1);
+        assertTrue("Walrus got fed with food",walrus.hasEaten(food1));
+    }
+    @Test
+    public void testWalrusCanEatWithInvalidFood()
+    {
+        assertFalse("Walrus ate nothing!",walrus.hasEaten(null));
+    }
+
+    @Test
+    public void testWalrusGetsRightFood() {
+        walrus.addToStomach(food1);
+        assertTrue("Walrus eaten this food!",walrus.hasEaten(food1));
+    }
+    @Test
+    public void testWalrusDidntEatThatFood()
+    {
+        assertFalse("Walrus didn't eat this kind of food!",walrus.hasEaten(food2));
+    }
+
+    @Test
+    public void testOpeningCanReturnsFood() {
+        OpensCan opensCan = new OpensCan();
+        WalrusFood extractedFood = opensCan.open(canOfFood);
+        assertNotNull(extractedFood);
+        assertEquals(food1, extractedFood);
+    }
+
+    @Test
+    public void testWalrusCanEatAfterFeeding() {
+        FeedsWalrus feeder = new FeedsWalrus();
+        feeder.feed(walrus, canOfFood);
+        assertTrue("Walrus eaten the given food!",walrus.hasEaten(food1));
+    }
+    // Test Walrus with simple cast gives error
+    @Test(expected = ClassCastException.class)
+    public void testWalrusWithNonWalrusFood()
+    {
+        Object notWalrusFood = new Object();
+        walrus.addToStomach((WalrusFood) notWalrusFood);
+    }
+
+    public class FakeWalrusFood extends WalrusFood
+    {
+
+    }
+
+    @Test
+    public void testWalrusWithNonWalrusFood2()
+    {
+        FakeWalrusFood fakeFood = new FakeWalrusFood();
+        walrus.addToStomach(fakeFood);
+        assertTrue("Walrus eaten fake food!",walrus.hasEaten(fakeFood));
     }
 }
