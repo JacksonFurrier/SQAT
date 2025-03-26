@@ -3,10 +3,62 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 
 public class WalrusTest {
+
+    private Walrus gary;
+    private WalrusFood food;
+    private CannedWalrusFood can;
+    private FeedsWalrus feeder;
+    private OpensCan opener;
+
+    @Before
+    public void setUp() {
+        gary = new Walrus();
+        food = new WalrusFood();
+        can = new CannedWalrusFood(food);
+        feeder = new FeedsWalrus();
+        opener = new OpensCan();
+    }
+
+    @Test
+    public void testWalrusCanEat() {
+        WalrusFood food1 = new WalrusFood();
+        WalrusFood food2 = new WalrusFood();
+        gary.addToStomach(food1);
+        gary.addToStomach(food2);
+        
+        assertTrue(gary.hasEaten(food1));
+        assertTrue(gary.hasEaten(food2));
+    }
+
+    @Test
+    public void testWalrusGetsRightFood() {
+        feeder.feed(gary, can);
+        assertTrue(gary.hasEaten(food));
+    }
+
+    @Test
+    public void testOpeningCanReturnsFood() {
+        WalrusFood extractedFood = opener.open(can);
+        assertEquals(food, extractedFood);
+    }
+
+    @Test
+    public void testWalrusEatingProcess() {
+        gary.addToStomach(food);
+        assertTrue(gary.hasEaten(food));
+    }
+
+    
     @Test public void appHasAGreeting() {
     }
 }
