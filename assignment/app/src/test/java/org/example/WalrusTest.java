@@ -3,10 +3,129 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+    private Walrus walrus;
+    
+    @Before
+    public void setUp() {
+        walrus = new Walrus();
+    }
+
+    @Test
+    public void feedWalrus_withLargeAmount_eatsAllSuccessfully()
+    {
+        // Arrange
+        final int MAX_AMOUNT = 1000;
+        var feedsWalrus = new FeedsWalrus();
+        var can = new CannedWalrusFood(new WalrusFood());
+
+        // Act & Assert
+        for (int i = 0; i < MAX_AMOUNT; i++) {
+            try {
+                feedsWalrus.feed(walrus, can);
+            } catch (Exception e) {
+                var errorMessage = String.format("Walrus failed to eat %d cans. Exception message: %s.", i, e.getMessage());
+                fail(errorMessage);
+            }
+        }
+    }
+
+    @Test
+    public void feedWalrus_RightCannedFood_EatsSuccessfully() {
+        // Arrange
+        var food = new WalrusFood();
+        var can = new CannedWalrusFood(food);
+        var feedsWalrus = new FeedsWalrus();
+
+        // Act
+        feedsWalrus.feed(walrus, can);
+
+        // Assert
+        assertTrue(walrus.hasEaten(food));
+    }
+
+    /*
+        Criteria: Write a test to check opening a can will return food. This is a positive case.
+     */
+    @Test
+    public void openCan_NotEmpty_ReturnsFood() {
+        // Arrange
+        var food = new WalrusFood();
+        var can = new CannedWalrusFood(food);
+        var openCan = new OpensCan();
+
+        // Act
+        var foodFromCan = openCan.open(can);
+
+        // Assert
+        assertNotNull(foodFromCan);
+        assertEquals(food, foodFromCan);
+    }
+
+    /*
+        Criteria: Write a test to check opening a can will return food. This is a negative case.
+     */
+    @Test
+    public void openCan_Empty_ReturnsNull() {
+        // Arrange
+        var can = new CannedWalrusFood();
+        var openCan = new OpensCan();
+
+        // Act
+        var foodFromCan = openCan.open(can);
+
+        // Assert
+        assertNull(foodFromCan);
+    }
+
+    /*
+        Criteria: Write a test to check on how a Walrus can eat
+     */
+    @Test
+    public void walrusEats_differentWays_eatsAllSuccessfully() {
+        // Arrange
+
+        // First way - feed from can
+        var foodForCan = new WalrusFood();
+        var can = new CannedWalrusFood(foodForCan);
+        var feedsWalrus = new FeedsWalrus();
+
+        // Second way - by himself
+        var food = new WalrusFood();
+
+        // Act
+        feedsWalrus.feed(walrus, can);
+        walrus.addToStomach(food);
+
+        // Here it is better to use assertAll, however, project uses JUnit4, not JUnit5.
+        assertTrue(walrus.hasEaten(foodForCan));
+        assertTrue(walrus.hasEaten(food));
+    }
+
+    /*
+        Write a test making a Walrus accept non-Walrus food
+     */
+    @Test
+    public void feedWalrus_NullFood_eatsSuccessfully() {
+        // Type-safety will now allow me to pass anything that is not WalrusFood or inherited from it.
+        // The only case when walrus can eat something different from WalrusFood is when it eats null(nothing).
+        // Walruses don't eat null, so I think it is non-walrus food.
+
+        // Arrange
+        var can = new CannedWalrusFood();
+        var feedsWalrus = new FeedsWalrus();
+
+        // Act
+        feedsWalrus.feed(walrus, can);
+
+        // Assert
+        assertTrue(walrus.hasEaten(null));
     }
 }
