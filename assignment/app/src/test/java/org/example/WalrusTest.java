@@ -8,5 +8,6 @@ import static org.junit.Assert.*;
 
 public class WalrusTest {
     @Test public void appHasAGreeting() {
+
     }
 }
