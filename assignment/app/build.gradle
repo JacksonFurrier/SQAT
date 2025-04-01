@@ -33,4 +33,11 @@ java {
 application {
     // Define the main class for the application.
     mainClass = 'org.example.FeedWalrus'
+    test {
+        testLogging {
+            events "passed", "failed", "skipped"
+            exceptionFormat "full"
+            showStandardStreams = true
+        }
+    }
 }
