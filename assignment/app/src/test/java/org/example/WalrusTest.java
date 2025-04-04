@@ -69,16 +69,10 @@ public class WalrusTest {
         assertEquals(opensCan.open(cannedFood1), exampleFood1);
     }
 
-    @Test
-    public void canHasTheExpectedContent() {
-        OpensCan opensCan = new OpensCan();
-        assertEquals(opensCan.open(cannedFood1), exampleFood1);
-    }
-
     /* how walrus can eat */
 
     @Test
-    public void canExistsBeforeEating() {
+    public void canFoodExistsBeforeEating() {
         assertNotNull(cannedFood1.extractContents());
     }
 
