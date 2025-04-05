@@ -6,7 +6,95 @@ package org.example;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.util.Set;
+
+import org.junit.Before;
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    Walrus w;
+
+    @Before
+    public void Setup()
+    {
+       w = new Walrus(); 
     }
+
+    @Test 
+    public void howMuchCanAWalrusEat() {
+        int count = 1000;
+        WalrusFood[] foodList = new WalrusFood[count];
+
+        for (int i = 0; i < count; ++i) {
+            foodList[i] = new WalrusFood();
+            w.addToStomach(foodList[i]);
+        }
+
+        for (int i = 0; i < count; ++i) {
+            assertTrue(w.hasEaten(foodList[i]));
+        }
+    }
+
+    @Test 
+    public void walrusGetsTheRightFood() {
+        WalrusFood expectedFood = new WalrusFood();
+
+        w.addToStomach(expectedFood);
+
+        assertTrue(w.hasEaten(expectedFood));
+    }
+
+    @Test
+    public void openingCanReturnsFood() {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+        OpensCan opener = new OpensCan();
+
+        WalrusFood extracted = opener.open(can);
+        
+        assertNotNull(extracted);
+        assertTrue(extracted instanceof WalrusFood);
+        assertEquals(food, extracted);
+    }
+
+
+    @Test
+    public void testHowAWalrusCanEat()
+    {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+        FeedsWalrus feeder = new FeedsWalrus();
+
+        feeder.feed(w, can);
+
+        assertTrue(w.hasEaten(food));
+    }
+
+
+
+    @Test
+    public void walrusDoesNotAcceptNonWalrusFood() {
+        Object o_food = new Object();
+
+        assertThrows(ClassCastException.class, () -> {
+            w.addToStomach((WalrusFood)o_food);
+        });
+    }
+
+    @Test
+    public void walrusAcceptsWalrusFoodType() {
+        class WalrusFoodExtension extends WalrusFood {};
+
+        Object e_food = new WalrusFoodExtension();
+
+        
+        w.addToStomach((WalrusFood)e_food);
+        
+        assertTrue(w.hasEaten((WalrusFood)e_food));
+    }
+
+
 }
