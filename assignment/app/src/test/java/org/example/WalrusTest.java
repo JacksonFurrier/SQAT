@@ -36,4 +36,13 @@ public class WalrusTest {
 
         assertTrue(true);
     }
+
+    @Test
+    public void testIfWalrusGetsTheRightFood() {
+        WalrusFood food = new WalrusFood();
+
+        assertFalse(walrus.hasEaten(food));
+        walrus.addToStomach(food);
+        assertTrue(walrus.hasEaten(food));
+    }
 }
