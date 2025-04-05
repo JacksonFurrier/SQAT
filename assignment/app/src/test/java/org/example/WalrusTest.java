@@ -70,4 +70,16 @@ public class WalrusTest {
         walrusFeeder.feed(walrus, cannedWalrusFood);
         assertTrue(walrus.hasEaten(foodStoredInCan));
     }
+
+    @Test
+    public void feedWalrusWithNonWalrusFood() {
+        WalrusFood nonFood = null;
+
+        assertFalse(walrus.hasEaten(nonFood));
+        assertFalse(WalrusFood.class.isInstance(nonFood));
+
+        CannedWalrusFood cannedNonWalrusFood = new CannedWalrusFood(nonFood);
+        walrusFeeder.feed(walrus, cannedNonWalrusFood);
+        assertTrue(walrus.hasEaten(nonFood));
+    }
 }
