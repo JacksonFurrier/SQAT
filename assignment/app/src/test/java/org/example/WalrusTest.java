@@ -3,10 +3,88 @@
  */
 package org.example;
 
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.example.values.CannedWalrusFood;
+
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    @Test
+    public void testWalrusFoodCapacity() {
+        Walrus w = new Walrus();
+
+        for (int i = 0; i < 200; i++) {
+            WalrusFood wf = new WalrusFood();
+            w.addToStomach(wf);
+            assertTrue(w.hasEaten(wf));
+            System.out.println("Walrus was able to eat the food");
+        }
     }
+
+    @Test
+    public void testWalrusGetRightFood() {
+        Walrus w = new Walrus();
+
+        WalrusFood wf = new WalrusFood();
+        WalrusFood wf2 = new WalrusFood();
+        CannedWalrusFood cwf = new CannedWalrusFood(wf2);
+
+        w.addToStomach(wf);
+        assertTrue(w.hasEaten(wf));
+        assertFalse(w.hasEaten(wf2));
+
+        FeedsWalrus fw = new FeedsWalrus();
+        fw.feed(w, cwf);
+        assertTrue(w.hasEaten(wf2));
+        System.out.println("Walrus got the right food");
+    }
+
+    @Test
+    public void testOpeningCanReturnsFood() {
+        WalrusFood wf = new WalrusFood();
+        CannedWalrusFood cwf = new CannedWalrusFood(wf);
+        OpensCan oc = new OpensCan();
+        WalrusFood wf2 = oc.open(cwf);
+        assertEquals(wf, wf2);
+        System.out.println("Opening the can returned the food");
+    }
+
+    @Test
+    public void testHowWalrusCanEat() {
+        Walrus w = new Walrus();
+        WalrusFood wf = new WalrusFood();
+        w.addToStomach(wf);
+        assertTrue(w.hasEaten(wf));
+        System.out.println("Walrus can add the food to it's stomach");
+
+        WalrusFood wf2 = new WalrusFood();
+        CannedWalrusFood cwf = new CannedWalrusFood(wf2);
+        OpensCan oc = new OpensCan();
+        w.addToStomach(oc.open(cwf));
+        assertTrue(w.hasEaten(wf2));
+        System.out.println("Walrus can add the food to it's stomach after the canned food was opened");
+
+        WalrusFood wf3 = new WalrusFood();
+        CannedWalrusFood cwf2 = new CannedWalrusFood(wf3);
+        FeedsWalrus fw = new FeedsWalrus();
+        fw.feed(w, cwf2);
+        assertTrue(w.hasEaten(wf3));
+        System.out.println("Walrus can be fed the food");
+    }
+
+    @Test
+    public void testWalrusAcceptingNonWalrusFood() {
+        Walrus w = new Walrus();
+        NonWalrusFood nwf = new NonWalrusFood();
+        w.addToStomach(nwf);
+        assertTrue(w.hasEaten(nwf));
+        System.out.println("Walrus can accept the non walrus food");
+    }
+
+    private class NonWalrusFood extends WalrusFood {}
+
 }
