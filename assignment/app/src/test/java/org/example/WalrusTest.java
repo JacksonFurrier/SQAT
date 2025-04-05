@@ -13,6 +13,8 @@ import org.junit.*;;
 
 public class WalrusTest {
     private Walrus walrus;
+    private static OpensCan canOpener = new OpensCan();
+    private static FeedsWalrus walrusFeeder = new FeedsWalrus();
 
     @Before
     public void setUp() {
@@ -49,8 +51,6 @@ public class WalrusTest {
 
     @Test
     public void testOpeningACan() {
-        OpensCan canOpener = new OpensCan();
-
         CannedWalrusFood emptyCan = new CannedWalrusFood();
         CannedWalrusFood emptyCan2 = new CannedWalrusFood(null);
         CannedWalrusFood cannedWalrusFood = new CannedWalrusFood(new WalrusFood());
@@ -59,5 +59,15 @@ public class WalrusTest {
         assertNull(canOpener.open(emptyCan2));
         assertTrue(WalrusFood.class.isInstance(canOpener.open(cannedWalrusFood)));
         assertNull(canOpener.open(cannedWalrusFood));
+    }
+
+    @Test
+    public void testHowWalrusCanEat() {
+        WalrusFood foodStoredInCan = new WalrusFood();
+        CannedWalrusFood cannedWalrusFood = new CannedWalrusFood(foodStoredInCan);
+
+        assertFalse(walrus.hasEaten(foodStoredInCan));
+        walrusFeeder.feed(walrus, cannedWalrusFood);
+        assertTrue(walrus.hasEaten(foodStoredInCan));
     }
 }
