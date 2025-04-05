@@ -6,6 +6,7 @@ package org.example;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.example.values.CannedWalrusFood;
 import org.example.values.Walrus;
 import org.example.values.WalrusFood;
 import org.junit.*;;
@@ -44,5 +45,19 @@ public class WalrusTest {
         assertFalse(walrus.hasEaten(food));
         walrus.addToStomach(food);
         assertTrue(walrus.hasEaten(food));
+    }
+
+    @Test
+    public void testOpeningACan() {
+        OpensCan canOpener = new OpensCan();
+
+        CannedWalrusFood emptyCan = new CannedWalrusFood();
+        CannedWalrusFood emptyCan2 = new CannedWalrusFood(null);
+        CannedWalrusFood cannedWalrusFood = new CannedWalrusFood(new WalrusFood());
+
+        assertNull(canOpener.open(emptyCan));
+        assertNull(canOpener.open(emptyCan2));
+        assertTrue(WalrusFood.class.isInstance(canOpener.open(cannedWalrusFood)));
+        assertNull(canOpener.open(cannedWalrusFood));
     }
 }
