@@ -6,7 +6,26 @@ package org.example;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+    @Test public void howMuchCanWalrusEat() {
+        Walrus walrus = new Walrus();
+        // checking finite times whether a Walrus can eat, because we want the test to halt :D
+        for(int i = 0; i < 10; i++) {
+            WalrusFood food = new WalrusFood();
+            walrus.addToStomach(food);
+        }
+        // because the stomach of a walrus is private, we do not have access to measure it's contents
+    }
+
+    @Test public void walrusEatsRight() {
+        Walrus walrus = new Walrus();
+        for(int i = 0; i < 10; i++) { // making sure the Walrus eats right 10 times
+            WalrusFood food = new WalrusFood();
+            walrus.addToStomach(food);
+            assertTrue(walrus.hasEaten(food));
+        }
     }
 }
