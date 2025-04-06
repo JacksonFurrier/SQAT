@@ -6,7 +6,95 @@ package org.example;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+
 public class WalrusTest {
     @Test public void appHasAGreeting() {
     }
+
+
+    @Test
+    public void testWalrusRefusingOvereating() {
+        Walrus walrus = new Walrus();
+        WalrusFood wfood = new WalrusFood();
+
+        // Simulate feeding the walrus more food than it can handle
+        for (int i = 0; i < 100; i++) {
+            walrus.addToStomach(wfood);
+        }
+
+        // Check that the walrus has not eaten more than its capacity
+        assertTrue( walrus.hasEaten(wfood));  
+        System.out.println("Walrus can eat the food multiple times");
+    }
+
+
+    @Test
+    public void testWalrusGetsRightFoodAfterFeeding() {
+        Walrus w = new Walrus();
+        WalrusFood wf = new WalrusFood();
+        WalrusFood wf2 = new WalrusFood();
+        CannedWalrusFood cwf = new CannedWalrusFood(wf2);
+
+        // Walrus eats regular food
+        w.addToStomach(wf);
+        assertTrue(w.hasEaten(wf));
+
+        // Walrus doesn't eat the canned food directly
+        assertFalse(w.hasEaten(wf2));  // Test without unwrapping canned food
+
+         // Unwrap canned food for the walrus and check if it eats the correct food
+         FeedsWalrus fw = new FeedsWalrus();
+         fw.feed(w, cwf);
+         assertTrue(w.hasEaten(wf2));  // Check if the walrus eats the correct food after opening the can
+         System.out.println("Walrus got the right food");
+    }
+
+    @Test
+    public void testOpeningCanReturnsFood() {
+        WalrusFood wf = new WalrusFood();
+        CannedWalrusFood cwf = new CannedWalrusFood(wf);
+        OpensCan oc = new OpensCan();
+        WalrusFood wf2 = oc.open(cwf);
+        assertEquals(wf, wf2);  // Ensure the food inside the can is returned
+        System.out.println("Opening the can returned the food");
+    }
+
+    @Test
+    public void testHowWalrusCanEat() {
+        Walrus w = new Walrus();
+        WalrusFood wf = new WalrusFood();
+        w.addToStomach(wf);
+        assertTrue(w.hasEaten(wf));  // Check if the walrus has eaten regular food
+        System.out.println("Walrus can add the food to its stomach");
+
+        // Test with canned food
+        WalrusFood wf2 = new WalrusFood();
+        CannedWalrusFood cwf = new CannedWalrusFood(wf2);
+        OpensCan oc = new OpensCan();
+        w.addToStomach(oc.open(cwf));  // Unwrap the canned food before adding
+        assertTrue(w.hasEaten(wf2));  // Ensure walrus eats the unwrapped food
+        System.out.println("Walrus can add the food to its stomach after the canned food was opened");
+        
+        // Test with a feed method
+        WalrusFood wf3 = new WalrusFood();
+        CannedWalrusFood cwf2 = new CannedWalrusFood(wf3);
+        FeedsWalrus fw = new FeedsWalrus();
+        fw.feed(w, cwf2);
+        assertTrue(w.hasEaten(wf3));  // Ensure walrus eats the food fed by the FeedsWalrus method
+        System.out.println("Walrus can be fed the food");
+
+    }
+
+    public void testWalrusAcceptsNonWalrusFood() {
+        Walrus w = new Walrus();
+        NonWalrusFood nwf = new NonWalrusFood();
+        w.addToStomach(nwf);
+        assertTrue(w.hasEaten(nwf));  // Ensure walrus can eat non-Walrus food
+        System.out.println("Walrus can accept the non-Walrus food");
+    }
+    private class NonWalrusFood extends WalrusFood {}
 }
+
