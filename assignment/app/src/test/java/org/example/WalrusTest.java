@@ -4,9 +4,87 @@
 package org.example;
 
 import org.junit.Test;
+import org.junit.Before;
 import static org.junit.Assert.*;
 
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.example.values.CannedWalrusFood;
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+    Walrus walter;
+    FeedsWalrus bob;
+    OpensCan canOpener;
+    
+    @Before
+    public void setUp(){
+        walter = new Walrus();
+        bob = new FeedsWalrus();
+        canOpener = new OpensCan();
+    }
+    
+    @Test
+    public void walrusStomachCapacity(){
+        int stomachCapacity = 20;
+        for(int i=0; i<stomachCapacity+2; i++){
+            WalrusFood worm = new WalrusFood();
+            if(i<=stomachCapacity){
+                walter.addToStomach(worm);
+            }
+            if(i==stomachCapacity){
+                assertTrue(walter.hasEaten(worm));
+            }else if(i>stomachCapacity){
+                assertFalse(walter.hasEaten(worm));
+            }
+        }
+    }
+
+    @Test
+    public void walrusGetsRightFood(){
+        WalrusFood worm = new WalrusFood();
+        WalrusFood snail = new WalrusFood();
+        CannedWalrusFood cannedWorm = new CannedWalrusFood(worm);
+        CannedWalrusFood cannedSnail = new CannedWalrusFood(snail);
+
+        bob.feed(walter, cannedWorm);
+        assertTrue(walter.hasEaten(worm));
+        assertFalse(walter.hasEaten(snail));
+
+        bob.feed(walter, cannedSnail);
+        assertTrue(walter.hasEaten(snail));
+    }
+
+    @Test
+    public void opensCanReturnsFood(){
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood cannedFood = new CannedWalrusFood(food);
+        WalrusFood openedFood = canOpener.open(cannedFood);
+
+        assertEquals(food, openedFood);
+    }
+
+    @Test
+    public void testWalrusEatingMethods(){
+        WalrusFood worm = new WalrusFood();
+        WalrusFood snail = new WalrusFood();
+        CannedWalrusFood cannedSnail = new CannedWalrusFood(snail);
+
+        assertFalse(walter.hasEaten(worm));
+        assertFalse(walter.hasEaten(snail));
+
+        walter.addToStomach(worm);
+        assertTrue(walter.hasEaten(worm));
+
+        bob.feed(walter, cannedSnail);
+        assertTrue(walter.hasEaten(snail));
+    }
+
+    @Test
+    public void walrusAcceptNonWalrusFood(){
+        class SealFood extends WalrusFood{}
+
+        SealFood fish = new SealFood();
+        walter.addToStomach(fish);
+        assertTrue(walter.hasEaten(fish));
     }
 }
