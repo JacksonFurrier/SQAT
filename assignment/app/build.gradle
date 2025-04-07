@@ -17,7 +17,11 @@ repositories {
 
 dependencies {
     // Use JUnit test framework.
-    testImplementation libs.junit
+    testImplementation(platform('org.junit:junit-bom:5.11.4'))
+	testImplementation('org.junit.jupiter:junit-jupiter')
+	testImplementation('org.junit.jupiter:junit-jupiter-params:5.11.4')
+
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher')
 
     // This dependency is used by the application.
     implementation libs.guava
@@ -33,4 +37,11 @@ java {
 application {
     // Define the main class for the application.
     mainClass = 'org.example.FeedWalrus'
+}
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
 }
