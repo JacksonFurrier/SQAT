@@ -3,10 +3,121 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+    private Walrus walrus;
+    private WalrusFood food1;
+    private WalrusFood food2;
+    private WalrusFood food3;
+    private CannedWalrusFood cannedFood;
+    private SpecialFood specialFood;
+    private OpensCan opener;
+    private FeedsWalrus feeder;
+    private Random random;
+    private static class SpecialFood extends WalrusFood {}
+
+    @Before
+    public void setUp() {
+        walrus = new Walrus();
+        food1 = new WalrusFood();
+        food2 = new WalrusFood();
+        food3 = new WalrusFood();
+        cannedFood = new CannedWalrusFood(food1);
+        specialFood = new SpecialFood();
+        opener = new OpensCan();
+        feeder = new FeedsWalrus();
+        random = new Random();
+    }
+
+    @Test
+    public void testShowHowMuchWalrusCanEat() {
+        int feedings = random.nextInt(100) + 1;
+
+        Set<WalrusFood> fedFoods = new HashSet<>();
+
+        for (int i = 0; i < feedings; i++) {
+            int pick = random.nextInt(3);
+            WalrusFood selectedFood;
+            if (pick == 0) {
+                selectedFood = food1;
+            } else if (pick == 1) {
+                selectedFood = food2;
+            } else {
+                selectedFood = food3;
+            }
+
+            walrus.addToStomach(selectedFood);
+            fedFoods.add(selectedFood);
+        }
+        
+        for (WalrusFood food : fedFoods) {
+            assertTrue("Walrus should have eaten the food that was fed", walrus.hasEaten(food));
+        }
+    }
+
+    @Test
+    public void testWalrusGetsRightFood() {
+        walrus.addToStomach(food1);
+        
+        assertTrue("Walrus should have eaten food1", walrus.hasEaten(food1));
+        assertFalse("Walrus should not have eaten food2", walrus.hasEaten(food2));
+    }
+
+    @Test
+    public void testOpenCanReturnsFood() {
+        WalrusFood actualFood = opener.open(cannedFood);
+        assertNotNull("Opening the can should return some food", actualFood);
+        assertEquals("The returned food should match the expected food",
+                     food1, actualFood);
+    }
+
+    // @Test
+    // public void testFeedsWalrus() {
+    //     feeder.feed(walrus, cannedFood);
+        
+    //     assertTrue("After feeding, the walrus should have the food", 
+    //                walrus.hasEaten(food1));
+    // }
+    @Test
+    public void testFeedsWalrus() {
+        // Scenario 1: Feed the walrus via a can containing food1.
+        feeder.feed(walrus, cannedFood);
+        assertTrue("After feeding, the walrus should have eaten food1",
+                walrus.hasEaten(food1));
+
+        // Scenario 2: Directly feed the walrus with food2.
+        walrus.addToStomach(food2);
+        assertTrue("Walrus should be able to eat food2 directly",
+                walrus.hasEaten(food2));
+
+        // Scenario 3: Feed the walrus via a can containing food2.
+        CannedWalrusFood cannedFoodForFood2 = new CannedWalrusFood(food2);
+        feeder.feed(walrus, cannedFoodForFood2);
+        assertTrue("After feeding with canned food containing food2, the walrus should have eaten food2",
+                walrus.hasEaten(food2));
+
+        // Scenario 4: Verify that feeding with a can empties the can.
+        CannedWalrusFood cannedFoodForEmptyTest = new CannedWalrusFood(food1);
+        feeder.feed(walrus, cannedFoodForEmptyTest);
+        WalrusFood leftovers = cannedFoodForEmptyTest.extractContents();
+        assertNull("After feeding, the canned food should be empty", leftovers);
+    }
+
+
+    @Test
+    public void testWalrusAcceptsNonWalrusFood() {
+        walrus.addToStomach(specialFood);
+        assertTrue("Walrus should accept food of type SpecialFood (subclass of WalrusFood)",
+                   walrus.hasEaten(specialFood));
     }
 }
