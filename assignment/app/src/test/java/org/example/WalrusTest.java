@@ -89,5 +89,11 @@ public class WalrusTest {
         walrus.addToStomach(null); 
         assertTrue("Should accept null as non-Walrus food", walrus.hasEaten(null));
     }
-
+    @Test
+    public void testWalrusHandlesSpecialFood() {
+        class Non_WalrusFood extends WalrusFood {}
+        Non_WalrusFood otherFood = new Non_WalrusFood();
+        walrus.addToStomach(otherFood);
+        assertTrue(walrus.hasEaten(otherFood));
+    }
 }
