@@ -3,10 +3,121 @@
  */
 package org.example;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+
+
 
 public class WalrusTest {
+
+
+
     @Test public void appHasAGreeting() {
     }
+
+    static Walrus walrus;
+    FeedsWalrus feeder;
+    OpensCan opener;
+
+    @BeforeAll
+    public static void init()
+    {
+        walrus = new Walrus();
+    }
+
+    @BeforeEach
+    public void reset()
+    {
+        feeder = new FeedsWalrus();
+        opener = new OpensCan();
+    }
+
+
+
+
+
+    @ParameterizedTest
+    @CsvSource ({"1","5","50","100","1000", "1000000"})
+    public void howMuchCanAWalrusEat(int limit){
+
+        for(int i = 1; i <= limit; i++){
+            WalrusFood food = new WalrusFood();
+            walrus.addToStomach(food);
+
+            assertTrue(walrus.hasEaten(food), "The walrus failed to eat food number " + i);
+        }
+    }
+
+    @Test
+    public void doesWalrusEatTheRightFood(){
+        WalrusFood expectedFood = new WalrusFood();
+        WalrusFood nonExpectedFood = new WalrusFood();
+
+        walrus.addToStomach(expectedFood);
+
+        assertTrue(walrus.hasEaten(expectedFood));
+        assertFalse(walrus.hasEaten(nonExpectedFood));
+
+    }
+
+    @Test
+    public void openingCanReturnsFood(){
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood canned = new CannedWalrusFood(food);
+
+
+        WalrusFood extractedFood = opener.open(canned);
+        assertNotNull(extractedFood);
+        assertEquals(food, extractedFood);
+
+
+        WalrusFood shouldBeNull = canned.extractContents();
+        assertNull(shouldBeNull);
+    }
+
+    @Test
+    public void directWalrusEating() {
+        WalrusFood food = new WalrusFood();
+
+        walrus.addToStomach(food);
+
+        assertTrue(walrus.hasEaten(food));
+    }
+
+
+    @Test
+    public void feederCannedFoodWalrusEating() {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+
+        feeder.feed(walrus, can);
+
+        assertTrue(walrus.hasEaten(food));
+    }
+
+
+    private static class NonWalrusFood extends WalrusFood {
+
+    }
+
+    @Test public void walrusAcceptsNonStandardWalrusFood(){
+        NonWalrusFood nonStandardFood = new NonWalrusFood();
+
+        walrus.addToStomach(nonStandardFood);
+
+        assertTrue(walrus.hasEaten(nonStandardFood));
+    }
+
+
+
+
 }
