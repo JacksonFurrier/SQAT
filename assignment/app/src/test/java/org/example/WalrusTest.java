@@ -3,10 +3,70 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    private Walrus walrus;
+    private WalrusFood walrusFood;
+    private WalrusFood walrusFood1;
+    private CannedWalrusFood cannedWalrusFood;
+    private OpensCan opener;
+    private FeedsWalrus feeder;
+
+    @Before
+    public void setUp() {
+        walrus = new Walrus();
+        walrusFood = new WalrusFood();
+        walrusFood1 = new WalrusFood();
+        cannedWalrusFood = new CannedWalrusFood(walrusFood);
+        opener = new OpensCan();
+        feeder = new FeedsWalrus();
+    }
+
+    @Test
+    public void testWalrusCanEatFood() {
+        for (int i = 0; i < 100; i++) {
+            walrus.addToStomach(walrusFood);
+            assertTrue(walrus.hasEaten(walrusFood));
+        }
+    }
+
+    @Test
+    public void testWalrusCanEatMultipleFoods() {
+        walrus.addToStomach(walrusFood);
+        walrus.addToStomach(walrusFood1);
+        assertTrue(walrus.hasEaten(walrusFood));
+        assertTrue(walrus.hasEaten(walrusFood1));
+    }
+
+    @Test
+    public void testWalrusGetsACorrectFood() {
+        walrus.addToStomach(walrusFood);
+        assertTrue(walrus.hasEaten(walrusFood));
+    }
+
+    @Test
+    public void testOpeningACanReturnsAFood() {
+        assertEquals(walrusFood, opener.open(cannedWalrusFood));
+    }
+
+    @Test
+    public void testWalrusEatsFromACan() {
+        feeder.feed(walrus, cannedWalrusFood);
+        assertTrue(walrus.hasEaten(walrusFood));
+    }
+
+    @Test
+    public void testWalrusAcceptsNonWalrusFood() {
+        class NonWalrusFood extends WalrusFood { }
+        WalrusFood nonWalrusFood = new NonWalrusFood();
+        walrus.addToStomach(nonWalrusFood);
+        assertTrue(walrus.hasEaten(nonWalrusFood));
     }
 }
