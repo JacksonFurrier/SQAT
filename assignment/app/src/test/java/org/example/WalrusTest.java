@@ -3,10 +3,83 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.beans.Transient;
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+    Walrus walrus;
+    FeedsWalrus feeder;
+
+    @Before
+    public void setUp()
+    {
+        walrus = new Walrus();
+        feeder = new FeedsWalrus();
     }
+
+    public void howMuchWalrusCanEatTest(int amount)
+    {
+
+        for(int i=0;i<1000;i++)
+        {
+            WalrusFood food = new WalrusFood();
+            walrus.addToStomach(food);
+            assertTrue(walrus.hasEaten(food));
+        }
+    }
+
+    @Test
+    public void walrusGetsRightFoodTest()
+    {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood cannedFood = new CannedWalrusFood(food);
+        WalrusFood food2 = new WalrusFood();
+
+        feeder.feed(walrus, cannedFood);
+
+        assertTrue(walrus.hasEaten(food));
+        assertFalse(walrus.hasEaten(food2));
+    }
+
+    @Test
+    public void opensCanReturnFoodTest()
+    {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood cannedFood = new CannedWalrusFood(food);
+        OpensCan opener = new OpensCan();
+        WalrusFood openedFood = opener.open(cannedFood);
+
+        assertEquals(food, openedFood);
+    }
+
+    @Test
+    public void howWalrusCanEatTest()
+    {
+        WalrusFood food = new WalrusFood();
+        walrus.addToStomach(food);
+
+        WalrusFood food2 = new WalrusFood();
+        CannedWalrusFood cannedFood = new CannedWalrusFood(food2);
+        feeder.feed(walrus, cannedFood);
+
+        assertTrue(walrus.hasEaten(food));
+        assertTrue(walrus.hasEaten(food2));
+    }
+
+    @Test
+    public void acceptNonWalrusFoodTest()
+    {
+        CannedWalrusFood notFood = new CannedWalrusFood(null);
+        feeder.feed(walrus,notFood);
+
+        assertTrue("Walrus can eat non-walrus/null food",walrus.hasEaten(null));
+    }
+
 }
