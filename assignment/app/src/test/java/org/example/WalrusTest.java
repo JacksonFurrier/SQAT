@@ -3,10 +3,105 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    Walrus walrus1;
+    Walrus walrus2;
+
+    @Before
+    public void init() {
+        walrus1 = new Walrus();
+        walrus2 = new Walrus();
+    }
+
+
+    @Test
+    public void howMuchAWalrusCanEat() {
+        final int numberOfFood1 = 1000;
+        final int numberOfFood2 = 10000;
+
+        int foodConsumed1 = 0;
+        int foodConsumed2 = 0;
+        for (int i = 0; i < numberOfFood1; i++) {
+            var food = new WalrusFood();
+            walrus1.addToStomach(food);
+            if(walrus1.hasEaten(food)) {
+                foodConsumed1++;
+            }
+        }
+        for (int i = 0; i < numberOfFood2; i++) {
+            var food = new WalrusFood();
+            walrus2.addToStomach(food);
+            if(walrus2.hasEaten(food)) {
+                foodConsumed2++;
+            }
+        }
+
+        assertEquals(numberOfFood1, foodConsumed1);
+        assertEquals(numberOfFood2, foodConsumed2);
+    }
+
+    @Test
+    public void walrusGetsTheRightFood() {
+        var walrusFood = new WalrusFood();
+        var walrusFood2 = new WalrusFood();
+        var foodThatWalrusWontEat = new WalrusFood();
+        var cannedWalrusFood = new CannedWalrusFood(walrusFood);
+        var feedsWalrus = new FeedsWalrus();
+
+        feedsWalrus.feed(walrus1, cannedWalrusFood);
+        walrus1.addToStomach(walrusFood2);
+
+        assertTrue(walrus1.hasEaten(walrusFood));
+        assertTrue(walrus1.hasEaten(walrusFood2));
+        assertFalse(walrus1.hasEaten(foodThatWalrusWontEat));
+    }
+
+    @Test
+    public void openingACanWillReturnWalrusFood() {
+        var walrusFood = new WalrusFood();
+        var walrusFood2 = new WalrusFood();
+        var cannedWalrusFood = new CannedWalrusFood(walrusFood);
+        var cannedWalrusFood2 = new CannedWalrusFood(walrusFood2);
+
+        assertTrue(cannedWalrusFood.extractContents() instanceof WalrusFood);
+        assertSame(cannedWalrusFood2.extractContents(), walrusFood2);
+    }
+
+    @Test
+    public void howAWalrusCanEat() {
+        var walrusFood = new WalrusFood();
+        var walrusFood2 = new WalrusFood();
+        var cannedWalrusFood = new CannedWalrusFood(walrusFood);
+        var feedsWalrus = new FeedsWalrus();
+
+        feedsWalrus.feed(walrus2, cannedWalrusFood);
+        walrus2.addToStomach(walrusFood2);
+
+        assertTrue(walrus2.hasEaten(walrusFood));
+        assertTrue(walrus2.hasEaten(walrusFood2));
+    }
+
+    @Test
+    public void walrusAcceptNonWalrusFood() {
+        class NonWalrusFood extends WalrusFood {}
+
+        var nonWalrusFood = new NonWalrusFood();
+        var nonWalrusFood2 = new NonWalrusFood();
+
+        walrus2.addToStomach(nonWalrusFood);
+        walrus2.addToStomach(nonWalrusFood2);
+        walrus1.addToStomach(null);
+
+
+        assertTrue(walrus2.hasEaten(nonWalrusFood));
+        assertTrue(walrus2.hasEaten(nonWalrusFood2));
     }
 }
