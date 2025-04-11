@@ -3,10 +3,60 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+    @Test
+    public void testEatCapacity() {
+        Walrus w = new Walrus();
+        WalrusFood f1 = new WalrusFood();
+        WalrusFood f2 = new WalrusFood();
+
+        w.addToStomach(f1);
+        assertTrue(w.hasEaten(f1));
+
+        w.addToStomach(f2);
+        assertTrue(w.hasEaten(f2));
+    }
+
+    @Test
+    public void checkFoodCorrectness() {
+        WalrusFood goodFood = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(goodFood);
+
+        OpensCan opener = new OpensCan();
+        WalrusFood result = opener.open(can);
+
+        assertEquals(goodFood, result);
+    }
+
+    @Test
+    public void canOpeningTest() {
+        CannedWalrusFood can = new CannedWalrusFood(new WalrusFood());
+        assertNotNull(new OpensCan().open(can));
+    }
+
+    @Test
+    public void eatingTest() {
+        Walrus testWalrus = new Walrus();
+        WalrusFood testFood = new WalrusFood();
+
+        assertFalse(testWalrus.hasEaten(testFood));
+
+        testWalrus.addToStomach(testFood);
+        assertTrue(testWalrus.hasEaten(testFood));
+    }
+
+    @Test
+    public void weirdFoodTest() {
+        Walrus walrus = new Walrus();
+        WalrusFood strangeFood = new WalrusFood() {};
+
+        walrus.addToStomach(strangeFood);
+        assertTrue(walrus.hasEaten(strangeFood));
     }
 }
