@@ -14,7 +14,6 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-
     @Test
     public void howMuchWalrusCanEat(){
         Walrus gary = new Walrus();
