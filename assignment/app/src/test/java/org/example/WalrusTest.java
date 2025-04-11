@@ -3,10 +3,80 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+
+import java.util.stream.Stream;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+    Walrus walrus;
+    FeedsWalrus feeder;
+
+    @Before
+    public void before() {
+        walrus = new Walrus();
+        feeder = new FeedsWalrus();
+    }
+
+    
+    @Test
+    public void testHowMuchWalrusCanEat() {
+        int limit = 1000;
+
+        final var foods = Stream.generate(() -> new WalrusFood()).limit(limit);
+
+        foods.forEach(food -> {
+            feeder.feed(walrus, new CannedWalrusFood(food));
+
+            assertTrue(walrus.hasEaten(food));
+        });
+    }
+
+    @Test
+    public void testWalrusGetsRightFood() {
+        var rightFood = new WalrusFood();
+        var wrongFood = new WalrusFood();
+
+        feeder.feed(walrus, new CannedWalrusFood(rightFood));
+
+        assertTrue(walrus.hasEaten(rightFood));
+        assertFalse(walrus.hasEaten(wrongFood));
+    }
+
+    @Test
+    public void testOpenCan() {
+        var food = new WalrusFood();
+
+        var cannedFood = new CannedWalrusFood(food);
+
+        assertEquals(cannedFood.extractContents(), food);
+    }
+
+    @Test
+    public void tesetHowWalrusEats() {
+        var food1 = new WalrusFood();
+        var food2 = new WalrusFood();
+
+        feeder.feed(walrus, new CannedWalrusFood(food1));
+
+        walrus.addToStomach(food2);
+
+        assertTrue(walrus.hasEaten(food1));
+        assertTrue(walrus.hasEaten(food2));
+    }
+
+    @Test
+    public void testWalrusEatsNonWalrusFood() {
+        class NonWalrusFood extends WalrusFood {}
+
+        var nonWalrusFood = new NonWalrusFood();
+
+        walrus.addToStomach(nonWalrusFood);
+
+        assertTrue(walrus.hasEaten(nonWalrusFood));
     }
 }
