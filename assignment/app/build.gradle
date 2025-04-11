@@ -21,6 +21,8 @@ dependencies {
 
     // This dependency is used by the application.
     implementation libs.guava
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -34,3 +36,7 @@ application {
     // Define the main class for the application.
     mainClass = 'org.example.FeedWalrus'
 }
+test {
+    useJUnitPlatform()
+}
+
