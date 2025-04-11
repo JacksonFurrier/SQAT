@@ -3,10 +3,75 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+    @Test
+    public void howMuchWalrusCanEat(){
+        Walrus gary = new Walrus();
+        int limit = 107; // 107 is the limit of opening cat for Walrus in this test
+
+        List<WalrusFood> buffetForGary = new ArrayList<>();
+        for (int i = 0; i < limit; i++) {
+            buffetForGary.add(new WalrusFood());
+            gary.addToStomach(buffetForGary.get(i));
+        }
+
+        for(WalrusFood food : buffetForGary){
+            assertTrue(gary.hasEaten(food));
+        }
+    }
+
+    @Test
+    public void walrusGetsTheRightFood() {
+        Walrus gary = new Walrus();
+        WalrusFood fish = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(fish);
+        FeedsWalrus feeder = new FeedsWalrus();
+
+        feeder.feed(gary, can);
+        assertTrue(gary.hasEaten(fish));
+    }
+
+    @Test
+    public void openingCanReturnsFood() {
+        WalrusFood expectedFood = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(expectedFood);
+        OpensCan opener = new OpensCan();
+
+        WalrusFood extractedFood = opener.open(can);
+
+        assertEquals(expectedFood, extractedFood);
+    }
+
+    @Test
+    public void checkOnHowWalrusCanEat(){
+        Walrus gary = new Walrus();
+        WalrusFood fish = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(fish);
+        FeedsWalrus feeder = new FeedsWalrus();
+
+        assertFalse(gary.hasEaten(fish));
+
+        feeder.feed(gary, can);
+
+        assertTrue(gary.hasEaten(fish));
+    }
+
+    @Test
+    public void walrusEatsNonWalrusFood(){
+        Walrus gary = new Walrus();
+        class xFood extends WalrusFood{}
+        xFood cake = new xFood();
+        gary.addToStomach(cake);
+        assertTrue(gary.hasEaten(cake));
     }
 }
