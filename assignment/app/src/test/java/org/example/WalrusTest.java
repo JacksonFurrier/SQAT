@@ -3,10 +3,103 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.util.stream.IntStream;
+
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    private FeedsWalrus maria;
+    private Walrus shadow;
+
+    @Before
+    public void setUp(){
+        maria = new FeedsWalrus();
+        shadow = new Walrus();
+    }
+
+    // Test to see how much a Walrus can eat
+    @Test
+    public void testWalrusStomachCapacity(){
+        // Since a Walrus' stomach is a HashSet, its stomach depends on computational power, so basically limitless
+        // Since I don't want to overfeed this Walrus, and WalrusFood is known as an exceptionally expensive meal,
+        // let's see if it can eat 14 portions.
+
+        IntStream.range(0,14).forEach(i -> {
+            WalrusFood expensiveFood = new WalrusFood();
+            shadow.addToStomach(expensiveFood);
+            assertTrue(shadow.hasEaten(expensiveFood));
+        });
+    }
+    // Test to check if a Walrus gets the right food
+    @Test
+    public void testRightFood(){
+        WalrusFood rightFood = new WalrusFood();
+        WalrusFood wrongFood = new WalrusFood();
+        WalrusFood worseFood = new WalrusFood();
+
+        shadow.addToStomach(wrongFood);
+        shadow.addToStomach(rightFood);
+        shadow.addToStomach(worseFood);
+
+        assertTrue(shadow.hasEaten(rightFood));
+    }
+
+    // Test to check opening a can will return food
+    @Test
+    public void testCanOpener(){
+        OpensCan canOpener = new OpensCan();
+
+        assertNotNull(canOpener.open(new CannedWalrusFood(new WalrusFood())));
+    }
+
+    // Test to check on how a Walrus can eat
+    @Test
+    public void walrusEatingMethods(){
+        // Eats regular food
+        WalrusFood regularFood = new WalrusFood();
+        shadow.addToStomach(regularFood);
+
+        assertTrue(shadow.hasEaten(regularFood));
+
+        // Eats canned food opened by force
+        WalrusFood sealedFood = new WalrusFood();
+        CannedWalrusFood sealedCannedFood = new CannedWalrusFood(sealedFood);
+        shadow.addToStomach(sealedCannedFood.extractContents());
+
+        assertTrue(shadow.hasEaten(sealedFood));
+
+        // Eats canned food opened by a can opener
+        OpensCan canOpener = new OpensCan();
+        WalrusFood deliciousFood = new WalrusFood();
+        CannedWalrusFood protectedCannedFood = new CannedWalrusFood(deliciousFood);
+        shadow.addToStomach(canOpener.open(protectedCannedFood));
+
+        assertTrue(shadow.hasEaten(deliciousFood));
+
+        // Fed by Maria
+        WalrusFood specialFood = new WalrusFood();
+        maria.feed(shadow, new CannedWalrusFood(specialFood));
+
+        assertTrue(shadow.hasEaten(specialFood));
+    }
+
+    // Test to make a Walrus accept non-Walrus food
+    @Test
+    public void makeWalrusEatBadFood(){
+        class CheaperAnimalFood extends WalrusFood {
+            CheaperAnimalFood(){}
+        }
+
+        CheaperAnimalFood cheaperFood = new CheaperAnimalFood();
+        shadow.addToStomach(cheaperFood);
+
+        assertTrue(shadow.hasEaten(cheaperFood));
     }
 }
