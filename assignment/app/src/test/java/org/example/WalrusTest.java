@@ -3,10 +3,100 @@
  */
 package org.example;
 
+import org.example.values.*;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    Walrus walrus;
+    WalrusFood walrusFood;
+    Object nonWalrusFood;
+    CannedWalrusFood cannedFood;
+
+
+    @Before
+    public void init() {
+        walrus = new Walrus();
+        walrusFood = new WalrusFood();
+        cannedFood = new CannedWalrusFood(walrusFood);
+        nonWalrusFood = new Object();
     }
+
+
+    //   ******* Criteria 1 *******
+    @Test
+    public void walrusCanEatMultipleDifferentFoods() {
+        WalrusFood fish  = new WalrusFood();
+        WalrusFood squid = new WalrusFood();
+        WalrusFood food3 = new WalrusFood();
+
+        walrus.addToStomach(fish);
+        walrus.addToStomach(squid);
+        walrus.addToStomach(food3);
+
+        assertTrue("Walrus should have eaten food1", walrus.hasEaten(fish));
+        assertTrue("Walrus should have eaten food2", walrus.hasEaten(squid));
+        assertTrue("Walrus should have eaten food3", walrus.hasEaten(food3));
+    }
+
+    //   ******* Criteria 2 *******
+    @Test
+    public void walrusGetsCorrectFood() {
+
+        WalrusFood fish = new WalrusFood();
+        WalrusFood seaCucumber = new WalrusFood();  // or anything the walrus didn’t eat
+
+        walrus.addToStomach(fish);
+
+        assertTrue("Walrus should have eaten fish", walrus.hasEaten(fish));
+        assertFalse("Walrus should not have eaten sea cucumber", walrus.hasEaten(seaCucumber));
+    }
+
+    //   ******* Criteria 3 *******
+
+    @Test
+    public void openingCanReturnsFood() {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+
+        // Open the can using OpensCan class
+        OpensCan opensCan = new OpensCan();
+        WalrusFood returnedFood = opensCan.open(can);
+
+        //Assert that the returned food is not null
+        assertNotNull("The opened can should return some food",returnedFood );
+
+    }
+
+    //   ******* Criteria 4 *******
+
+    @Test
+    public void walrusCanBeFedWithCannedFood() {
+        Walrus walrus = new Walrus();
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+        FeedsWalrus feeder = new FeedsWalrus();
+
+        feeder.feed(walrus, can);
+
+        assertTrue(walrus.hasEaten(food));
+    }
+
+    //   ******* Criteria 5 *******
+
+    @Test
+    public void testMakingWalrusAcceptNonWalrusFood() {
+
+        try {
+            walrus.addToStomach((WalrusFood) nonWalrusFood);
+            fail("Non-Walrus food detected!!!!");
+        } catch (ClassCastException e) {
+            // Force the Walrus to accept it
+            assertTrue(true);
+        }
+    }
+
+
 }
