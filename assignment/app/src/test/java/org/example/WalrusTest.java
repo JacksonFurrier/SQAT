@@ -3,10 +3,94 @@
  */
 package org.example;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.example.values.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+    
+    @ParameterizedTest
+    @ValueSource(ints = {1, 100, 100000})
+    public void testHowMuchWalrusCanEat(int numOfFood) {
+        Walrus gary = new Walrus();
+        for (int i = 0; i < numOfFood; ++i) {
+            WalrusFood food = new WalrusFood();
+            gary.addToStomach(food);
+            assertTrue(gary.hasEaten(food));
+        }
+    }
+
+    @Test
+    public void testWalrusGetsRightFood() {
+        Walrus gary = new Walrus();
+        WalrusFood f1 = new WalrusFood();
+        WalrusFood f2 = new WalrusFood();
+        assertTrue(!f1.equals(f2));
+        gary.addToStomach(f1);
+        assertTrue(gary.hasEaten(f1));
+        assertTrue(!gary.hasEaten(f2));
+    }
+
+    @Test
+    public void testOpenCanReturnsFood() {
+        CannedWalrusFood nullCannedFood = new CannedWalrusFood(null);
+        assertEquals(nullCannedFood.extractContents(), null);
+        WalrusFood foodToCan = new WalrusFood();
+        CannedWalrusFood validCannedFood = new CannedWalrusFood(foodToCan);
+        assertEquals(validCannedFood.extractContents(), foodToCan);
+    }
+
+    // The description was ambigous, so I do this as well
+    @Test
+    public void testOpenCanReturnsFoodV2() {
+        WalrusFood wf1 = new WalrusFood();
+        CannedWalrusFood cwf1 = new CannedWalrusFood(wf1);
+        OpensCan opener = new OpensCan();
+        assertEquals(opener.open(cwf1), wf1);
+        assertThrows(NullPointerException.class, ()->{opener.open(null);});
+    }
+
+    @Test
+    public void testWalrusHowEats() {
+        Walrus gary = new Walrus();
+
+        // This doesn't throw, but I think it should. How can a Walrus eat null?
+        // assertThrows(NullPointerException.class, () -> {gary.addToStomach(null);});
+
+        WalrusFood wf1 = new WalrusFood();
+        gary.addToStomach(wf1);
+        assertTrue(gary.hasEaten(wf1));
+
+        WalrusFood wf2 = new WalrusFood();
+        CannedWalrusFood cwf1 = new CannedWalrusFood(wf2);
+        gary.addToStomach(cwf1.extractContents());
+        assertTrue(gary.hasEaten(wf2));
+
+        FeedsWalrus feeder = new FeedsWalrus();
+        WalrusFood wf3 = new WalrusFood();
+        CannedWalrusFood cwf2 = new CannedWalrusFood(wf3);
+        feeder.feed(gary, cwf2);
+        assertTrue(gary.hasEaten(wf3));
+
+        assertThrows(NullPointerException.class, ()->{feeder.feed(gary, null);});
+    }
+
+    class VeganWalrusFood extends WalrusFood {}
+
+    @Test
+    public void testWalrusAcceptsNotWalrusFood() {
+        Walrus gary = new Walrus();
+
+        WalrusFood nf1 = mock(WalrusFood.class);
+        gary.addToStomach(nf1);
+        assertTrue(gary.hasEaten(nf1));
+
+        VeganWalrusFood vwf1 = new VeganWalrusFood();
+        gary.addToStomach(vwf1);
+        assertTrue(gary.hasEaten(vwf1));
     }
 }
