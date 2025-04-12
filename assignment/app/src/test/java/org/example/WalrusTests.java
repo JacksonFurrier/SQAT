@@ -9,8 +9,7 @@ import org.example.values.Walrus;
 import org.example.values.WalrusFood;
 
 /**
- * Tests the eating behavior of a Walrus in different scenarios,
- * including feeding canned food, eating directly, and handling unexpected food types.
+ * Tests different eating behaviors of a Walrus.
  */
 public class WalrusTest {
 
@@ -18,60 +17,58 @@ public class WalrusTest {
     private FeedsWalrus feeder;
 
     @Before
-    public void setUp() {
+    public void initWalrus() {
         walrus = new Walrus();
         feeder = new FeedsWalrus();
     }
 
     @Test
-    public void testToSeeHowMuchAWalrusCanEat() {
-        int maxFood = 500;
-        for (int i = 0; i < maxFood; i++) {
-            WalrusFood food = new WalrusFood();
-            walrus.addToStomach(food);
-            assertTrue("Walrus could not eat the " + (i + 1) + "th food.", walrus.hasEaten(food));
+    public void testWalrusCanEatLargeAmountOfFood() {
+        int foodLimit = 500;
+        for (int i = 0; i < foodLimit; i++) {
+            WalrusFood bite = new WalrusFood();
+            walrus.addToStomach(bite);
+            assertTrue("Food number " + (i + 1) + " wasn't eaten", walrus.hasEaten(bite));
         }
-
-        System.out.println("Walrus successfully ate " + maxFood + " different food items!");
     }
 
     @Test
-    public void testWalrusGetsTheRightFood() {
-        WalrusFood expectedFood = new WalrusFood();
-        CannedWalrusFood can = new CannedWalrusFood(expectedFood);
+    public void testWalrusReceivesCorrectFoodFromCan() {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
 
         feeder.feed(walrus, can);
 
-        assertTrue("Walrus should have eaten the food from the can", walrus.hasEaten(expectedFood));
+        assertTrue("Walrus should have received the correct food", walrus.hasEaten(food));
     }
 
     @Test
-    public void testOpeningCanReturnsTheFoodInside() {
+    public void testCanOpeningRevealsFood() {
         WalrusFood foodInside = new WalrusFood();
-        CannedWalrusFood can = new CannedWalrusFood(foodInside);
+        CannedWalrusFood sealedCan = new CannedWalrusFood(foodInside);
         OpensCan opener = new OpensCan();
 
-        WalrusFood extracted = opener.open(can);
+        WalrusFood result = opener.open(sealedCan);
 
-        assertEquals("Opening the can should return the food that was inside", foodInside, extracted);
+        assertEquals("The opened can should return the correct food", foodInside, result);
     }
 
     @Test
-    public void testHowAWalrusCanEat() {
-        WalrusFood sardine = new WalrusFood();
-        CannedWalrusFood cannedFood = new CannedWalrusFood(sardine);
+    public void testFeedingProcessWorksProperly() {
+        WalrusFood fish = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(fish);
 
-        feeder.feed(walrus, cannedFood);
+        feeder.feed(walrus, can);
 
-        assertTrue("Walrus should have eaten the sardine from the can", walrus.hasEaten(sardine));
+        assertTrue("Feeding process failed", walrus.hasEaten(fish));
     }
 
     @Test
-    public void testWalrusAcceptsNonWalrusFood() {
-        Object pizza = new Object(); // Not a WalrusFood
+    public void testWalrusCanAcceptOtherObjectsAsFood() {
+        Object unknownFood = new Object(); // Generic non-WalrusFood
 
-        walrus.addToStomach(pizza);
+        walrus.addToStomach(unknownFood);
 
-        assertTrue("Walrus should accept non-Walrus food like pizza", walrus.hasEaten(pizza));
+        assertTrue("Walrus should accept non-Walrus food", walrus.hasEaten(unknownFood));
     }
 }
