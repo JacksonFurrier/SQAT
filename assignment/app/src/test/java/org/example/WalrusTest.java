@@ -5,8 +5,123 @@ package org.example;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    private Walrus walrus;
+    private FeedsWalrus feeder;
+    private OpensCan opener;
+
+    @BeforeEach
+    public void setup() {
+        
+        walrus = new Walrus();
+        feeder = new FeedsWalrus();
+        opener = new OpensCan();
+        System.out.println("Setup complete. Walrus is ready to eat.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 10, 1000, 100000})
+    public void testWalrusCanEat(int foodAmount) {
+        
+        int eatenFoodCount = 0;
+        
+        for (int i = 0; i < foodAmount; i++) {
+            WalrusFood food = new WalrusFood();
+            walrus.addToStomach(food);
+            if (walrus.hasEaten(food)) {
+                eatenFoodCount++;
+            }
+        }
+
+        assertEquals(String.format("Walrus failed to eat %d food items", foodAmount), foodAmount, eatenFoodCount);
+    }
+
+    @Test
+    public void testWalrusGetsTheFood() {
+
+        WalrusFood food = new WalrusFood();
+
+        walrus.addToStomach(food);
+
+        assertTrue("Walrus should have eaten the food", walrus.hasEaten(food));
+    }
+
+    @Test
+    public void testWalrusDoesNotGetTheWrongFood() {
+
+        WalrusFood rightFood = new WalrusFood();
+        WalrusFood wrongFood = new WalrusFood();
+
+        walrus.addToStomach(rightFood);
+
+        assertFalse("Walrus should not have eaten the wrong food", walrus.hasEaten(wrongFood));
+    }
+
+    @Test
+    public void testOpeningEmptyCanReturnsNull() {
+    
+        CannedWalrusFood emptyCan = new CannedWalrusFood();
+        WalrusFood foodInside = opener.open(emptyCan);
+
+        assertNull("The can should have been empty", foodInside);
+    }
+
+    @Test
+    public void testOpeningCanReturnsFood() {
+
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood cannedFood = new CannedWalrusFood(food);
+        WalrusFood foodExtractedFromCan = opener.open(cannedFood);
+
+        assertEquals("The can should have contained the original food", food, foodExtractedFromCan);
+    }
+
+    @Test
+    public void testReopeningCanReturnsNull() {
+
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood cannedFood = new CannedWalrusFood(food);
+        opener.open(cannedFood);
+        WalrusFood foodInsideReopenedCan = opener.open(cannedFood);
+
+        assertNull("The reopened can should have been empty", foodInsideReopenedCan);
+    }
+
+    @Test
+    public void testWalrusCanEatDirectly() {
+        
+        WalrusFood food = new WalrusFood();
+        walrus.addToStomach(food);
+
+        assertTrue("Walrus should have eaten the food directly", walrus.hasEaten(food));
+    }
+
+    @Test
+    public void testWalrusCanBeFedFromCan() {
+        
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood cannedFood = new CannedWalrusFood(food);
+        feeder.feed(walrus, cannedFood);
+
+        assertTrue("Walrus should have been fed by the feeder", walrus.hasEaten(food));
+    }
+
+    @Test
+    public void testWalrusWithNonWalrusFood() {
+        
+        class NonWalrusFood extends WalrusFood {}
+        NonWalrusFood nonWalrusFood = new NonWalrusFood();
+        walrus.addToStomach(nonWalrusFood);
+
+        assertTrue("Walrus should accept non-Walrus food", walrus.hasEaten(nonWalrusFood));
     }
 }
