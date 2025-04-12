@@ -36,13 +36,15 @@ public class WalrusTest {
     public void walrusStomachGetsRightFood(int capacity) {
         Walrus walrus = new Walrus();
         WalrusFood food = new WalrusFood();
+        WalrusFood otherFood = new WalrusFood();
 
         walrus.addToStomach(food);
         assertTrue(walrus.hasEaten(food), "Walrus stomach should get the right food.");
+        assertTrue(walrus.hasEaten(otherFood), "Walrus stomach should not get the other food.");
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {2, 10, 100, 1000, 10000})
+    @ValueSource(ints = {1, 2, 10, 100, 1000, 10000})
     public void walrusStomachCapacity(int capacity) {
         Walrus walrus = new Walrus();
         WalrusFood[] foods = new WalrusFood[capacity];
