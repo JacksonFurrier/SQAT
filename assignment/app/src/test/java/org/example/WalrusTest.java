@@ -3,10 +3,171 @@
  */
 package org.example;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.example.values.*;
+import static org.mockito.Mockito.*;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 5, 50, 100, 500, 1000, 5000, 10000})
+    public void walrusEatingCapacity(int food_count) {
+        Walrus walrus = new Walrus();
+
+        int i = 0;
+        boolean allInStomach = true;
+        while (i < food_count) {
+            // Create new food
+            WalrusFood food = new WalrusFood();
+
+            // Feed it to Walrus
+            walrus.addToStomach(food);
+
+            // If he has eaten it then create new food and continue
+            if (walrus.hasEaten(food)) {
+                i = i + 1;
+            }
+            // else stop and indicate that he hasn't eaten all food
+            else {
+                allInStomach = false;
+                break;
+            }
+        }
+
+        assertTrue(allInStomach, "Walrus couldn't eat this many food: " + food_count);
+    }
+
+
+    @Test
+    public void walrusEatsFoodGivenToHim() {
+        Walrus walrus = new Walrus();
+
+        WalrusFood food1 = new WalrusFood();
+        WalrusFood food2 = new WalrusFood();
+
+        walrus.addToStomach(food1);
+
+        assertTrue(walrus.hasEaten(food1), "Walrus has not eaten the food that was given to him");
+    }
+
+    public void walrusDoesntEatOtherFood() {
+        Walrus walrus = new Walrus();
+
+        WalrusFood food1 = new WalrusFood();
+        WalrusFood food2 = new WalrusFood();
+
+        walrus.addToStomach(food1);
+
+        assertFalse(walrus.hasEaten(food2), "Walrus should have eaten the other food that was NOT given to him");
+    }
+
+
+    @Test
+    public void openingCanReturnsFood() {
+        WalrusFood food = new WalrusFood();
+
+        // putting food in can
+        CannedWalrusFood can = new CannedWalrusFood(food);
+
+        assertEquals(food, can.extractContents(), "Can should have returned food back when it was opened");
+    }
+
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 5, 10})
+    public void noFoodInStomachBeforeEating(int food_count) {
+        Walrus walrus = new Walrus();
+
+        // Creating some food
+        int i = 0;
+        List<WalrusFood> foods = new LinkedList<WalrusFood>();
+        while (i < food_count) {
+            WalrusFood food = new WalrusFood();
+            foods.add(food);
+
+            i = i + 1;
+        }
+
+        // Check if walrus has eaten any one of them
+        boolean anyFoodEaten = false;
+        for (WalrusFood food : foods) {
+            anyFoodEaten = anyFoodEaten || walrus.hasEaten(food);
+        }
+
+        assertFalse(anyFoodEaten, "Walrus shouldn't have eaten any food without gettign it into his stomach.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 5, 10})
+    public void allFoodInStomachAfterEating(int food_count) {
+        Walrus walrus = new Walrus();
+
+        // Creating some food
+        int i = 0;
+        List<WalrusFood> foods = new LinkedList<WalrusFood>();
+        while (i < food_count) {
+            WalrusFood food = new WalrusFood();
+            foods.add(food);
+
+            i = i + 1;
+        }
+
+        // Eating all food
+        for (WalrusFood food : foods) {
+            walrus.addToStomach(food);
+        }
+
+        // Check if walrus has all of them in his stomach
+        boolean anyFoodEaten = true;
+        for (WalrusFood food : foods) {
+            anyFoodEaten = anyFoodEaten && walrus.hasEaten(food);
+        }
+
+        assertTrue(anyFoodEaten, "Walrus should have all food in his stomach after eating them.");
+    }
+
+    @Test
+    public void OpensCanRetrunsFood() {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+        OpensCan opensCan = new OpensCan();
+
+        assertEquals(food, opensCan.open(can), "OpensCan should have opened the can.");
+    }
+
+    @Test
+    public void FeedsWalrusGivesFoodToWalrus() {
+        Walrus walrus = new Walrus();
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+
+        FeedsWalrus feedsWalrus = new FeedsWalrus();
+        feedsWalrus.feed(walrus, can);
+
+        assertTrue(walrus.hasEaten(food), "FeedsWalrus should have given the canned food to the walrus.");
+    }
+
+    @Test
+    public void walrusEatsMockedWalrusFood() {
+        WalrusFood food = mock(WalrusFood.class);
+        Walrus walrus = new Walrus();
+
+        walrus.addToStomach(food);
+        assertTrue(walrus.hasEaten(food), "Walrus should have eaten mocked food.");
+    }
+
+    @Test
+    public void walrusEatsExtendedFood() {
+        class NonWalrusFood extends WalrusFood { }
+        NonWalrusFood nonWalrusFood = new NonWalrusFood();
+        Walrus walrus = new Walrus();
+
+        walrus.addToStomach(nonWalrusFood);
+        assertTrue(walrus.hasEaten(nonWalrusFood), "Walrus should have eaten extended food.");
     }
 }
