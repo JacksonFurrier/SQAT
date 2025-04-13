@@ -3,10 +3,96 @@
  */
 package org.example;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
-    }
+	/**
+	 * Walrus capacity is expected to be below this.?
+	 */
+	private static final int maxCapacity = 2048;
+	
+	private static Walrus walrus1, walrus2;
+	private static FeedsWalrus feeder;
+	private static CannedWalrusFood cannedFood;
+	private static WalrusFood food1, food2;
+	
+	@BeforeEach
+	public void setup() {
+		walrus1 = new Walrus();
+		walrus2 = new Walrus();
+		feeder = new FeedsWalrus();
+		food1 = new WalrusFood();
+		food2 = new WalrusFood();
+		cannedFood = new CannedWalrusFood(food1); 
+	}
+	
+	@Test //Fails only on error
+	public void seeWalrusEatingCapacity() {
+		for(int i = 0; i < maxCapacity; i++)
+			feeder.feed(walrus1, new CannedWalrusFood());
+	}
+	
+	@Test
+	public void testFeedsWalrus() {
+		feeder.feed(walrus1, cannedFood);
+		assertTrue(walrus1.hasEaten(food1), "The walrus has eaten something other than the food which was given to it.");
+		assertFalse(walrus1.hasEaten(food2),"The walrus has eaten food which was not given to it.");
+		assertFalse(walrus2.hasEaten(food2), "The walrus has eaten food which was not given to it.");
+		assertFalse(walrus2.hasEaten(food1), "The walrus has eaten food which was given to another walrus.");
+		feeder.feed(walrus2, cannedFood);
+		assertFalse(walrus2.hasEaten(food1),"The walrus has eaten food which was already eaten by another walrus.");
+	}
+	
+	@Test
+	public void testOpensCan() {
+		OpensCan canOpener = new OpensCan();
+				
+		assertEquals(food1, canOpener.open(cannedFood), "The can opener gave food other than what was in the can.");
+		assertNull(canOpener.open(cannedFood), "The can opener gave food which was already taken out of the can.");
+		assertNull(canOpener.open(new CannedWalrusFood(null)), "The can opener gave food from an empty can.");
+	}
+	
+	@Test
+	public void testWalrusEating() {
+		//Shouldn't these throw exceptions?
+		//assertThrows(IllegalArgumentException.class, () -> walrus.hasEaten(null));
+		//assertThrows(IllegalArgumentException.class, () -> walrus.addToStomach(null));
+		assertFalse(walrus1.hasEaten(null), "The walrus has eaten \"nothing\".");
+		walrus1.addToStomach(null);
+		assertTrue(walrus1.hasEaten(null), "The walrus has not eaten \"nothing\".");
+		
+		assertFalse(walrus1.hasEaten(food1), "The walrus has eaten food which was not yet given to it.");
+		feeder.feed(walrus1, cannedFood);
+		assertTrue(walrus1.hasEaten(food1), "The walrus has not eaten food which was given to it by the feeder.");
+		
+		food1 = new WalrusFood();
+		assertFalse(walrus1.hasEaten(food1), "The walrus has eaten food which was not yet given to it.");
+		walrus1.addToStomach(food1);
+		assertTrue(walrus1.hasEaten(food1), "The walrus has not eaten food which was given to it.");
+	}
+	
+	@Test
+	public void testWalrusEatsNonWalrusFood() {
+		//I'm unsure what the assignment means, technically this is still walrus food.
+		//Giving anything other than WalrusFood gives compile time error.
+		class NotWalrusFood extends WalrusFood{}
+		NotWalrusFood food = new NotWalrusFood();
+		
+		walrus1.addToStomach(food);
+		assertTrue(walrus1.hasEaten(food), "The walrus has not eaten the \"non-walrus food\".");
+		
+		food = new NotWalrusFood();
+		cannedFood = new CannedWalrusFood(food);
+		feeder.feed(walrus1, cannedFood);
+		assertTrue(walrus1.hasEaten(food), "The walrus has not eaten the canned \"non-walrus food\".");
+	}
 }
