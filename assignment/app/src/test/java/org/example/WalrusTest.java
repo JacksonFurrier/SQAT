@@ -3,10 +3,84 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.example.FeedsWalrus;
+import org.example.OpensCan;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    // Write a test to see how much a Walrus can eat
+    
+    @Test
+    public void walrusCanEatMoreFood() {
+        Walrus walrus = new Walrus();
+        WalrusFood walrusFood = new WalrusFood();
+        WalrusFood walrusFood2 = new WalrusFood();
+        
+        walrus.addToStomach( walrusFood );
+        walrus.addToStomach( walrusFood2 );
+            
+        assertTrue( "Walrus should eat the food", walrus.hasEaten( walrusFood ) );
+        assertTrue( "Walrus should eat more food", walrus.hasEaten( walrusFood2 ) );
+    }
+
+
+    // Write a test to check if a Walrus gets the right food
+
+    @Test
+    public void walrusGetsRightFood() {
+        Walrus walrus = new Walrus();
+        WalrusFood walrusFood = new WalrusFood();
+
+        walrus.addToStomach( walrusFood );
+
+        assertTrue( "A Walrus should get the right food", walrus.hasEaten( walrusFood ) );
+    }
+
+
+    // Write a test to check opening a can will return food
+
+    @Test
+    public void openingCanReturnsFood() {
+        WalrusFood walrusFood = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood( walrusFood );
+
+        OpensCan canOpener = new OpensCan();
+        WalrusFood foodInCan = canOpener.open( can );
+
+        assertNotNull( "Opening a can should return food", foodInCan );
+    }
+
+
+    // Write a test to check on how a Walrus can eat
+
+    @Test
+    public void walrusCanEat() {
+        Walrus walrus = new Walrus();
+        WalrusFood walrusFood = new WalrusFood();
+        CannedWalrusFood cannedWalrusFood = new CannedWalrusFood( walrusFood );
+
+        FeedsWalrus feedsWalrus = new FeedsWalrus();
+        feedsWalrus.feed( walrus, cannedWalrusFood );
+
+        assertTrue( "A Walrus should be able to eat walrus food", walrus.hasEaten( walrusFood ) );
+    }
+    
+
+    // Write a test making a Walrus accept non-Walrus food
+
+    @Test
+    public void walrusAcceptsNonWalrusFood() {
+        Walrus walrus = new Walrus();
+        Object nonWalrusFood = new Object();
+    
+        FeedsWalrus feedsWalrus = new FeedsWalrus();
+
+        assertThrows(ClassCastException.class, () -> { feedsWalrus.feed( walrus, (CannedWalrusFood) nonWalrusFood );});
     }
 }
