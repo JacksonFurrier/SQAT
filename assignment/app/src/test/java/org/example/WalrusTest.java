@@ -3,10 +3,72 @@
  */
 package org.example;
 
+import org.example.values.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    @Test
+    public void appHasAGreeting() {
+        // Placeholder test left as-is (can be removed or renamed later)
+        assertTrue(true);
+    }
+
+    @Test
+    public void testWalrusCanEatMultipleFoods() {
+        Walrus walrus = new Walrus();
+        WalrusFood food1 = new WalrusFood();
+        WalrusFood food2 = new WalrusFood();
+
+        walrus.addToStomach(food1);
+        walrus.addToStomach(food2);
+
+        assertTrue(walrus.hasEaten(food1));
+        assertTrue(walrus.hasEaten(food2));
+    }
+
+    @Test
+    public void testWalrusGetsTheRightFood() {
+        Walrus walrus = new Walrus();
+        WalrusFood expectedFood = new WalrusFood();
+
+        walrus.addToStomach(expectedFood);
+
+        assertTrue(walrus.hasEaten(expectedFood));
+    }
+
+    @Test
+    public void testOpenCanReturnsFood() {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+        OpensCan opener = new OpensCan();
+
+        WalrusFood extracted = opener.open(can);
+
+        assertSame(food, extracted);
+    }
+
+    @Test
+    public void testFeedsWalrusCorrectly() {
+        Walrus walrus = new Walrus();
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+        FeedsWalrus feeder = new FeedsWalrus();
+
+        feeder.feed(walrus, can);
+
+        assertTrue(walrus.hasEaten(food));
+    }
+
+    @Test
+    public void testWalrusAcceptsNullFoodSafely() {
+        Walrus walrus = new Walrus();
+        WalrusFood nullFood = null;
+
+        walrus.addToStomach(nullFood);
+
+        // Check that the walrus now reports having eaten null
+        assertTrue(walrus.hasEaten(nullFood));
     }
 }
