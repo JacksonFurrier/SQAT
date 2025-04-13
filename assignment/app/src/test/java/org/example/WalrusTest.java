@@ -3,10 +3,77 @@
  */
 package org.example;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
 
 public class WalrusTest {
+    Walrus gary;
+    FeedsWalrus walrusFeeder;
+
     @Test public void appHasAGreeting() {
     }
+
+    @Before
+    public void giveBirthToGary() {
+        gary = new Walrus();
+    }
+
+    @Before
+    public void hireWalrusFeeder() {
+        walrusFeeder = new FeedsWalrus();
+    }
+
+    @Test
+    public void testIfWalrusStomachSizeIsBig() {
+
+        ArrayList<WalrusFood> foodList = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            WalrusFood crab = new WalrusFood();
+            foodList.add(crab);
+            CannedWalrusFood cannedCrab = new CannedWalrusFood(crab);
+            walrusFeeder.feed(gary, cannedCrab);
+        }
+        for (int i = 0; i < 100; i++) {
+            assertTrue(gary.hasEaten(foodList.get(i)));
+        }
+    }
+
+    @Test
+    public void testFoodForWalrus() {
+        WalrusFood crab = new WalrusFood();
+        CannedWalrusFood cannedCrab = new CannedWalrusFood(crab);
+        OpensCan canOpener = new OpensCan();
+        assertTrue(canOpener.open(cannedCrab).getClass().equals(WalrusFood.class));
+    }
+
+    @Test
+    public void testOpeningCan() {
+        WalrusFood crab = new WalrusFood();
+        CannedWalrusFood cannedCrab = new CannedWalrusFood(crab);
+        OpensCan canOpener = new OpensCan();
+        assertTrue(canOpener.open(cannedCrab) != null);
+    }
+
+    @Test
+    public void testHowWalrusCanEat() {
+        WalrusFood crab = new WalrusFood();
+        CannedWalrusFood cannedCrab = new CannedWalrusFood(crab);
+        walrusFeeder.feed(gary, cannedCrab);
+        assertTrue(gary.hasEaten(crab));
+    }
+
+    @Test
+    public void feedWalrusNonWalrusFood() {
+        class SnakeFood extends WalrusFood {};
+        CannedWalrusFood can = new CannedWalrusFood(new SnakeFood());
+        walrusFeeder.feed(gary, can);
+    }
+
 }
