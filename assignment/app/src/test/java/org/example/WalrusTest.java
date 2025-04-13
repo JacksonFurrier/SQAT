@@ -62,7 +62,7 @@ public class WalrusTest {
         // Check that known food is in the stomach
         assertTrue(walrus.hasEaten(knownFood));
 
-        // stomach has no getter so I use reflection to get the field
+        // stomach has no getter so I use reflection to get the field from Walrus class
         Field field = Walrus.class.getDeclaredField("stomach");
         field.setAccessible(true);
         Set<?> stomachSet = (Set<?>) field.get(walrus);
