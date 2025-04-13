@@ -6,7 +6,69 @@ package org.example;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Field;
+import java.util.Set;
+
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.junit.Before;
+
+
+import static org.junit.Assert.*;
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    private Walrus walrus;
+    private WalrusFood food;
+    private CannedWalrusFood can;
+    private FeedsWalrus feeder;
+    private OpensCan opener;
+
+    @Before
+    public void setUp() {
+        walrus = new Walrus();
+        food = new WalrusFood();
+        can = new CannedWalrusFood(food);
+        feeder = new FeedsWalrus();
+        opener = new OpensCan();
     }
+
+
+    @Test
+    public void testHowMuchWalrusCanEat_withReflection() throws Exception {
+
+    // This test verifies how much a Walrus can eat by feeding it 100 unique foods.
+    // It checks that a known fed food is present, an unfed food is absent,
+    // and that the total number of stored foods matches the number fed.
+    
+        WalrusFood knownFood = null;
+        int foodCount = 100;
+
+        for (int i = 0; i < foodCount; i++) {
+            WalrusFood food = new WalrusFood();
+            CannedWalrusFood can = new CannedWalrusFood(food);
+            feeder.feed(walrus, can);
+
+            if (i == 42) {
+                knownFood = food;
+            }
+        }
+        WalrusFood unknownFood = new WalrusFood();
+
+        // Check that unknown food is not in the stomach
+        assertFalse(walrus.hasEaten(unknownFood));
+
+        // Check that known food is in the stomach
+        assertTrue(walrus.hasEaten(knownFood));
+
+        // stomach has no getter so I use reflection to get the field
+        Field field = Walrus.class.getDeclaredField("stomach");
+        field.setAccessible(true);
+        Set<?> stomachSet = (Set<?>) field.get(walrus);
+
+        // Check that the walrus has exactly 100 foods in the stomach
+        assertEquals("Stomach should have 100 distinct foods", foodCount, stomachSet.size());
+    }
+
 }
