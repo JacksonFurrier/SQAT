@@ -4,9 +4,18 @@
  * The settings file is used to specify which projects to include in your build.
  * For more detailed information on multi-project builds, please refer to https://docs.gradle.org/8.13/userguide/multi_project_builds.html in the Gradle documentation.
  */
+pluginManagement {
+    repositories {
+        // ✅ 添加阿里云的 Gradle 插件镜像，加速下载
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+
+        // 保留原始官方仓库
+        gradlePluginPortal()
+    }
+}
 
 plugins {
-    // Apply the foojay-resolver plugin to allow automatic download of JDKs
+    // Foojay 插件：用于 JDK 自动管理，可保留
     id 'org.gradle.toolchains.foojay-resolver-convention' version '0.9.0'
 }
 
