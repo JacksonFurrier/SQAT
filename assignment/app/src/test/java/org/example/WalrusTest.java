@@ -4,9 +4,76 @@
 package org.example;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+// import static org.junit.Assert.*;
+import static org.junit.jupiter.api.*;
+
+import java.lang.module.ModuleDescriptor.Opens;
+import java.util.ArrayList;
+
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
 
 public class WalrusTest {
+    Walrus gary;
+    FeedsWalrus walrusFeeder;
+
     @Test public void appHasAGreeting() {
     }
+
+    @BeforeAll
+    public void giveBirthToGary() {
+        gary = new Walrus();
+    }
+
+    @BeforeAll
+    public void hireWalrusFeeder() {
+        walrusFeeder = new FeedsWalrus();
+    }
+
+    @Test
+    public void testIfWalrusStomachSizeIsBig() {
+
+        ArrayList<WalrusFood> foodList = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            WalrusFood crab = new WalrusFood();
+            foodList.add(crab);
+            CannedWalrusFood cannedCrab = new CannedWalrusFood(crab);
+            walrusFeeder.feed(gary, cannedCrab);
+        }
+        for (int i = 0; i < 100; i++) {
+            assertTrue("Every food, even crab number " + i + "should be in Gary's stomach", gary.hasEaten(foodList.get(i)));
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(food = new CannedWalrusFood(new WalrusFood()))
+    public void testFoodForWalrus(CannedWalrusFood food) {
+        OpensCan canOpener = new OpensCan();
+        assertTrue(canOpener.open(food).getClass().equals(WalrusFood.class));
+    }
+
+    @Test
+    public void testOpeningCan() {
+        WalrusFood crab = new WalrusFood();
+        CannedWalrusFood cannedCrab = new CannedWalrusFood(crab);
+        OpensCan canOpener = new OpensCan();
+        assertTrue(canOpener.open(cannedCrab).getClass().equals(CannedWalrusFood.class));
+    }
+
+    @Test
+    public void testHowWalrusCanEat() {
+        WalrusFood crab = new WalrusFood();
+        CannedWalrusFood cannedCrab = new CannedWalrusFood(crab);
+        walrusFeeder.feed(gary, cannedCrab);
+        assertTrue(gary.hasEaten(crab));
+    }
+
+    @Test
+    public void feedWalrusNonWalrusFood() {
+        class SnakeFood extends WalrusFood {};
+        CannedWalrusFood can = new CannedWalrusFood(new SnakeFood());
+        walrusFeeder.feed(gary, can);
+    }
+
 }
