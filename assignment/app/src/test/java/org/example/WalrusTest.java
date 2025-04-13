@@ -34,7 +34,7 @@ public class WalrusTest {
         opener = new OpensCan();
     }
 
-
+    // 1. Test how much a Walrus can eat
     @Test
     public void testHowMuchWalrusCanEat_withReflection() throws Exception {
 
@@ -70,5 +70,59 @@ public class WalrusTest {
         // Check that the walrus has exactly 100 foods in the stomach
         assertEquals("Stomach should have 100 distinct foods", foodCount, stomachSet.size());
     }
+
+
+    // 2. Test that a Walrus gets the right food
+    @Test
+    public void testWalrusGetsCorrectFood() {
+        feeder.feed(walrus, can);
+        assertTrue("Walrus should have eaten the exact food", walrus.hasEaten(food));
+    }
+
+
+    // 3. Test that opening a can returns food
+    @Test
+    public void testOpenCanReturnsFood() {
+        WalrusFood result = opener.open(can);
+        assertNotNull("Opening a can should return food", result);
+    }    
+
+
+    // 4. Test how a Walrus can eat 
+    @Test
+    public void testHowWalrusCanEat() {
+        Walrus walrus = new Walrus();
+    
+        // Feed method 1: Directly add food to stomach 
+        WalrusFood directFood = new WalrusFood();
+        walrus.addToStomach(directFood);
+    
+        // Feed method 2: Use can + feeder 
+        WalrusFood cannedFood = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(cannedFood);
+        FeedsWalrus feeder = new FeedsWalrus();
+        feeder.feed(walrus, can);
+    
+        // Check that walrus has eaten both foods
+        assertTrue("Walrus should have eaten food added directly", walrus.hasEaten(directFood));
+        assertTrue("Walrus should have eaten food from can via feeder", walrus.hasEaten(cannedFood));
+    }
+
+    // 5. Test Walrus accept non-Walrus food
+    @Test
+    public void testWalrusAcceptsAnyFood() {
+        // In this design, any WalrusFood is accepted — there's no type restriction.
+        // If we had a superclass like AnimalsFood for WalrusFood, we could test type-based filtering.
+        
+        Walrus walrus = new Walrus();
+        FeedsWalrus feeder = new FeedsWalrus();
+        WalrusFood weirdFood = new WalrusFood(); // Imagine this as non-walrus food
+        CannedWalrusFood weirdCan = new CannedWalrusFood(weirdFood);
+    
+        feeder.feed(walrus, weirdCan);
+    
+        assertTrue("Walrus should accept any food, even non-typical ones", walrus.hasEaten(weirdFood));
+    }    
+    
 
 }
