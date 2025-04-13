@@ -3,10 +3,120 @@
  */
 package org.example;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    private Walrus walrus;
+    private FeedsWalrus feeder;
+
+    @Before
+    public void setUp() {
+        walrus = new Walrus();
+        feeder = new FeedsWalrus();
+    }
+
+    /*
+     * Test 1: Write a test to see how much a Walrus can eat.
+     * Verifies that a walrus can eat 500 unique food items and remember them all.
+     */
+    @Test
+    public void testToSeeHowMuchAWalrusCanEat() {
+        int maxFood = 500;
+        for (int i = 0; i < maxFood; i++) {
+            WalrusFood food = new WalrusFood();
+
+            // Uncomment the following condition to intentionally break the test.
+            // This simulates a bug where the walrus skips eating every 10th food.
+            // if (i % 10 != 0) { //
+            walrus.addToStomach(food);
+            // }
+
+            assertTrue("Walrus could not eat the " + (i + 1) + "th food.", walrus.hasEaten(food));
+        }
+
+        System.out.println("Walrus successfully ate " + maxFood + " different food items!");
+    }
+
+    /*
+     * Test 2: Write a test to check if a Walrus gets the right food.
+     * Ensures that the walrus eats the exact food item that was in the can.
+     */
+    @Test
+    public void testWalrusGetsTheRightFood() {
+        WalrusFood expectedFood = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(expectedFood);
+
+        // Uncomment the next line to break the test intentionally.
+        // Replace the can’s content with a different food before feeding.
+        // can = new CannedWalrusFood(new WalrusFood());
+
+        feeder.feed(walrus, can);
+
+        assertTrue("Walrus should have eaten the food from the can", walrus.hasEaten(expectedFood));
+    }
+
+    /*
+     * Test 3: Write a test to check opening a can will return food.
+     * Verifies that when a can is opened, it returns the same food object that was
+     * placed inside.
+     */
+    @Test
+    public void testOpeningCanReturnsTheFoodInside() {
+        WalrusFood foodInside = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(foodInside);
+        OpensCan opener = new OpensCan();
+
+        // Uncomment the line below to intentionally break the test.
+        // It simulates a bug where a different can is opened or food content is not as
+        // expected.
+        // can = new CannedWalrusFood(new WalrusFood());
+
+        WalrusFood extracted = opener.open(can);
+
+        assertEquals("Opening the can should return the food that was inside", foodInside, extracted);
+    }
+
+    /*
+     * Test 4: Write a test to check on how a Walrus can eat.
+     * Tests the full process of feeding a walrus using a feeder and a can, and
+     * verifying it eats what's inside.
+     */
+    @Test
+    public void testHowAWalrusCanEat() {
+        WalrusFood sardine = new WalrusFood();
+        CannedWalrusFood cannedFood = new CannedWalrusFood(sardine);
+
+        // Uncomment the line below to intentionally break the test.
+        // It simulates feeding the walrus the wrong can (with a different food inside).
+        // cannedFood = new CannedWalrusFood(new WalrusFood());
+
+        feeder.feed(walrus, cannedFood);
+
+        assertTrue("Walrus should have eaten the sardine from the can", walrus.hasEaten(sardine));
+    }
+
+    /*
+     * Test 5: Write a test making a Walrus accept non-Walrus food.
+     * Verifies that a Walrus can accept a subclass of WalrusFood.
+     * No animals were harmed during this exercise 🐘🥫
+     */
+    @Test
+    public void testWalrusAcceptsNonWalrusFood() {
+        class SpecialWalrusFood extends WalrusFood {
+        }
+
+        // Create an instance of the class that extends WalrusFood
+        SpecialWalrusFood specialFood = new SpecialWalrusFood();
+
+        walrus.addToStomach(specialFood);
+
+        assertTrue("Walrus should accept food that extends WalrusFood", walrus.hasEaten(specialFood));
     }
 }
