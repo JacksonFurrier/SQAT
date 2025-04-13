@@ -6,7 +6,123 @@ package org.example;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Field;
+import java.util.Set;
+
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+import org.junit.Before;
+
+
+import static org.junit.Assert.*;
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    private Walrus walrus;
+    private WalrusFood food;
+    private CannedWalrusFood can;
+    private FeedsWalrus feeder;
+    private OpensCan opener;
+
+    @Before
+    public void setUp() {
+        walrus = new Walrus();
+        food = new WalrusFood();
+        can = new CannedWalrusFood(food);
+        feeder = new FeedsWalrus();
+        opener = new OpensCan();
     }
+
+    // 1. Test how much a Walrus can eat
+    @Test
+    public void testHowMuchWalrusCanEat_withReflection() throws Exception {
+
+    // This test verifies how much a Walrus can eat by feeding it 100 unique foods.
+    // It checks that a known fed food is present, an unfed food is absent,
+    // and that the total number of stored foods matches the number fed.
+    
+        WalrusFood knownFood = null;
+        int foodCount = 100;
+
+        for (int i = 0; i < foodCount; i++) {
+            WalrusFood food = new WalrusFood();
+            CannedWalrusFood can = new CannedWalrusFood(food);
+            feeder.feed(walrus, can);
+
+            if (i == 42) {
+                knownFood = food;
+            }
+        }
+        WalrusFood unknownFood = new WalrusFood();
+
+        // Check that unknown food is not in the stomach
+        assertFalse(walrus.hasEaten(unknownFood));
+
+        // Check that known food is in the stomach
+        assertTrue(walrus.hasEaten(knownFood));
+
+        // stomach has no getter so I use reflection to get the field
+        Field field = Walrus.class.getDeclaredField("stomach");
+        field.setAccessible(true);
+        Set<?> stomachSet = (Set<?>) field.get(walrus);
+
+        // Check that the walrus has exactly 100 foods in the stomach
+        assertEquals("Stomach should have 100 distinct foods", foodCount, stomachSet.size());
+    }
+
+
+    // 2. Test that a Walrus gets the right food
+    @Test
+    public void testWalrusGetsCorrectFood() {
+        feeder.feed(walrus, can);
+        assertTrue("Walrus should have eaten the exact food", walrus.hasEaten(food));
+    }
+
+
+    // 3. Test that opening a can returns food
+    @Test
+    public void testOpenCanReturnsFood() {
+        WalrusFood result = opener.open(can);
+        assertNotNull("Opening a can should return food", result);
+    }    
+
+
+    // 4. Test how a Walrus can eat 
+    @Test
+    public void testHowWalrusCanEat() {
+        Walrus walrus = new Walrus();
+    
+        // Feed method 1: Directly add food to stomach 
+        WalrusFood directFood = new WalrusFood();
+        walrus.addToStomach(directFood);
+    
+        // Feed method 2: Use can + feeder 
+        WalrusFood cannedFood = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(cannedFood);
+        FeedsWalrus feeder = new FeedsWalrus();
+        feeder.feed(walrus, can);
+    
+        // Check that walrus has eaten both foods
+        assertTrue("Walrus should have eaten food added directly", walrus.hasEaten(directFood));
+        assertTrue("Walrus should have eaten food from can via feeder", walrus.hasEaten(cannedFood));
+    }
+
+    // 5. Test Walrus accept non-Walrus food
+    @Test
+    public void testWalrusAcceptsAnyFood() {
+        // In this design, any WalrusFood is accepted — there's no type restriction.
+        // If we had a superclass like AnimalsFood for WalrusFood, we could test type-based filtering.
+        
+        Walrus walrus = new Walrus();
+        FeedsWalrus feeder = new FeedsWalrus();
+        WalrusFood weirdFood = new WalrusFood(); // Imagine this as non-walrus food
+        CannedWalrusFood weirdCan = new CannedWalrusFood(weirdFood);
+    
+        feeder.feed(walrus, weirdCan);
+    
+        assertTrue("Walrus should accept any food, even non-typical ones", walrus.hasEaten(weirdFood));
+    }    
+    
+
 }
