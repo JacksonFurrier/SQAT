@@ -6,7 +6,85 @@ package org.example;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+    @Test
+    public void walrusCanEatMultipleFoods() {
+        Walrus walrus = new Walrus();
+        
+        WalrusFood food1 = new WalrusFood();
+        WalrusFood food2 = new WalrusFood();
+        WalrusFood food3 = new WalrusFood();
+
+        walrus.addToStomach(food1);
+        walrus.addToStomach(food2);
+        walrus.addToStomach(food3);
+
+        assertTrue(walrus.hasEaten(food1));
+        assertTrue(walrus.hasEaten(food2));
+        assertTrue(walrus.hasEaten(food3));
+    }
+
+    @Test
+    public void walrusGetsTheRightFoodFromCan() {
+        WalrusFood expectedFood = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(expectedFood);
+        Walrus walrus = new Walrus();
+        FeedsWalrus feeder = new FeedsWalrus();
+
+        feeder.feed(walrus, can);
+
+        assertTrue(walrus.hasEaten(expectedFood));
+    }
+
+    @Test
+    public void openingCanReturnsTheExpectedFood() {
+        WalrusFood expectedFood = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(expectedFood);
+        OpensCan canOpener = new OpensCan();
+
+        WalrusFood actualFood = canOpener.open(can);
+
+        assertEquals(expectedFood, actualFood);
+    }
+
+    @Test
+    public void walrusCanEatFoodFromFeeder() {
+        Walrus walrus = new Walrus();
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+        FeedsWalrus feeder = new FeedsWalrus();
+        feeder.feed(walrus, can);
+
+        walrus.addToStomach(food);
+
+        assertTrue(walrus.hasEaten(food));
+    }
+    
+    @Test
+    public void walrusRejectsNonWalrusFood() {
+        Walrus walrus = new Walrus();
+        Object nonWalrusFood = new Object();
+        FeedsWalrus feeder = new FeedsWalrus();
+
+        assertThrows(ClassCastException.class,
+        () -> { feeder.feed( walrus, (CannedWalrusFood) nonWalrusFood );});
+    }
+
+    private static class NonWalrusFood extends WalrusFood {
+
+    }
+
+    @Test
+    public void walrusAcceptsNonWalrusFood(){
+        Walrus walrus = new Walrus();
+        NonWalrusFood nonWarlusFood = new NonWalrusFood();
+
+        walrus.addToStomach(nonWarlusFood);
+
+        assertTrue(walrus.hasEaten(nonWarlusFood));
     }
 }
