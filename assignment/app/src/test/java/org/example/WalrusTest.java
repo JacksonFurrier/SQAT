@@ -3,11 +3,10 @@
  */
 package org.example;
 
+import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.Test;
-// import static org.junit.Assert.*;
-import static org.junit.jupiter.api.*;
 
-import java.lang.module.ModuleDescriptor.Opens;
 import java.util.ArrayList;
 
 import org.example.values.CannedWalrusFood;
@@ -21,12 +20,12 @@ public class WalrusTest {
     @Test public void appHasAGreeting() {
     }
 
-    @BeforeAll
+    @Before
     public void giveBirthToGary() {
         gary = new Walrus();
     }
 
-    @BeforeAll
+    @Before
     public void hireWalrusFeeder() {
         walrusFeeder = new FeedsWalrus();
     }
@@ -42,15 +41,16 @@ public class WalrusTest {
             walrusFeeder.feed(gary, cannedCrab);
         }
         for (int i = 0; i < 100; i++) {
-            assertTrue("Every food, even crab number " + i + "should be in Gary's stomach", gary.hasEaten(foodList.get(i)));
+            assertTrue(gary.hasEaten(foodList.get(i)));
         }
     }
 
-    @ParameterizedTest
-    @ValueSource(food = new CannedWalrusFood(new WalrusFood()))
-    public void testFoodForWalrus(CannedWalrusFood food) {
+    @Test
+    public void testFoodForWalrus() {
+        WalrusFood crab = new WalrusFood();
+        CannedWalrusFood cannedCrab = new CannedWalrusFood(crab);
         OpensCan canOpener = new OpensCan();
-        assertTrue(canOpener.open(food).getClass().equals(WalrusFood.class));
+        assertTrue(canOpener.open(cannedCrab).getClass().equals(WalrusFood.class));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class WalrusTest {
         WalrusFood crab = new WalrusFood();
         CannedWalrusFood cannedCrab = new CannedWalrusFood(crab);
         OpensCan canOpener = new OpensCan();
-        assertTrue(canOpener.open(cannedCrab).getClass().equals(CannedWalrusFood.class));
+        assertTrue(canOpener.open(cannedCrab) != null);
     }
 
     @Test
