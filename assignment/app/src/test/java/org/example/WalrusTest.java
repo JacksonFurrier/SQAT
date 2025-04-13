@@ -3,10 +3,66 @@
  */
 package org.example;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    Walrus gary;
+    WalrusFood food;
+
+    @Before
+    public void setup() {
+        gary = new Walrus();
+        food = new WalrusFood();
+    }
+
+    @Test
+    public void testHowMuchAWalrusCanEat() {
+        for (int i = 0; i < 1_000_000; i++) {
+            WalrusFood food = new WalrusFood();
+            gary.addToStomach(food);
+            assertTrue(gary.hasEaten(food));
+        }
+    }
+
+    @Test
+    public void testIfWalrusGetsTheRightFood() {
+        gary.addToStomach(food);
+        assertTrue(gary.hasEaten(food));
+    }
+
+    @Test
+    public void testCanExtraction() {
+        CannedWalrusFood can = new CannedWalrusFood(food);
+        assertEquals(food, can.extractContents());
+    }
+
+    @Test
+    public void testCanOpening() {
+        CannedWalrusFood can = new CannedWalrusFood(food);
+        OpensCan opener = new OpensCan();
+        assertEquals(food, opener.open(can));
+    }
+
+    @Test
+    public void testHowAWalrusCanEat() {
+        FeedsWalrus feeder = new FeedsWalrus();
+        feeder.feed(gary, new CannedWalrusFood(food));
+        assertTrue(gary.hasEaten(food));
+    }
+
+    static class NonWalrusFood {}
+
+    @Test
+    public void testNonWalrusFood() {
+        NonWalrusFood poison = null;
+        gary.addToStomach((WalrusFood) ((Object)poison));
+        assertTrue(gary.hasEaten((WalrusFood) ((Object)poison)));
     }
 }
