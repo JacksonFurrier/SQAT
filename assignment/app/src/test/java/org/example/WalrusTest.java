@@ -3,10 +3,89 @@
  */
 package org.example;
 
+import java.util.List;
+import java.util.ArrayList;
+
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.example.values.*;
+
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
-    }
+
+	private Walrus gary;
+	private FeedsWalrus feeder;
+
+	@Before
+	public void setup()
+	{
+		gary = new Walrus();
+		feeder = new FeedsWalrus();
+	}
+
+	@Test
+	public void WalrusEatingCapacity() {
+		List<WalrusFood> foodItems = new ArrayList<>();
+
+		for (int i = 0; i < 1000; i++) {
+			WalrusFood food = new WalrusFood();
+			foodItems.add(food);
+			gary.addToStomach(food);
+		}
+
+		for (WalrusFood food : foodItems) {
+			assertTrue(gary.hasEaten(food));
+		}
+	}
+
+	@Test
+	public void WalrusGetsRightFood() {
+		WalrusFood food = new WalrusFood();
+		CannedWalrusFood can = new CannedWalrusFood(food);
+
+		feeder.feed(gary, can);
+
+		assertTrue(gary.hasEaten(food));
+	}
+
+	@Test
+	public void OpeningCanReturnsFood() {
+		WalrusFood food = new WalrusFood();
+		CannedWalrusFood can = new CannedWalrusFood(food);
+
+		WalrusFood result = new OpensCan().open(can);
+
+		assertSame(food, result);
+	}
+
+	@Test
+	public void HowWalrusCanEat() {
+		WalrusFood food_can = new WalrusFood();
+		CannedWalrusFood can = new CannedWalrusFood(food_can);
+		WalrusFood food_direct = new WalrusFood();
+
+		gary.addToStomach(food_direct);
+		feeder.feed(gary, can);
+
+		assertTrue(gary.hasEaten(food_can));
+		assertTrue(gary.hasEaten(food_direct));
+	}
+
+	@Test
+	public void WalrusAcceptsNonWalrusFood() {
+		class LeakedCan extends CannedWalrusFood {
+			@Override
+			public WalrusFood extractContents() {
+				return null;
+			}
+		}
+		CannedWalrusFood leakedCan = new LeakedCan();
+
+		feeder.feed(gary, leakedCan);
+
+		// This one fails, because this should not happen.. I guess ¯\_(ツ)_/¯
+		assertFalse(gary.hasEaten(null));
+	}
 }
