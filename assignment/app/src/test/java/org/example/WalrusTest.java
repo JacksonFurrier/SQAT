@@ -3,10 +3,64 @@
  */
 package org.example;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    @Test
+    public void walrusInitiallyHasNotEatenAnything() {
+        Walrus walrus = new Walrus();
+        WalrusFood food = new WalrusFood();
+
+        assertFalse(walrus.hasEaten(food));
+    }
+
+    @Test
+    public void walrusCanEatFoodDirectly() {
+        Walrus walrus = new Walrus();
+        WalrusFood food = new WalrusFood();
+
+        walrus.addToStomach(food);
+
+        assertTrue(walrus.hasEaten(food));
+    }
+
+    @Test
+    public void cannedFoodCanBeOpenedAndFedToWalrus() {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+        Walrus walrus = new Walrus();
+        FeedsWalrus feeder = new FeedsWalrus();
+
+        feeder.feed(walrus, can);
+
+        assertTrue(walrus.hasEaten(food));
+    }
+
+    @Test
+    public void cannedFoodIsEmptyAfterOpening() {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+
+        can.extractContents(); // open once
+        WalrusFood secondTry = can.extractContents(); // open again
+
+        assertNull(secondTry);
+    }
+
+    @Test
+    public void opensCanReturnsCorrectFood() {
+        WalrusFood food = new WalrusFood();
+        CannedWalrusFood can = new CannedWalrusFood(food);
+        OpensCan opener = new OpensCan();
+
+        WalrusFood extracted = opener.open(can);
+
+        assertEquals(food, extracted);
     }
 }
