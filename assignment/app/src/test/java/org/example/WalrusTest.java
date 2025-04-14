@@ -6,7 +6,85 @@ package org.example;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import org.example.values.CannedWalrusFood;
+import org.example.values.Walrus;
+import org.example.values.WalrusFood;
+
+import java.lang.reflect.Field;
+import java.util.Set;
+
 public class WalrusTest {
-    @Test public void appHasAGreeting() {
+
+    // Test to see how much a Walrus can eat by adding two food items
+    @Test
+    public void testWalrusEatsMultipleFoods() {
+         Walrus walrus = new Walrus();
+         WalrusFood food1 = new WalrusFood();
+         WalrusFood food2 = new WalrusFood();
+         walrus.addToStomach(food1);
+         walrus.addToStomach(food2);
+         assertTrue("Walrus should have eaten food1", walrus.hasEaten(food1));
+         assertTrue("Walrus should have eaten food2", walrus.hasEaten(food2));
+         
+         // Use reflection to check the size of the stomach since there's no public accessor.
+         try {
+             Field stomachField = walrus.getClass().getDeclaredField("stomach");
+             stomachField.setAccessible(true);
+             @SuppressWarnings("unchecked")
+             Set<WalrusFood> stomach = (Set<WalrusFood>) stomachField.get(walrus);
+             assertEquals("Walrus stomach should contain exactly 2 items", 2, stomach.size());
+         } catch (NoSuchFieldException | IllegalAccessException e) {
+             fail("Reflection failed: " + e.getMessage());
+         }
+    }
+
+    // Test to check if a Walrus gets the right food that is fed directly
+    @Test
+    public void testWalrusGetsRightFood() {
+         Walrus walrus = new Walrus();
+         WalrusFood food = new WalrusFood();
+         walrus.addToStomach(food);
+         assertTrue("Walrus should have eaten the given food", walrus.hasEaten(food));
+    }
+
+    // Test to check opening a can returns the food and then makes the can empty
+    @Test
+    public void testOpensCanReturnsFood() {
+         WalrusFood food = new WalrusFood();
+         CannedWalrusFood canned = new CannedWalrusFood(food);
+         OpensCan opener = new OpensCan();
+         
+         // On first opening, the can should return the food.
+         WalrusFood extracted = opener.open(canned);
+         assertNotNull("Opening the can should return food", extracted);
+         
+         // On second opening, the can should be empty.
+         WalrusFood extractedAgain = opener.open(canned);
+         assertNull("Opening the can a second time should return null", extractedAgain);
+    }
+
+    // Test to check how a Walrus can eat using the FeedsWalrus class
+    @Test
+    public void testFeedsWalrus() {
+         Walrus walrus = new Walrus();
+         WalrusFood food = new WalrusFood();
+         CannedWalrusFood canned = new CannedWalrusFood(food);
+         FeedsWalrus feeder = new FeedsWalrus();
+         
+         feeder.feed(walrus, canned);
+         assertTrue("Feeding walrus should result in walrus eating the food", walrus.hasEaten(food));
+    }
+
+    // Test to ensure a Walrus accepts non-Walrus (non-standard) food
+    @Test
+    public void testWalrusAcceptsNonStandardFood() {
+         Walrus walrus = new Walrus();
+         
+         // Create a subclass of WalrusFood to simulate non-standard food
+         class NonStandardFood extends WalrusFood {}
+         WalrusFood nonStandardFood = new NonStandardFood();
+         
+         walrus.addToStomach(nonStandardFood);
+         assertTrue("Walrus should accept non-standard food", walrus.hasEaten(nonStandardFood));
     }
 }
