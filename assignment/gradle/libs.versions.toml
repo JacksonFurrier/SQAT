@@ -2,9 +2,9 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 
 [versions]
-guava = "33.3.1-jre"
-junit = "4.13.2"
+junit = "5.10.0"
+guava = "31.1-jre"
 
 [libraries]
+junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
-junit = { module = "junit:junit", version.ref = "junit" }

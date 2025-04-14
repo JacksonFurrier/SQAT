@@ -34,3 +34,12 @@ application {
     // Define the main class for the application.
     mainClass = 'org.example.FeedWalrus'
 }
+
+dependencies {
+    testImplementation libs.junit
+    implementation libs.guava
+}
+
+test {
+    useJUnitPlatform() // IMPORTANT: enables JUnit 5 support
+}
